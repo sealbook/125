@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+    sftp:
+        container_name: sftp
+        image: atmoz/sftp:debian
+        ports:
+            - "2222:22"
+        volumes:
+            - /zvol/sftp/date:/home/
+            - /zvol/sftp/users.conf:/etc/sftp/users.conf
+        command: itadm:1qaz@WSX:::upload
+        ## 管理者帳密
+
+
+##這是設定帳號、權限、資料夾的指令格式，格式是 帳號:密碼:uid:gid:子資料夾。
+##子資料夾會建立在 /home 資料夾底下，這一定要設定，因為建立的使用者沒辦法在 /home 資料夾底下寫檔案，預設情況下，只能在此子資料夾寫檔案        
+## adduser itadm01 //系統adduser XXXX | deluser XXXX
+
+#users.conf
+chtseng:1qaz@WSX:::upload
+subtron:1qaz@WSX:::upload
+himax:1qaz@WSX:::upload
+road::1qaz@WSX:::upload      
+
+
+  
+            

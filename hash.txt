@@ -1,0 +1,123 @@
+##AI 道號巡查相關 
+385144666 鳳山 春風<約雇>
+275682719 岡山 許坤璋
+263175009 旗美 金倉<工友>  
+232277798 四維 自麗 <只放六日？><車上本身有GPS*2會干擾><0831change>
+891319092 <201> none 
+985903300 <202> tn 張越智 62111
+<ITewsn1234>
+
+ipc203 岡山 <>
+ipc204 四維 <ipc201 Failed 0701><新興、苓雅、鼓山、前鎮、三民、左營、小港、旗津>
+ipc231 鳳山 
+ipc211 旗美 <常無資料|山區訊號><6/7~6/11修車><旗山、美濃、內門、甲仙>
+ipc205 台南 <ipc202 failed 211206><張越智><taxi><全區>
+
+
+## 進入122，確認當日上傳數量 /tnroad/road_defects/backup
+ls -l ./20220316/*.jpg | wc -l
+
+## 按 Q 結束巡視畫面，保持上傳，進入terminal 監視未上傳數量
+ps -auxw | grep python
+kill -9 ID ## python upload 卡住
+crontab -l #自動啟動 3min
+
+
+
+## 車機系統開機自動上傳<5min>status log #122 sftp
+/mnt/roadlog/sftplog ## 6Days
+/zvol/sftp/date/road/upload # history
+192.168.10.103
+/mnt/vol1/roadlog/sftplog
+
+(road) itadm@ipc231:~/works/road_safe_ipc/ipc/img_defects$
+lftp mirror -R --Remove-source-files --loop
+-R, --reverse   反向 mirror (即上傳檔案)
+
+#比對diff
+cat defects.log|sort|awk -F '|' '{print $4"\t"}'|sort > s1
+ls ./bfmarking/ > s2
+vim -d s1 s2
+sed -i '/ delete_str /d' defects.log
+
+sed -i 's/vaishal/vshal/g' filename # replace vaishal to vshal
+
+cat defects.log|sort|awk -F '|' '{print $4"\t"}'|grep IPC203 |sort > s1
+ls ./bfmarking/ | grep IPC203 > s2
+vim -d s2 s1
+
+
+## 按 Q 結束巡視畫面，保持上傳，進入terminal 監視未上傳數量
+watch "ls -l ~/works/road_safe_ipc/ipc/img_defects/waiting/*.jpg | wc -l"
+## 按 ! 搜索history 指令的開頭，##意味可執行上一次執行 command <if 上一次有錯也是>
+!watch
+## 進入firefox http://192.168.8.1/html/home.html
+確認目前network 為 3G / 4G
+
+
+
+sort defects.log|uniq -dc ## backup before exec
+
+## 242 & 243 report網頁有問題
+systemctl restart php7.4-fpm.service
+nslookup
+traceroute
+netstat -tulnp -ap 
+##############  <base on ubuntu 18 | disable U20>
+## docker-compose up -d
+## sudo mv road road_verXX
+## sudo git clone https://github.com/partment/road
+## 下一版本 x.7
+
+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
+2022.03.23 >>90D
+
+## docker build -t road:1.X . ## make image 
+## <cp Dockerfile Dockerfile.v1 Dockerfile.v2 | conf >
+## <python:3.8.9-alpine3.13 | python:3.9.4-alpine3.12>
+## sudo docker build -f Dockerfile    -t road:1.7 .
+## sudo docker build -f Dockerfile.v1 -t road:2.7 .
+## sudo docker build -f Dockerfile.v2 -t road:3.7 .
+## sudo docker image ls
+## config /opt/web/ *.yml         ## image ver | port
+## docker-compose -f *.yml up -d  ## *.yml MUST in diff dir
+#####
+## 168.95.192.1 8.8.4.4
+## 192.168.20.70 setup appr0 <trunk 2*10Gport>
+
+#####################
+## defect-linebot .env
+#LINE
+ChannelSecret LINE BOT API 密鑰
+ChannelAccessToken LINE BOT API 密鑰
+CallbackPort 網路接口
+#131 
+DatabaseHost 連接缺陷DB
+DatabaseUser 連接缺陷DB
+DatabasePassword 連接缺陷DB
+DatabaseName 連接缺陷DB
+Crontab 設定觸發推播cron 可指定多個 用逗號分開 例如 0 9   ,0 5   
+
+安裝 GO on UBuntu 18.04
+
+#######################
+iftop # monitor netstat IP
+224.0.0.251
+ss -r -t ## OS連接IP
+
+lsof -i :mdns
+grep '^mdns' /etc/services
+systemctl status avahi-daemon.service
+ps -ef | grep avahi
+kill PID
+#######################
+
+
+2022/03/21 15:52:0|120.32353,23.30811|D41(98%) D00(78%) D40(60%) |IPC202_23.30811_120.32353_2022_03_21_15_52_42_154.jpg
+2022/03/21 15:52:0|120.32353,23.30811|D41(98%) D00(78%) D40(60%) |IPC202_23.30811_120.32353_2022_03_21_15_52_42_1855.jpg
+
+
+$ea1booK
+
+
+

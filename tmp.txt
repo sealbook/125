@@ -1,0 +1,80 @@
+
+#########################
+time.nist.gov  # win
+118.163.81.63
+time.stdtime.gov.tw ##中華電信
+#########################
+useradd -d /home/itadm -s /bin/bash -g root itadm
+usermod -aG sudo itadm
+
+curl -fsSL https://get.docker.com/ | sh
+apt install docker-compose	-y
+apt install git -y
+##
+docker volume create portainer_data
+docker pull portainer/portainer-ce:latest
+docker run -d -p 8001:8001 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+
+## renew version <portainer-ce>
+#https://hub.docker.com/r/portainer/portainer-ce/tags?page=1&ordering=last_updated
+docker pull portainer/portainer-ce:latest
+docker stop portainer
+docker rm   portainer
+docker run -d -p 8001:8001 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+
+##192.168.10.242 after launch GPU server
+rm -f /tmp/daily.csv
+
+
+##
+wp.infowize.com.tw
+http://192.168.10.122:81
+接案網頁 <wordpress，沒有合適模板，like osticket>
+<會員 接案網頁 媒合…暫停>
+##啟動 winsvr 評估版to 正式版cmd
+DISM /online /Set-Edition:ServerStandard /ProductKey:8NJ2V-XJ964-233GQ-C6QMT-H8T34 /AcceptEula
+##
+1.伺服器安全管理與故障檢修
+1.1 系統開機硬碟設定為二顆互相鏡射(資料內容一致，可容錯其中一個故障)，可避免因硬碟故障，導致系統與服務中斷。
+1.2   主機電源供應分為不同線路來源，避免單一線路故障，導致電力來源中斷，系統無法運作。
+1.3 網路多接備用線路，避免網路訊號來源，出現單點故障，導致系統資料無法運行。
+1.4 設定智慧型平台管理介面（Intelligent Platform Management Interface:IPMI)監控主機各項硬體裝置狀態。
+
+2.伺服器虛擬化管理維護
+2.1 伺服器經網路掛載儲存設備的硬碟空間(NFS volume )，作為主要使用來源，可防止主機出現故障時，虛擬機與資料的損壞，也可供快速回覆之用。
+2.2 虛擬交換器使用多組線路來源，以免單點線路故障，造成服務中斷。
+2.3 需較高安全性的虛擬機(如：資料庫)，另外設立每小時自動快照任務，以保證系統資料的可用性。
+2.4 虛擬機搭配服務監控系統，在出現異常時能接收到告警訊息。
+
+3.docker 平台管理與維運
+3.1 定期更新 docker (容器) 相關更新
+3.2 建置 docker (容器) 管理介面
+3.3 將 docker (容器) 存取資料與設定檔 設置於經網路掛載儲存設備的硬碟空間，避免資料損壞
+3.4 為有大量讀寫需求的 docker (容器) 服務，建置負載平衡 (load balance) 機制，以優化系統效能。
+
+4.伺服器虛擬化及儲存與備份 管理及維護
+4.1 虛擬機每日執行自動完整備份至掛載的NFS硬碟空間，保留5天/份。
+4.2 提供伺服器NFS硬碟空間的主要儲存設備(NexentaStor)，在硬體RAID上設定為RAIDZ2(可容錯2顆HDD故障)，另在系統提供每日自動快照，保留28天/份，以供資料回覆之用。
+4.3 在次要儲存設備(TrzeStor)，採用異機備份策略，每日自動備份主要儲存設備的資料，並在硬體使用raid 機制(raid 10)進行容錯 。
+
+lftp -e "set net:timeout 5;set net:reconnect-interval-base 5; set net:max-retries 2;" sftp://road:1qaz@WSX@infowize.com.tw:2222
+
+IPC202_120921_132107_23.03448_120.20601: Fatal error: max-retries exceeded (Connection to ftp.infowize.com.tw closed by remote host.)
+## 連到不對的port 超過重試次數 <pureftp 21 sftp 2222>
+
+find . -name 'Thumbs.db' -print -delete
+
+itadm
+sales
+assistant
+office
+
+本季按計劃升級VRP31硬體規格，將硬碟容量從2TB提升至14TB，並完成將異地備援的資料移至新建立的硬碟空間中，檢查二個廠，三台異地備援的儲存設備，快照部分全部都正常
+
+
+## 連線 SMB share 帳戶未成，重啟 SMB 服務
+net stop LanmanWorkstation /y  
+net start LanmanWorkstation
+
+ADMI
+

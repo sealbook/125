@@ -1,0 +1,19 @@
+#!/bin/bash
+# batch deploy ELK on Ubuntu 20.04
+# mv ELK ELK.sh
+# chmod 755 ELK.sh
+# sh ELK.sh
+
+sudo apt install openjdk-11-jre-headless
+sudo apt install openjdk-11-jdk-headless
+
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt-get update && sudo apt-get install elasticsearch 
+sudo apt-get install kibana && sudo apt-get install logstash
+
+sudo systemctl start elasticsearch.service
+sudo systemctl start logstash.service
+sudo systemctl start kibana.service
+

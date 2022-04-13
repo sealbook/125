@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+
+  caddy:
+    image: caddy
+    container_name: caddy
+    hostname: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - MY_DOMAIN
+    volumes:
+      - /docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - /docker/caddy/data:/data
+      - /docker/caddy/config:/config
+
+networks:
+  default:
+    external:
+      name: $DOCKER_MY_NETWORK
+     

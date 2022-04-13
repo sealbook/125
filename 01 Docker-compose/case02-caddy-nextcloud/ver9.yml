@@ -1,0 +1,81 @@
+version: "3"
+services:
+  nextcloud:
+    container_name: nextcloud
+    image: nextcloud:latest
+    stdin_open: true
+    tty: true
+    restart: always
+    expose:
+      - "80"
+    networks:
+      - onlyoffice
+    volumes:
+      - app_data:/var/www/html
+    environment:
+      - MYSQL_HOST=db
+    env_file:
+      - db.env
+    depends_on:
+      - db
+
+  db:
+    container_name: nextcloud-db
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    networks:
+      - onlyoffice
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password1234
+    env_file:
+      - db.env
+
+  documents:
+    container_name: nextcloud-documents
+    image: onlyoffice/documentserver:latest
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - onlyoffice
+    expose:
+      - "80"
+    volumes:
+      - document_data:/var/www/onlyoffice/Data
+      - document_log:/var/log/onlyoffice
+      - document_db:/var/lib/postgresql
+
+  caddy:
+    container_name: nextcloud-caddy
+    image: abiosoft/caddy:no-stats
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - onlyoffice
+    environment:
+      - CADDYPATH=/certs
+      - ACME_AGREE=true
+      # CHANGE THESE OR THE CONTAINER WILL FAIL TO RUN
+      - CADDY_LETSENCRYPT_EMAIL=certificates@example.com
+      - CADDY_EXTERNAL_DOMAIN=mydomain.com
+    volumes:
+      - ./data/letsencrypt:/certs:rw
+      - ./Caddyfile:/etc/Caddyfile:ro
+
+networks:
+  onlyoffice:
+    driver: "bridge"
+
+volumes:
+  document_data:
+  document_log:
+  document_db:
+  app_data:
+  db:

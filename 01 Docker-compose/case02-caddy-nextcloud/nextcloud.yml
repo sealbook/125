@@ -1,0 +1,58 @@
+version: '3'
+services:
+
+## .env | nginx.conf |docker-compose.yml touch first
+
+  nextcloud-db: #mariadb數據庫
+    image: mariadb:10.1.44
+    container_name: nextcloud-db
+    hostname: nextcloud-db
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./nextcloud-data-db:/var/lib/mysql
+
+  nextcloud-redis: #內存文件緩存和更可靠的事務性文件鎖定
+    image: redis:alpine
+    container_name: nextcloud-redis
+    hostname: nextcloud-redis
+    restart: unless-stopped
+
+  nextcloud-app: #nextcloud後端應用程序
+    image: nextcloud:19-fpm-alpine
+    container_name: nextcloud-app
+    hostname: nextcloud-app
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - nextcloud-db
+      - nextcloud-redis
+    volumes:
+      - ./nextcloud-data/:/var/www/html
+
+  nextcloud-web: #具有fastCGI PHP-FPM支持的Nginx Web服務器
+    image: nginx:alpine
+    container_name: nextcloud-web
+    hostname: nextcloud-web
+    restart: unless-stopped
+    volumes:
+      - ./nextcloud-data/:/var/www/html:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+#  nextcloud-cron: #在後台進行定期維護
+#    image: nextcloud:fpm-alpine
+#    container_name: nextcloud-cron
+#    hostname: nextcloud-cron
+#    restart: unless-stopped
+#    volumes:
+#      - ./nextcloud-data/:/var/www/html
+#    entrypoint: /cron.sh
+#    depends_on:
+#      - nextcloud-db
+#      - nextcloud-redis
+
+networks:
+  default:
+    external:
+      name: $DOCKER_MY_NETWORK

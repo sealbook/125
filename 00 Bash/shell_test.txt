@@ -1,0 +1,16 @@
+#!/bin/bash
+# 
+#/dev/loop
+（或vnd (vnode disk)、lofi（迴圈檔案介面））這種裝置使得檔案可以如同塊裝置一般被存取，經常被用於光碟或是磁碟鏡像
+#指令用 ; 分開
+	for i in {0..63};
+# 從 0 ~63 間隔 1
+		do echo "OFFSET $i $((512*$i)) bytes:" ;
+			losetup -o $((512*$i)) /dev/loop1 disk_with_offset.img ;
+# 掛載 img檔到 loop 上
+			fdisk -l /dev/loop6 2>&1 | grep -A10 Start ;
+# 等同掛載磁碟 可用 fdisk
+			losetup -d /dev/loop6 ;
+# detach device
+			echo ;
+	    done

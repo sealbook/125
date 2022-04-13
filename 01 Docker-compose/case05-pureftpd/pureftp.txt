@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  ftp:
+    container_name: Pure_FTP
+    image: stilliard/pure-ftpd:hardened
+    ports:
+      - "21:21" ##指令通道(Command Channel)
+      - "30000-30009:30000-30009" ##資料通道(DATA Channel)
+    volumes: ## remember to replace /folder_on_disk/ with the path to where you want to store the files on the host machine
+      - "/opt/pureftp/itadm:/home/itadm/"
+      - "/opt/pureftp/passwd:/etc/pure-ftpd/passwd"
+      - "/opt/pureftp/data:/home/ftpusers"
+      - "/opt/pureftp/log:/var/log/"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+    environment: ## admin
+      PUBLICHOST: "192.168.10.128"
+      FTP_USER_NAME: itadm
+      FTP_USER_PASS: 1qazXSW@3edc
+      FTP_USER_HOME: /home/itadm
+      FTP_PASSIVE_PORTS: 30000:30009
+      FTP_MAX_CLIENTS:  50
+      ADDED_FLAGS: -d -d
+#      ADDED_FLAGS: -O w3c:/var/log/pure-ftpd/transfer.log
+    restart: always

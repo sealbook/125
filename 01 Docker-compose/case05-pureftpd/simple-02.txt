@@ -1,0 +1,27 @@
+#!/bin/sh
+
+#HOST=ftp.infowize.com.tw:2222
+#USER=road
+#PASSWORD=1qaz@WSX
+TARGET=45*
+LOCAL_PATH=/Documents
+REMOTE_PATH=/upload
+
+#lftp -p 2222 -u $USER,$PASSWORD sftp://$HOST 
+lftp sftp://road:1qaz@WSX@ftp.infowize.com.tw:2222 << EOM
+  lcd $LOCAL_PATH
+  cd $REMOTE_PATH
+  put $TARGET
+  mput $TARGET
+  
+  bye
+EOM
+
+echo "Success!"
+
+
+sftp -P 2222 road@ftp.infowize.com.tw
+
+ssh -p 2222 road@ftp.infowize.com.tw
+
+lftp sftp://road:1qaz@WSX@ftp.infowize.com.tw:2222

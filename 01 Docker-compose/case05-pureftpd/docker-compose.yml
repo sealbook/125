@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  ftp:
+    container_name: pure-ftp
+    image: stilliard/pure-ftpd:hardened
+    ports:
+      - "21:21" ##指令通道(Command Channel)
+      - "30000-30009:30000-30009" ##資料通道(DATA Channel)
+    volumes: ## remember to replace /folder_on_disk/ with the path to where you want to store the files on the host machine
+      - "/pureftp/itadm:/home/itadm/"
+      - "/pureftp/log:/var/log/" 
+      - "/pureftp/data:/home/ftpusers"
+      - "/pureftp/conf:/etc/pure-ftpd/"
+      ## 時區設定 ASIS/TAIPEI FOR log
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+    environment: ## admin 
+      PUBLICHOST: "192.168.10.123"
+      FTP_USER_NAME: itadm
+      FTP_USER_PASS: 1qaz@WSX
+      FTP_USER_HOME: /home/itadm
+      FTP_PASSIVE_PORTS: 30000:30099
+      FTP_MAX_CLIENTS:  50
+      # 開啟 log 
+      ADDED_FLAGS: -d -d
+      # log for "每一筆" 傳送內容
+      ADDED_FLAGS=-O w3c:/var/log/pure-ftpd/transfer.log
+      # FTP_MAX_CONNECTIONS: 50
+      # FTP_Maxidletime: 1800      
+    restart: always
+
+
+docker exec -ti Pure_FTP /bin/bash
+
+pure-pw useradd itadm -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /home/ftpusers/itadm
+
+pure-pw passwd itadm -f /etc/pure-ftpd/passwd/pureftpd.passwd -m
+
+最大客戶
+默認情況下，我們一次設置5個最大客戶端，但是您可以通過使用以下環境變量FTP_MAX_CLIENTS來FTP_MAX_CLIENTS=50增加此數量，例如，將設置為，然後再從中增加打開的公共端口的數量FTP_PASSIVE_PORTS=30000:30009 FTP_PASSIVE_PORTS=30000:30099。您還需要在運行docker run時打開這些端口。另外，您可以通過設置環境變量來指定每個ip的最大連接數FTP_MAX_CONNECTIONS。默認情況下，值為5。
+
+最大連接數＝（最大＋1 －最小）/ 2
+
+FTP_maxidletime: 300
+
+pure-pw useradd ksroad -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /home/ftpusers/ksroad

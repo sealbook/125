@@ -1,0 +1,49 @@
+version: '3'
+services: 
+  mongo:
+    container_name: mongodb
+    image: mongo:3
+    restart: always
+    volumes:
+      - ./mongo_data:/data/db
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.5
+    container_name: elasticsearch
+    restart: always
+    volumes:
+      - ./es_data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment: ## mem 最少 512M
+      - TZ=Aisa/Taipei
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - http.cors.allow-origin=*
+      - http.cors.enabled=true
+      - discovery.type=single-node
+      - 'ES_JAVA_OPTS=-Xms1024m -Xmx1024m'  
+  graylog: 
+    image: graylog/graylog:4.1
+    container_name: graylog
+    restart: always
+    volumes:  
+      - ./graylog_journal:/usr/share/graylog/data/journal
+      - ./config:/usr/share/graylog/config
+    ports:
+      - 9090:9000
+      - 12201:12201/udp  ## log port <GELF UDP>set up inputs
+    environment:  ## <host IP >
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://192.168.10.132:9090/
+    depends_on:
+      - mongo
+      - elasticsearch
+    links:
+      - mongo
+      - elasticsearch
+
+## wget https://github.com/Graylog2/graylog-docker/blob/4.1/config/graylog.conf  <put graylog.conf in ./config>
+## chmod 777 es_data
+## chmod 777 graylog_journal
+## admin | admin

@@ -1,0 +1,41 @@
+ version: '3'
+ services:
+   nextcloud-db:
+     image: mariadb:10.1.44
+     container_name: nextcloud-db
+     environment:
+      - MYSQL_ROOT_PASSWORD=secret     
+      - MYSQL_DATABASE= nextcloud
+      - MYSQL_USER= nextcloud
+      - MYSQL_PASSWORD=1qaz@WSX
+     volumes:
+      - /zvol/nc/db:/var/lib/mysql
+     networks:
+      - nextcloud_net
+      
+   nextcloud-app:
+     image: nextcloud:19-apache
+     container_name: nextcloud-app
+     ports:
+      - "9680:80"
+      - "9980:443"
+     volumes: ## mountpoint
+      - /zvol/nc/www:/var/www/html
+      - /zvol/nc/config:/var/www/html/config
+      - /zvol/nc/data:/var/www/html/data
+      - /zvol/nc/app:/var/www/html/custom_apps
+      - /zvol/nc/theme:/var/www/html/themes/mycustom
+     networks:
+      - nextcloud_net
+     environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE= nextcloud
+      - MYSQL_USER= nextcloud
+      - MYSQL_PASSWORD=1qaz@WSX
+     depends_on: # services name
+      - nextcloud-db
+            
+ networks: # create networks first
+   nextcloud_net:
+   
+## mariadb info   root /secret /nextcloud /nextcloud-db

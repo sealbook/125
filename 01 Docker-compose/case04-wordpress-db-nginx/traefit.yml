@@ -1,0 +1,51 @@
+version: "3.3"
+
+networks:
+    # Allow the use of traefik in other docker-compose.yml files
+    # 允許在其他docker-compose.yml文件中使用traefik
+    traefik:
+        external: true
+
+services:
+
+  traefik:
+    image: "traefik:v2.2"
+    container_name: "traefik"
+    command:
+      # Only for development environment
+      # 僅適用於開發環境
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      # Get Docker as the provider
+      # 獲取Docker作為提供者
+      - "--providers.docker=true"
+      # Avoid that all containers are exposed
+      # 避免所有容器暴露在外
+      - "--providers.docker.exposedbydefault=false"
+      # Settle the ports for the entry points
+      # 設置入口的端口
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web-secure.address=:443"
+      # Settle the autentification method to http challenge
+      # 解決對HTTP挑戰的強化方法
+      - "--certificatesresolvers.myhttpchallenge.acme.httpchallenge=true"
+      - "--certificatesresolvers.myhttpchallenge.acme.httpchallenge.entrypoint=web"
+      # Uncomment this to get a fake certificate when testing
+      # 在測試時取消註釋以獲取假證書
+      #- "--certificatesresolvers.myhttpchallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      # Settle letsencrypt as the certificate provider
+      # 將 letencrypt設置為證書提供者
+      - "--certificatesresolvers.myhttpchallenge.acme.email=me@mail.com"
+      - "--certificatesresolvers.myhttpchallenge.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    networks:
+      - "traefik"
+    volumes:
+      # Store certificates in ./letsencrypt/acme.json
+      # 將證書存儲在./letsencrypt/acme.json中
+      - "./letsencrypt:/letsencrypt"
+      # Connect to Doker socket
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"

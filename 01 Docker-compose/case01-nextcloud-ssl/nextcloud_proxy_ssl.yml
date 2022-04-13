@@ -1,0 +1,86 @@
+version: '3' 
+
+services:
+
+  proxy:
+    image: jwilder/nginx-proxy:alpine
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
+    container_name: nextcloud-proxy
+    networks:
+      - nextcloud_network
+    ports:
+      - 80:80
+      - 443:443
+    volumes: ## touch client_max_body.conf <context> client_max_body_size 16m;
+      - ./proxy/conf.d:/etc/nginx/conf.d:rw  ## add file test ok
+      - ./proxy/vhost.d:/etc/nginx/vhost.d:rw
+      - ./proxy/html:/usr/share/nginx/html:rw
+      - ./proxy/certs:/etc/nginx/certs:ro
+      - ./proxy/dhparam:/etc/nginx/dhparam
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: unless-stopped
+  
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nextcloud-letsencrypt
+    depends_on:
+      - proxy
+    networks:
+      - nextcloud_network
+    volumes:
+      - ./proxy/certs:/etc/nginx/certs:rw
+      - ./proxy/vhost.d:/etc/nginx/vhost.d:rw
+      - ./proxy/html:/usr/share/nginx/html:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+
+  db:
+    image: mariadb:latest
+    container_name: nextcloud-mariadb
+    networks:
+      - nextcloud_network
+    volumes:
+      - /docker/cloud/db:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_PASSWORD=1qaz@WSX
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    restart: unless-stopped
+  
+  app:
+    image: nextcloud:19-fpm
+    container_name: nextcloud-app
+    networks:
+      - nextcloud_network
+    depends_on:
+      - letsencrypt
+      - proxy
+      - db
+    volumes:
+      - /docker/cloud/html:/var/www/html
+      - /docker/cloud/config:/var/www/html/config
+      - /docker/cloud/custom_apps:/var/www/html/custom_apps
+      - /docker/cloud/data:/var/www/html/data
+      - /docker/cloud/themes:/var/www/html/themes
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - VIRTUAL_HOST=nextcloud.infowize.com.tw
+      - LETSENCRYPT_HOST=nextcloud.infowize.com.tw
+      - LETSENCRYPT_EMAIL=theo@infowize.com.tw
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_PASSWORD=1qaz@WSX
+      - MYSQL_DATABASE= nextcloud
+      - MYSQL_USER= nextcloud
+    restart: unless-stopped
+
+#volumes:
+#  /docker/clooud
+#  ./proxy/
+
+networks:
+  nextcloud_network:

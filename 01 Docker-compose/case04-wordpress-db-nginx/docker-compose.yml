@@ -1,0 +1,36 @@
+version: '3.3'
+ 
+services:
+   db:
+     image: mariadb:10.1.44
+     container_name: wordpress_DB
+     volumes:
+       - /opt/wordpress/db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: secret
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+ 
+   wordpress:
+     depends_on:
+       - db
+     container_name: wordpress_APP
+     image: wordpress:latest
+     ports:
+       - "80:80"
+       - "443:443"
+     restart: always
+     volumes:  # mapping dir 
+       - /opt/wordpress/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+       - /opt/wordpress/config:/var/www/html
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD: wordpress
+       WORDPRESS_DB_NAME: wordpress
+       
+       
+volumes:
+    db_data: {}

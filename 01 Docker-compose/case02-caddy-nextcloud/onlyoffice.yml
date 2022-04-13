@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+
+ nextcloud-office:
+    container_name: nextcloud-office
+    hostname: nextcloud-office
+    image: onlyoffice/documentserver:latest
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - ./office/document_data:/var/www/onlyoffice/Data
+      - ./office/document_log:/var/log/onlyoffice
+      
+networks:
+  default:
+    external:
+      name: $DOCKER_MY_NETWORK      
+      
+## http://nc.infowize.com.tw/apps/documentserver_community/
+## https://nextcloud.infowize.com.tw/  mapping port 80
+## http://192.168.10.125:9680/apps/documentserver_community/
+
+#/custom_apps/onlyoffice/lib/documentservice.php
+
+## Backend communication  ## Caddy v2

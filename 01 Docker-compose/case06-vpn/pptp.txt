@@ -1,0 +1,58 @@
+## sudo -s
+## cd /etc/ppp/peers
+## touch /etc/ppp/peers/PPTP
+## nano /etc/ppp/peers/PPTP
+## chmod 600 PPTP
+
+pty "pptp 122.116.223.114 --nolaunchpppd --debug"
+name ipc01
+password 1qaz@WSX
+remotename PPTP
+require-mppe-128
+require-mschap-v2
+refuse-eap
+refuse-pap
+refuse-chap
+refuse-mschap
+noauth
+debug
+persist
+maxfail 0
+defaultroute
+replacedefaultroute
+usepeerdns
+
+
+## */10  * * * * 
+##  pon PPTP  or pppd call PPTP
+##  poff PPTP
+ 
+
+
+#!/bin/bash
+
+#HOST=your-vpn-host-or-ip-address
+#PPTPUSER=your-vpn-username
+#PPTPPASS=your-vpn-password
+HOST=192.168.10.1
+
+DATE=`date`
+PINGRES=`ping -c 2 $HOST`
+PLOSS=`echo $PINGRES : | grep -oP '\d+(?=% packet loss)'`
+echo "$DATE : Loss Result : $PLOSS"
+
+if [ "100" -eq "$PLOSS" ];
+then
+    echo "$DATE : Starting : $HOST"
+    #/usr/sbin/pptp pty file /etc/ppp/options.pptp user $PPTPUSER password $PPTPPASS
+	pon PPTP
+    echo "$DATE : Now running : $HOST"
+else
+    echo "$DATE : Already running : $HOST"
+fi
+
+## chmod +x pptp_cron.sh
+## nano /etc/crontab 
+## */1 * * * * root sh /home/itadm/pptp_cron.sh  >> /var/log/pptp_pinger.log 2>&1
+
+
