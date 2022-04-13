@@ -76,5 +76,3 @@ office
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
 
-ADMI
-

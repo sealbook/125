@@ -112,10 +112,16 @@ ps -ef | grep avahi
 kill PID
 #######################
 
+2022.04.13 
+因 GPU 在處理 <tnrcv2.sh> copy FTP upload file 時常出現 error
+故 在四月結案前，停止 122 上 crontab <tnrcv2.sh>，只在 GPU 停機時執行
+%% 若 GPU 開機狀態，執行<./tnrcv2.sh> 時常出現 error <並非100%>
+%% 查看 grep -i error ~/logs/2022_04_XX.log | wc
 
-2022/03/21 15:52:0|120.32353,23.30811|D41(98%) D00(78%) D40(60%) |IPC202_23.30811_120.32353_2022_03_21_15_52_42_154.jpg
-2022/03/21 15:52:0|120.32353,23.30811|D41(98%) D00(78%) D40(60%) |IPC202_23.30811_120.32353_2022_03_21_15_52_42_1855.jpg
+%% <重新執行> cp /road/road_defects/backup/*2022_04_XX*.jpg /road_defects/recv
+%% <不要mv>，因 backup下已經是 raw_data 最後備份，故 GPU 拉去處理後圖檔即消失
 
+#######################
 
 $ea1booK
 
