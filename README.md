@@ -2,6 +2,7 @@
 
 <2022.04.13>
 commit -m pull all /122/*.txt
+cat <<dog > tmp.txt
 
 ## And sort D:/ISO /Tools 
 ## Add 66 process_data , but no show changes for commit
