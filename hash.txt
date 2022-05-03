@@ -122,5 +122,11 @@ kill PID
 %% <不要mv>，因 backup下已經是 raw_data 最後備份，故 GPU 拉去處理後圖檔即消失
 
 #######################
-
 $ea1booK
+2022.05.03 new project
+pr0ject.01 @ new mail server for free <in 3 month | 2022.07.30 include test online>
+project.02 @ D40 辨識率提升by KS from 2021.01.01~2021.12.31
+project.03 @ 12XX photo in TN id to D20 or D30
+#######################
+
+
