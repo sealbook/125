@@ -128,5 +128,72 @@ pr0ject.01 @ new mail server for free <in 3 month | 2022.07.30 include test onli
 project.02 @ D40 辨識率提升by KS from 2021.01.01~2021.12.31
 project.03 @ 12XX photo in TN id to D20 or D30
 #######################
+2022.05.03 
+project.02 @已看完並下載數區的D40照片~to be continue
+project.01 @lab_test 選項 1.mailcow docker 2.docker-mailserver 3.Zibra <JSJSS>!!？？
+#######################
+2022.05.04
+project.01 @1.Web UI 即可使用，可免安裝 client <like outlook！？>
+           @1.1 base on 掃毒<ClamAV> 鎖定mailsvr blockbit data #垃圾信篩選
+		   @2.有 日歷功能<安排行程> | 線上 edit 文件 | 連結 nextcloud
+		   @3.備份DB | 維護容易 | UI 界面易用  | 中文
+ 
+2022.05.06 提出簡易項目方向與選擇
 
+$$ mailcow <EN | nextcloud | Anti |docker>
+https://github.com/mailcow/mailcow-dockerized
+https://u.sb/docker-mailcow/
+$$ Docker Mailserver
+https://github.com/docker-mailserver/docker-mailserver
+https://docker-mailserver.github.io/docker-mailserver/edge/
+
+
+
+$$ hmailserver <CN/TW| win >
+https://www.hmailserver.com/
+https://github.com/hmailserver/hmailserver/
+https://ithelp.ithome.com.tw/articles/10274422
+
+$$ Zimbra Collaboration 8.8 – 開源版  <TW| ModernUI | plus Nextcloud |>
+## zimbra 9 公事包 (Briefcase) 有支援線上(多人)即時檔案編輯功能
+## Zimbra 9 Nextcloud 整合外掛程式，可以讓使用者直接將檔案附加進來
+https://www.zimbra.com/open-source-email-overview/
+https://docs.ossii.com.tw/
+https://blog.jason.tools/2022/02/gmail-imap-zimbra.html?fbclid=IwAR3eCD4sMOuTSDFILs7nL2WAeTCFDlOe1ToO6PWAQ5bo7mWqlSQSDAGWEvc
+使用者手冊
+https://cc.tnua.edu.tw/wp-content/uploads/2018/11/104%E5%B9%B4%E5%BA%A6%E6%96%B0%E9%9B%BB%E5%AD%90%E9%83%B5%E4%BB%B6%E7%B3%BB%E7%B5%B1%E5%8F%8A%E7%A4%BE%E4%BA%A4%E5%B7%A5%E7%A8%8B%E6%BC%94%E7%B7%B4%E6%95%99%E8%82%B2%E8%A8%93%E7%B7%B4.pdf
+https://email.nsysu.edu.tw/var/file/49/1049/img/766406561.pdf
+
+proxmox mail gateway
+https://www.proxmox.com/en/downloads/category/iso-images-pmg
+https://www.proxmox.com/images/download/pmg/docs/pmg-admin-guide.pdf
+https://wiki.freedomstu.com/books/proxmox-mail-gateway-%E9%83%B5%E4%BB%B6%E9%96%98%E9%81%93/page/proxmox-mail-gateway-%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A
+
+$$ iRedMail <EN/CN | linux/docker | webUI | 反垃圾郵件和防病毒>
+https://www.iredmail.org/
+https://github.com/iredmail/iRedMail/
+https://github.com/iredmail/dockerized
+
+
+
+$$$$$ ## Google Workspace Essentials Starter Edition
+https://workspace.google.com/intl/zh-TW/essentials/
+https://support.google.com/a/users/answer/7681288?hl=zh-Hant
+##免費但不含Gmail
+以現有公司的 Email 電子郵件信箱註冊 (若是 gmail.com 或 yahoo.com 則無法申請) ，就能享有最多 25 位成員一起使用 Google Workspace Essentials Starter，共享文件檔案、視訊影像、文字訊息等，不需要提供信用卡、也沒有期限
+
+Google Workspace Essentials Starter　包含哪些應用程式？
+Google 雲端硬碟：安全的檔案存放空間，方便存取及共用所有檔案。 15 GB
+Google 文件：協助團隊處理文書工作。
+Google 試算表：兼具協作、智慧功能和安全等優點的試算表，適合快速發展的機構使用。
+Google 簡報：協力製作精美簡報。
+Google Meet：安全的視訊會議服務，適合團隊和企業使用。
+Google Chat：簡化 1:1 傳送訊息及群組協作的流程。
+Google 日曆：專為團隊設計的整合式線上日曆。
+Google 表單：輕鬆為團隊建立問卷調查和表單。
+Google 協作平台：輕鬆建立實用的團隊網站。
+Google Keep：讓您的工作變得井井有條，輕鬆記錄靈感和待辦事項。
+
+
+########################
 
