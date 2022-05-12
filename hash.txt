@@ -143,7 +143,16 @@ project.01 @1.Web UI 即可使用，可免安裝 client <like outlook！？>
 project.01 @install Proxmox Mail Gateway <PMG>
            @install Proxmox Backup Server <PBS>
 		   @install Zimbra OSE 8.8 on U20 <CLI command => su zimbra>
+		     /opt/zimbra/bin/command
 		   @dnscache is not running ~~why
+
+#######################
+2022.05.09
+project.01 @dns 53 衝突？<先刪除dnsservice> 轉port to 443
+           @192.168.10.129:443 https://wp.infowize.com.tw 可登入中文WEBUI
+		   @初步嘗試連接 nextcloud，try app "zimbradrive"，出現failure，已修復至可登入<刪除app>
+		   @更新nextcloud docker<app 24.0.0 /db 10.7> 至最新
+		   @明日另建測試連接用的nextcloud 18 for zimbra driver...
 
 #######################
 
@@ -165,10 +174,22 @@ $$ Zimbra Collaboration Open Source Edition 8.8  <TW| ModernUI | plus Nextcloud 
 
 ## zimbra 9 公事包 (Briefcase) 有支援線上(多人)即時檔案編輯功能
 ## Zimbra 9 Nextcloud 整合外掛程式，可以讓使用者直接將檔案附加進來
+## Drive 與 Docs 兩大元件僅在 Zimbra NE (Network Edition) 商用版本有提供，
+## Zimbra OSE (Open Source Edition) 開源版本是沒有的喔。
+###基本不合，問題在9 ## 目前<2022.05> zimbra 9 OSE 限定在ubuntu 18
 https://www.zimbra.com/open-source-email-overview/
-https://docs.ossii.com.tw/
+https://docs.ossii.com.tw/ <oxoffice>
 https://blog.jason.tools/2022/02/gmail-imap-zimbra.html?fbclid=IwAR3eCD4sMOuTSDFILs7nL2WAeTCFDlOe1ToO6PWAQ5bo7mWqlSQSDAGWEvc
 
+
+## 2022.01 Zexras 旗下推出基於 zimbra 9OSE<開源> 的開源MailServer Carbonio CE
+## 
+https://jorgedelacruz.uk/2022/02/04/zextras-how-to-download-and-install-zextras-carbonio-on-ubuntu-20-04-includes-dnsmasq-configuration/
+##幾年前收購 Zimbra 的 Synacor 決定在 2020 年改變其開源政策。這導致官方停止發布Zimbra9 開源版本。然而，Synacor為Zimbra 用戶提供了Zimbra9<https://github.com/Zimbra/zm-build> 源代碼來創建他們自己的構建，這需要多年的經驗。另一方面，一直擴展 Zimbra 功能並對 Zimbra 結構有深入了解的Zextras負責構建基於 Zimbra 的專業Zimbra 9 開源版本
+## 這意味可以在 zextras build下載 Zimbra 9 OSE版至最新版2022.02.09
+## mail to get <wget download.zextras.com/zcs-9.0.0_OSE_UBUNTU18_latest-zextras.tgz>
+https://www.zextras.com/thankyou-zextras-build-zimbra/
+https://www.zextras.com/zextras-build-based-on-zimbra-official-repository/
 
 
 使用者手冊
@@ -205,4 +226,50 @@ Google 協作平台：輕鬆建立實用的團隊網站。
 Google Keep：讓您的工作變得井井有條，輕鬆記錄靈感和待辦事項。
 
 ########################
+2022.05.12 @dealline <5/20>下周五前開會，提出目前可行開源方向與功能可行與不可行的item
+           @jackson  提出批評，不主動、懶政，事不關已
+           @另一方向，直接買商業版買斷使用
+           @
+https://www.zimbra.com/downloads/zimbra-collaboration/
+########################
 
+
+docker exec --user www-data nextcloud-app php /var/www/html/occ app:remove zimbradrive
+
+zmprov md wp.infowize.com.tw zimbraDriveOwnCloudURL 'http://192.168.10.127:9680'
+
+## nameserver | DNS
+echo nameserver 8.8.8.8 | sudo tee /etc/resolv.conf
+sudo apt install resolvconf
+systemctl start resolvconf.service
+systemctl enable resolvconf.service
+nano /etc/resolvconf/resolv.conf.d/head
+##nameserver 8.8.8.8
+systemctl restart resolvconf.service
+cat /etc/resolv.conf
+
+########################
+
+12:23 Chris Hsiang 所以我最後改用 samba4ad (特規 LDAP
+12:23 麥詩 為了windows 10用戶端?
+12:23 Chris Hsiang 一樣把 Windows 10 client 加入到 samba4ad domain
+12:23 Chris Hsiang 但是它的 ad 版本只是 2008喲
+12:24 Chris Hsiang samba4ad 都是放在 lxc 裡面而已
+12:25 Chris Hsiang 也有 primary ad 跟 secondary ad 之間 sync
+12:25 麥詩 嗯...這樣的坑...如果這只是分歧的TREE 不就坑更大.
+12:25 Chris Hsiang 最多 tree 就好 別弄 forest
+12:26 Chris Hsiang 好處是 windows login 跟 zimbra login 帳號同步
+12:26 Chris Hsiang 這個超級重要
+12:26 Chris Hsiang 而且還能透過 email 認證模式 修改 密碼
+12:27 Chris Hsiang 連 nextcloud 認證都是同一個
+12:27 Chris Hsiang 我是認為比較好的 single signon 的方式
+12:27 養貓的陌生人 SSO肯定要啊
+
+
+Centos 83+Sendmail+Roundcube
+
+你可以 分 功能拆
+
+proxy 一台
+mailstore 一台
+zimbraldap 一台
