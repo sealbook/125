@@ -153,9 +153,20 @@ project.01 @dns 53 衝突？<先刪除dnsservice> 轉port to 443
 		   @初步嘗試連接 nextcloud，try app "zimbradrive"，出現failure，已修復至可登入<刪除app>
 		   @更新nextcloud docker<app 24.0.0 /db 10.7> 至最新
 		   @明日另建測試連接用的nextcloud 18 for zimbra driver...
-
+########################
+2022.05.12 @dealline <5/20>下周五前開會，提出目前可行開源方向與功能可行與不可行的item
+           @jackson  提出批評，不主動、懶政，事不關已
+           @另一方向，若是時間與技術上不許可，直接買商業版買斷使用
+https://www.zimbra.com/downloads/zimbra-collaboration/
 #######################
-
+202.05.13 Fri @deadline 4 workday
+              @已成功 deploy Zimbra 9 OSE <中文| 不含drver>
+			  @已成功 deploy Zextras Carbonio <client顯示中文fail，but 7071 可以(auto)|>
+				zmprov gcf zimbraMailProxyMaxFails
+				zmprov mcf zimbraMailProxyMaxFails 0
+			  @ 192.168.10.129/carbonio
+			$ deploy iredmail 試試與 Zimbra 9 Network 60 day 測試<看功能差別…>
+#######################
 $$ mailcow <EN | nextcloud | Anti |docker>
 https://github.com/mailcow/mailcow-dockerized
 https://u.sb/docker-mailcow/
@@ -226,16 +237,33 @@ Google 協作平台：輕鬆建立實用的團隊網站。
 Google Keep：讓您的工作變得井井有條，輕鬆記錄靈感和待辦事項。
 
 ########################
-2022.05.12 @dealline <5/20>下周五前開會，提出目前可行開源方向與功能可行與不可行的item
-           @jackson  提出批評，不主動、懶政，事不關已
-           @另一方向，直接買商業版買斷使用
-           @
-https://www.zimbra.com/downloads/zimbra-collaboration/
+
+
+# Add Carbonio CE repository to your Ubuntu 20.04 LTS by executing
+echo 'deb https://repo.zextras.io/rc/ubuntu focal main' >>/etc/apt/sources.list.d/zextras.list
+
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 52FD40243E584A21
+ 
+# Perform a system upgrade using
+apt update && apt upgrade
+ 
+# Install carbonio-ce package as the root user
+apt install carbonio-ce
+ 
+# Initialize the configuration
+carbonio-bootstrap
+ 
+# Now, switch to Zextras user and set a password for the administrator by executing the below command and replacing yourpassword with your desired password (for more detail read the documentation Step 5: Installation and Configuration of Carbonio CE)
+
+su - zextras
+zmprov setpassword zextras@wp.infowize.com.tw ITewsn1234
+
+zextras /ITewsn1234
+https://192.168.10.129/
+## 單純IP:port 可連上 WebUI /client #轉換中文失敗<why?>
+
 ########################
-
-
 docker exec --user www-data nextcloud-app php /var/www/html/occ app:remove zimbradrive
-
 zmprov md wp.infowize.com.tw zimbraDriveOwnCloudURL 'http://192.168.10.127:9680'
 
 ## nameserver | DNS
@@ -244,11 +272,25 @@ sudo apt install resolvconf
 systemctl start resolvconf.service
 systemctl enable resolvconf.service
 nano /etc/resolvconf/resolv.conf.d/head
-##nameserver 8.8.8.8
+## nameserver 8.8.8.8
 systemctl restart resolvconf.service
 cat /etc/resolv.conf
+## hostname
+hostnamectl set-hostname wp.infowize.com.tw --static
+dig -t A wp.infowize.com.tw -t infowize.com.tw
+
+## 在 Ubuntu 上檢查更新，root以便服務器 zimbra-patch 使用
+apt-get update
+#使用更新到可用的 Zimbra 補丁
+apt-get 升級
+#以用戶身份重新啟動Zimbra 服務 zimbra ：
+su - zimbra
+zmcontrol restart
 
 ########################
+$預期lab，調試其他LDAP for 新架構，
+#<座位前面二女的電腦>排除NAS登入103，沒有權限的情形
+# 排除佳玳電腦時的SOP，重新撰寫一份公用版
 
 12:23 Chris Hsiang 所以我最後改用 samba4ad (特規 LDAP
 12:23 麥詩 為了windows 10用戶端?
@@ -273,3 +315,15 @@ Centos 83+Sendmail+Roundcube
 proxy 一台
 mailstore 一台
 zimbraldap 一台
+
+#########################
+2022.05.13 
+     $第三季預期主動，將microsvr 1U，替換新拿回的HP 1U
+     內容 PVE cluster<?/other>，docker cluster
+     ^優化目前NAS實機<容量/數量>
+	 $103 目前主要工作內容 NAS，163 舊有資料存放<cold>與SIG <業務live>
+	 $122 主要為 docker svr 兼對外服務 <FTP=車機用/客戶用>
+	 $70  主要為VMware用=> 車機與AI處理raw與data，以上再互相備份
+	 $架構太亂，目標之一，替換NAS使用的HDD 容量從 2T/4T/8T，<是否>可以提升至18T
+	 $若可以提升容量，則將資料集中存放，減少data重覆，架構重作<備份方向重新調整>
+	 $106 <?>新作土砲NAS，內含18T與data若干<?>
