@@ -105,7 +105,6 @@ DatabaseName 連接缺陷DB
 Crontab 設定觸發推播cron 可指定多個 用逗號分開 例如 0 9   ,0 5   
 
 安裝 GO on UBuntu 18.04
-
 #######################
 iftop # monitor netstat IP
 224.0.0.251
@@ -116,11 +115,12 @@ grep '^mdns' /etc/services
 systemctl status avahi-daemon.service
 ps -ef | grep avahi
 kill PID
-
 #######################
 reference for oxoffice connect to nextcloud
 [套件分享] 企業遠距作業解決方案架構圖
 http://blog.jason.tools/2021/05/wfh-opensource-map.html
+[開源] NextCloud 結合 OxOFFICE Community
+https://ithelp.ithome.com.tw/articles/10241405
 
 晟鑫科技 OxOffice Online 2 版 + NextCloud 13 測試
 https://www.youtube.com/watch?v=39Ey5jNjsJQ
@@ -138,5 +138,25 @@ https://docs.ossii.com.tw/books/oxoffice-online-%E7%A4%BE%E7%BE%A4%E7%89%88%E6%9
 ## 但在 Nextcloud v24 +改版的nextcloud office 6.0 +web set  http://192.168.10.137:9980 <fail>
 https://docs.ossii.com.tw/books/oxoffice-online-%E6%8A%80%E8%A1%93%E6%89%8B%E5%86%8A/page/%E5%9C%A8-ubuntu-1804-%E4%B8%8B%E5%AE%89%E8%A3%9D-nextcloud-20
 
+##labbing nextcloud v23 & nextoffice X OxOOfice ??
+
+
 #######################
+openLDAP web-ref
+## FreeNas ^ OpenLDAP ^ SMB 
+OpenLDAP 用户以及与用户组相关的配置
+https://wiki.shileizcc.com/confluence/pages/viewpage.action?pageId=39223582
+LDAP系列三用户权限控制
+https://www.twblogs.net/a/5cffeedfbd9eee14029fb05c?lang=zh-cn
+true SMB 文檔
+https://www.truenas.com/docs/core/coretutorials/sharing/smb/smbshare/
+freeNas 11.3 文檔
+https://www.ixsystems.com/documentation/freenas/11.3-U4/directoryservices.html#ldap
+#######################
+https://softnshare.com/tag/python-fundamental/
+https://softnshare.com/tag/shellscript/
+https://softnshare.com/gitlab-ci-pipelines-ci-cd-and-devops-for-beginners/
+https://softnshare.com/github-actions/
+https://softnshare.com/monitoring-and-alerting-with-prometheus/
+https://softnshare.com/elasticsearch-7-and-elastic-stack/
 
