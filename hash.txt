@@ -61,7 +61,6 @@ watch "ls -l ~/works/road_safe_ipc/ipc/img_defects/waiting/*.jpg | wc -l"
 確認目前network 為 3G / 4G
 
 
-
 sort defects.log|uniq -dc ## backup before exec
 
 ## 242 & 243 report網頁有問題
@@ -116,32 +115,6 @@ systemctl status avahi-daemon.service
 ps -ef | grep avahi
 kill PID
 #######################
-reference for oxoffice connect to nextcloud
-[套件分享] 企業遠距作業解決方案架構圖
-http://blog.jason.tools/2021/05/wfh-opensource-map.html
-[開源] NextCloud 結合 OxOFFICE Community
-https://ithelp.ithome.com.tw/articles/10241405
-
-晟鑫科技 OxOffice Online 2 版 + NextCloud 13 測試
-https://www.youtube.com/watch?v=39Ey5jNjsJQ
-oxool
-https://github.com/sealbook/oxool-community
-
-## OxOffice Online(OxOOL)編譯說明
-https://docs.ossii.com.tw/books/oxoffice-online-%E6%8A%80%E8%A1%93%E6%89%8B%E5%86%8A/page/%E5%9C%A8-ubuntu-1804-%E7%92%B0%E5%A2%83%E4%B8%8B%E7%B7%A8%E8%AD%AF-oxool
-## OxOffice Online 主程式安裝說明
-https://docs.ossii.com.tw/books/oxoffice-online-%E6%8A%80%E8%A1%93%E6%89%8B%E5%86%8A/chapter/oxoffice-online-%E4%B8%BB%E7%A8%8B%E5%BC%8F%E5%AE%89%E8%A3%9D%E8%AA%AA%E6%98%8E
-## OxOffice Online 社群版操作手冊
-https://docs.ossii.com.tw/books/oxoffice-online-%E7%A4%BE%E7%BE%A4%E7%89%88%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8A
-## 在 Ubuntu 18.04 下安裝 Nextcloud 20
-## 測試在 Nextcloud v22.2.7 +預設Collabora Online +web set  http://192.168.10.137:9980
-## 但在 Nextcloud v24 +改版的nextcloud office 6.0 +web set  http://192.168.10.137:9980 <fail>
-https://docs.ossii.com.tw/books/oxoffice-online-%E6%8A%80%E8%A1%93%E6%89%8B%E5%86%8A/page/%E5%9C%A8-ubuntu-1804-%E4%B8%8B%E5%AE%89%E8%A3%9D-nextcloud-20
-
-##labbing nextcloud v23 & nextoffice X OxOOfice ??
-
-
-#######################
 openLDAP web-ref
 ## FreeNas ^ OpenLDAP ^ SMB 
 OpenLDAP 用户以及与用户组相关的配置
@@ -152,11 +125,68 @@ true SMB 文檔
 https://www.truenas.com/docs/core/coretutorials/sharing/smb/smbshare/
 freeNas 11.3 文檔
 https://www.ixsystems.com/documentation/freenas/11.3-U4/directoryservices.html#ldap
+FreeNAS SMB文件共享及用戶權限使用配置 <9.10>
+https://www.twblogs.net/a/5d111bd5bd9eee1ede04ace3
+FreeNAS 設定共用及個人資料夾
+http://media.jaes.ntpc.edu.tw/wordpress/?p=194
+FreeNAS 整合 AD + CIFS/SMB 設定完全經驗分享
+http://blog.jason.tools/2017/04/freenas-ad-cifssmb.html
+身份識別伺服器與內部檔案系統伺服器
+https://dic.vbird.tw/linux_server/unit07.php
+使用 Docker 建置 LDAP 系統
+https://chrislee0728.medium.com/%E4%BD%BF%E7%94%A8-docker-%E5%BB%BA%E7%BD%AE-ldap-%E7%B3%BB%E7%B5%B1-82370c53bc9f
+ldapsearch 的用法
+https://www.twblogs.net/a/5b96cd0b2b717750bda635f3/?lang=zh-cn
+[經驗分享] LDAPSearch 常用 CLI 指令整理 (持續更新)
+http://blog.jason.tools/2022/02/ldapsearch-cli.html
+How To Manage and Use LDAP Servers with OpenLDAP Utilities
+https://www.digitalocean.com/community/tutorials/how-to-manage-and-use-ldap-servers-with-openldap-utilities
 #######################
+# UCS
+[經驗分享] UCS 常用 CLI 指令整理 (持續更新)
+http://blog.jason.tools/2021/07/ucs-cli.html
+Univention Corporate Server:Server software for easy-to-use IT operations
+https://www.univention.com/products/ucs/
+How-To: Enable Logging in LDAP
+https://help.univention.com/t/how-to-enable-logging-in-ldap/10515
+Journaling for Sysadmins: Admin Diary
+https://www.univention.com/blog-en/2019/05/journaling-for-sysadmins-admin-diary/
+Reporting for professionals: Log activities in the UCS LDAP directory service
+https://www.univention.com/blog-en/2020/09/ucs-ldap-acitvity-log-monitoring-and-saving-information/
+#######################
+解決問題 openldap freenas 抓不到 account??? <smbldap-tools?>
+FreeNAS 8.3.1 中文化習作
+http://martine-tw.blogspot.com/2013/06/freenas-831-8_24.html
+FreeNAS® 11.3-U5 User Guide
+https://www.ixsystems.com/documentation/freenas/11.3-U5/freenas.html
+
+
+思路
+快被freenas搞瘋了 SMB登入
+https://www.mobile01.com/topicdetail.php?f=494&t=5937250
+
+#######################
+# web-reference *read gitbook
 https://softnshare.com/tag/python-fundamental/
 https://softnshare.com/tag/shellscript/
 https://softnshare.com/gitlab-ci-pipelines-ci-cd-and-devops-for-beginners/
 https://softnshare.com/github-actions/
 https://softnshare.com/monitoring-and-alerting-with-prometheus/
 https://softnshare.com/elasticsearch-7-and-elastic-stack/
-
+## The Bash Guide
+https://guide.bash.academy/expansions/
+#######################
+##  target *jenkins
+使用 Docker 安裝 Jenkins Agent
+https://ithelp.ithome.com.tw/articles/10200805
+Jenkins 容器中執行 docker 指令
+https://www.gss.com.tw/blog/jenkins-docker
+30 天入門 Ansible 及 Jenkins
+https://www.lhsz.xyz/read/learn-ansible-and-jenkins-in-30-days/ansible-ansible-playbook-intro.md
+透過 GitHub Webhook 讓你 push code 到 Github 就會自動觸發本地 Jenkins Pipeline
+https://zoejoyuliao.medium.com/%E9%80%8F%E9%81%8E-github-webhook-%E8%A7%B8%E7%99%BC%E6%9C%AC%E5%9C%B0-jenkins-pipeline-%E8%AE%93%E4%BD%A0-push-code-%E5%88%B0-github-%E5%B0%B1%E6%9C%83%E8%87%AA%E5%8B%95%E8%B7%91-ci-cd-7c4bd7a22446
+Jenkins 快速指南
+http://tw.gitbook.net/jenkins/jenkins_quick_guide.html
+#######################
+##  target *python
+https://medium.com/starbugs/it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD%E6%87%B6%E4%BA%BA%E5%8C%85-2021-%E4%B8%8D%E5%8F%AF%E4%BB%A5%E6%AF%94%E4%B8%AD%E6%8C%87-%E7%94%A8python%E5%81%9A%E4%B8%80%E5%80%8Bai%E6%9C%89%E7%A6%AE%E8%B2%8C%E7%A5%9E%E5%99%A8-9843a42df691

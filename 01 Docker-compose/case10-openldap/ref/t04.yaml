@@ -1,0 +1,42 @@
+version: '3'
+
+    services:
+      openldap:
+        image: osixia/openldap:latest
+        restart: unless-stopped
+        ports:
+          - 389:389
+        environment:
+          LDAP_ORGANISATION: infowize
+          LDAP_DOMAIN: infowize.com.tw
+          LDAP_ADMIN_PASSWORD: admin
+          LDAP_RFC2307BIS_SCHEMA: 'true'
+          LDAP_REMOVE_CONFIG_AFTER_SETUP: 'true'
+          LDAP_TLS_VERIFY_CLIENT: never
+          LDAP_DEBUG: 'true'
+        volumes:
+          - ./data/openldap/var_lib_ldap:/var/lib/ldap
+          - ./data/openldap/etc_ldap_slapd.d:/etc/ldap/slapd.d
+
+      # src : https://github.com/wheelybird/ldap-user-manager
+      # do not forget to go to setup page : http://localhost:8080/setup
+      app:
+        image: wheelybird/ldap-user-manager:latest
+        restart: unless-stopped
+        ports:
+          - 8080:80
+          - 4443:443
+        environment:
+          SERVER_HOSTNAME: localhost
+          LDAP_DEBUG: 'true'
+          LDAP_URI: ldap://openldap
+          LDAP_BASE_DN: dc=ldapusermanager,dc=org
+          LDAP_ADMINS_GROUP: admins
+          LDAP_ADMIN_BIND_DN: cn=admin,dc=ldapusermanager,dc=org
+          LDAP_ADMIN_BIND_PWD: admin
+          LDAP_IGNORE_CERT_ERRORS: 'true'
+          NO_HTTPS: 'true'
+          # debug options
+          LDAP_DEBUG: 'TRUE'
+          LDAP_VERBOSE_CONNECTION_LOGS: 'TRUE'
+          SESSION_DEBUG: 'TRUE'

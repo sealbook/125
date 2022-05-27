@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  openldap:
+    container_name: openldap
+    image: osixia/openldap:stable #1.5.0
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - /opt/ldap/backup:/data/backup
+      - /opt/ldap/db:/var/lib/ldap
+      - /opt/ldap/config:/etc/ldap/slapd.d
+      - /opt/ldap/certs:/assets/slapd/certs
+    environment:
+      - LDAP_ORGANISATION="infowize office"
+      - LDAP_DOMAIN="infowize.com.tw"
+      - LDAP_ADMIN_PASSWORD="itadm"
+      - LDAP_CONFIG_PASSWORD="config"
+      - LDAP_RFC2307BIS_SCHEMA=true
+      - LDAP_REMOVE_CONFIG_AFTER_SETUP=true
+      - LDAP_TLS_VERIFY_CLIENT=never
+    command: [--copy-service,  --loglevel, debug]
+  
+  phpldapadmin:
+    container_name: openldap-WUI
+    image: osixia/phpldapadmin:stable #0.9.0
+    ports:
+      - "8080:80"
+    environment:
+      - PHPLDAPADMIN_HTTPS="false"
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap
+    links:
+      - openldap
+    depends_on:
+      - openldap
+## docker exec openldap ldapsearch -x -H ldap://localhost -b dc=infowize,dc=com,dc=tw -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
+## docker logs openldap
+
+docker-compose exec openldap ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
