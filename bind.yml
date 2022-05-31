@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  bind:
+    container_name: bind_webmin
+    restart: always
+    image: sameersbn/bind:9.16.1-20200524
+    ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+    - "10000:10000/tcp"
+    dns:
+      - 127.0.0.1
+      - 8.8.8.8
+    volumes:
+    - /opt/bind:/data
+    environment:
+      TZ: "Asia/Taipei"
+      ROOT_PASSWORD: password
+
+#webmin - change language and Theme
+# root password   ## update 
+# systemctl status systemd-resolved.service
+# systemctl stop systemd-resolved.service

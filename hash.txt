@@ -190,3 +190,34 @@ http://tw.gitbook.net/jenkins/jenkins_quick_guide.html
 #######################
 ##  target *python
 https://medium.com/starbugs/it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD%E6%87%B6%E4%BA%BA%E5%8C%85-2021-%E4%B8%8D%E5%8F%AF%E4%BB%A5%E6%AF%94%E4%B8%AD%E6%8C%87-%E7%94%A8python%E5%81%9A%E4%B8%80%E5%80%8Bai%E6%9C%89%E7%A6%AE%E8%B2%8C%E7%A5%9E%E5%99%A8-9843a42df691
+
+
+列出常使用的資源記錄格式(Resource Record,RR)：
+(1) SOA (Start Of Authority) => 用於查詢管理名稱的伺服器管理資訊
+(2) NS (Name Server) => DNS 伺服器的主機名稱
+(3) A (Address (IPv4)) => 網域名稱對應到IPv4
+(4) AAAA (Address (IPv6)) => 網域名稱對應到IPv6
+(5) PTR (Pointer) => IP對應的網域名稱
+(6) CNAME (Canonical NAME) => 同一台主機的多個別名
+(7) MX (Mail eXchanger) => 在該區域中擔任郵件伺服器的主機
+
+127.0.0.53   local DNS
+168.95.192.1 DNS
+反查
+192.95.168.in-addr.arpa	name = dns.hinet.net.
+
+#######################
+webmin <評估是否可用於 DNS + openLDAP 或其他 >
+文檔
+http://doxfer.webmin.com/Webmin/LDAP_Server
+http://doxfer.webmin.com/Webmin/Webmin_Modules
+Deploying a DNS Server using Docker
+http://www.damagehead.com/blog/2015/04/28/deploying-a-dns-server-using-docker/
+docker方式搭建DNS服务器
+https://blog.csdn.net/ory001/article/details/108204479
+Table of Content - BIND介紹與安裝
+http://dns-learning.twnic.net.tw/bindFrame.html
+ubuntu/bind9
+https://hub.docker.com/r/ubuntu/bind9
+labbsr0x/docker-dns-bind9
+https://github.com/labbsr0x/docker-dns-bind9
