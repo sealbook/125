@@ -3,168 +3,20 @@
 #### 意指把任何簡易的過程，用"相關 "不明覺厲" '描述出其中高深的經驗與功夫所在
 #### 意為「雖然不明白（對方）在說什麼、做什麼，但是感覺很厲害的樣子
 ##EX docker = 作業系統虛擬化（Operating system–level virtualization）技術
-
-##AI 道號巡查相關 
-385144666 鳳山 春風<約雇>
-275682719 岡山 許坤璋
-263175009 旗美 金倉<工友>  
-232277798 四維 自麗 <只放六日？><車上本身有GPS*2會干擾><0831change>
-891319092 <201> none 
-985903300 <202> tn 張越智 62111
-<ITewsn1234>
-
-ipc203 岡山 <>
-ipc204 四維 <ipc201 Failed 0701><新興、苓雅、鼓山、前鎮、三民、左營、小港、旗津>
-ipc231 鳳山 
-ipc211 旗美 <常無資料|山區訊號><6/7~6/11修車><旗山、美濃、內門、甲仙>
-ipc205 台南 <ipc202 failed 211206><張越智><taxi><全區>
-
-
-## 進入122，確認當日上傳數量 /tnroad/road_defects/backup
-ls -l ./20220316/*.jpg | wc -l
-
-## 按 Q 結束巡視畫面，保持上傳，進入terminal 監視未上傳數量
-ps -auxw | grep python
-kill -9 ID ## python upload 卡住
-crontab -l #自動啟動 3min
-
-
-
-## 車機系統開機自動上傳<5min>status log #122 sftp
-/mnt/roadlog/sftplog ## 6Days
-/zvol/sftp/date/road/upload # history
-192.168.10.103
-/mnt/vol1/roadlog/sftplog
-
-(road) itadm@ipc231:~/works/road_safe_ipc/ipc/img_defects$
-lftp mirror -R --Remove-source-files --loop
--R, --reverse   反向 mirror (即上傳檔案)
-
-#比對diff
-cat defects.log|sort|awk -F '|' '{print $4"\t"}'|sort > s1
-ls ./bfmarking/ > s2
-vim -d s1 s2
-sed -i '/ delete_str /d' defects.log
-
-sed -i 's/vaishal/vshal/g' filename # replace vaishal to vshal
-
-cat defects.log|sort|awk -F '|' '{print $4"\t"}'|grep IPC203 |sort > s1
-ls ./bfmarking/ | grep IPC203 > s2
-vim -d s2 s1
-
-
-## 按 Q 結束巡視畫面，保持上傳，進入terminal 監視未上傳數量
-watch "ls -l ~/works/road_safe_ipc/ipc/img_defects/waiting/*.jpg | wc -l"
-## 按 ! 搜索history 指令的開頭，##意味可執行上一次執行 command <if 上一次有錯也是>
-!watch
-## 進入firefox http://192.168.8.1/html/home.html
-確認目前network 為 3G / 4G
-
-
-sort defects.log|uniq -dc ## backup before exec
-
-## 242 & 243 report網頁有問題
-systemctl restart php7.4-fpm.service
+#######################
+## 168.95.192.1 8.8.4.4
+## 192.168.20.70 setup appr0 <trunk 2*10Gport>
 nslookup
 traceroute
 netstat -tulnp -ap 
-##############  <base on ubuntu 18 | disable U20>
-## docker-compose up -d
-## sudo mv road road_verXX
-## sudo git clone https://github.com/partment/road
-## 下一版本 x.7
-
-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
-2022.03.23 >>90D
-
-## docker build -t road:1.X . ## make image 
-## <cp Dockerfile Dockerfile.v1 Dockerfile.v2 | conf >
-## <python:3.8.9-alpine3.13 | python:3.9.4-alpine3.12>
-## sudo docker build -f Dockerfile    -t road:1.7 .
-## sudo docker build -f Dockerfile.v1 -t road:2.7 .
-## sudo docker build -f Dockerfile.v2 -t road:3.7 .
-## sudo docker image ls
-## config /opt/web/ *.yml         ## image ver | port
-## docker-compose -f *.yml up -d  ## *.yml MUST in diff dir
-#####
-## 168.95.192.1 8.8.4.4
-## 192.168.20.70 setup appr0 <trunk 2*10Gport>
-
-#####################
-## defect-linebot .env
-#LINE
-ChannelSecret LINE BOT API 密鑰
-ChannelAccessToken LINE BOT API 密鑰
-CallbackPort 網路接口
-#131 
-DatabaseHost 連接缺陷DB
-DatabaseUser 連接缺陷DB
-DatabasePassword 連接缺陷DB
-DatabaseName 連接缺陷DB
-Crontab 設定觸發推播cron 可指定多個 用逗號分開 例如 0 9   ,0 5   
-
-安裝 GO on UBuntu 18.04
-#######################
 iftop # monitor netstat IP
 224.0.0.251
 ss -r -t ## OS連接IP
-
 lsof -i :mdns
 grep '^mdns' /etc/services
 systemctl status avahi-daemon.service
 ps -ef | grep avahi
 kill PID
-#######################
-openLDAP web-ref
-## FreeNas ^ OpenLDAP ^ SMB 
-OpenLDAP 用户以及与用户组相关的配置
-https://wiki.shileizcc.com/confluence/pages/viewpage.action?pageId=39223582
-LDAP系列三用户权限控制
-https://www.twblogs.net/a/5cffeedfbd9eee14029fb05c?lang=zh-cn
-true SMB 文檔
-https://www.truenas.com/docs/core/coretutorials/sharing/smb/smbshare/
-freeNas 11.3 文檔
-https://www.ixsystems.com/documentation/freenas/11.3-U4/directoryservices.html#ldap
-FreeNAS SMB文件共享及用戶權限使用配置 <9.10>
-https://www.twblogs.net/a/5d111bd5bd9eee1ede04ace3
-FreeNAS 設定共用及個人資料夾
-http://media.jaes.ntpc.edu.tw/wordpress/?p=194
-FreeNAS 整合 AD + CIFS/SMB 設定完全經驗分享
-http://blog.jason.tools/2017/04/freenas-ad-cifssmb.html
-身份識別伺服器與內部檔案系統伺服器
-https://dic.vbird.tw/linux_server/unit07.php
-使用 Docker 建置 LDAP 系統
-https://chrislee0728.medium.com/%E4%BD%BF%E7%94%A8-docker-%E5%BB%BA%E7%BD%AE-ldap-%E7%B3%BB%E7%B5%B1-82370c53bc9f
-ldapsearch 的用法
-https://www.twblogs.net/a/5b96cd0b2b717750bda635f3/?lang=zh-cn
-[經驗分享] LDAPSearch 常用 CLI 指令整理 (持續更新)
-http://blog.jason.tools/2022/02/ldapsearch-cli.html
-How To Manage and Use LDAP Servers with OpenLDAP Utilities
-https://www.digitalocean.com/community/tutorials/how-to-manage-and-use-ldap-servers-with-openldap-utilities
-#######################
-# UCS
-[經驗分享] UCS 常用 CLI 指令整理 (持續更新)
-http://blog.jason.tools/2021/07/ucs-cli.html
-Univention Corporate Server:Server software for easy-to-use IT operations
-https://www.univention.com/products/ucs/
-How-To: Enable Logging in LDAP
-https://help.univention.com/t/how-to-enable-logging-in-ldap/10515
-Journaling for Sysadmins: Admin Diary
-https://www.univention.com/blog-en/2019/05/journaling-for-sysadmins-admin-diary/
-Reporting for professionals: Log activities in the UCS LDAP directory service
-https://www.univention.com/blog-en/2020/09/ucs-ldap-acitvity-log-monitoring-and-saving-information/
-#######################
-解決問題 openldap freenas 抓不到 account??? <smbldap-tools?>
-FreeNAS 8.3.1 中文化習作
-http://martine-tw.blogspot.com/2013/06/freenas-831-8_24.html
-FreeNAS® 11.3-U5 User Guide
-https://www.ixsystems.com/documentation/freenas/11.3-U5/freenas.html
-
-
-思路
-快被freenas搞瘋了 SMB登入
-https://www.mobile01.com/topicdetail.php?f=494&t=5937250
-
 #######################
 # web-reference *read gitbook
 https://softnshare.com/tag/python-fundamental/
@@ -190,34 +42,3 @@ http://tw.gitbook.net/jenkins/jenkins_quick_guide.html
 #######################
 ##  target *python
 https://medium.com/starbugs/it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD%E6%87%B6%E4%BA%BA%E5%8C%85-2021-%E4%B8%8D%E5%8F%AF%E4%BB%A5%E6%AF%94%E4%B8%AD%E6%8C%87-%E7%94%A8python%E5%81%9A%E4%B8%80%E5%80%8Bai%E6%9C%89%E7%A6%AE%E8%B2%8C%E7%A5%9E%E5%99%A8-9843a42df691
-
-
-列出常使用的資源記錄格式(Resource Record,RR)：
-(1) SOA (Start Of Authority) => 用於查詢管理名稱的伺服器管理資訊
-(2) NS (Name Server) => DNS 伺服器的主機名稱
-(3) A (Address (IPv4)) => 網域名稱對應到IPv4
-(4) AAAA (Address (IPv6)) => 網域名稱對應到IPv6
-(5) PTR (Pointer) => IP對應的網域名稱
-(6) CNAME (Canonical NAME) => 同一台主機的多個別名
-(7) MX (Mail eXchanger) => 在該區域中擔任郵件伺服器的主機
-
-127.0.0.53   local DNS
-168.95.192.1 DNS
-反查
-192.95.168.in-addr.arpa	name = dns.hinet.net.
-
-#######################
-webmin <評估是否可用於 DNS + openLDAP 或其他 >
-文檔
-http://doxfer.webmin.com/Webmin/LDAP_Server
-http://doxfer.webmin.com/Webmin/Webmin_Modules
-Deploying a DNS Server using Docker
-http://www.damagehead.com/blog/2015/04/28/deploying-a-dns-server-using-docker/
-docker方式搭建DNS服务器
-https://blog.csdn.net/ory001/article/details/108204479
-Table of Content - BIND介紹與安裝
-http://dns-learning.twnic.net.tw/bindFrame.html
-ubuntu/bind9
-https://hub.docker.com/r/ubuntu/bind9
-labbsr0x/docker-dns-bind9
-https://github.com/labbsr0x/docker-dns-bind9

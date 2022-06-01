@@ -109,11 +109,12 @@ Thu  @開啟gmail 低安全性，開放第三方產品連線<nextcloud mail 插�
 ########################
 2022.05.24 Tue
      @ jackson 完成簡報，目光開始轉向更新公司
-
 ########################
-# 預期lab，調試其他LDAP for 新架構，
-# <座位前面二女的電腦>排除NAS登入103，沒有權限的情形
-# 排除佳玳電腦時的SOP，<忘了>重新撰寫一份公用版
+2022.06.01 Wed
+     @ officer [Elaine] 為完成最後報告忙碌中，同時已完成 103 權限控管
+	 @ officer 四人皆可使用 < net use \\192.168.10.103\sup /d ><取消連線>
+	 @ 找到 OpenLDAP 無法import 的原因，試作成功，但會造成share folder 斷線
+	 @ 小心測試
 ########################
 12:23 Chris Hsiang 所以我最後改用 samba4ad (特規 LDAP
 12:23 麥詩 為了windows 10用戶端?
@@ -131,78 +132,29 @@ Thu  @開啟gmail 低安全性，開放第三方產品連線<nextcloud mail 插�
 12:27 養貓的陌生人 SSO肯定要啊
 
 Centos 83+Sendmail+Roundcube
-
 你可以 分 功能拆
-
 proxy 一台
 mailstore 一台
 zimbraldap 一台
-
-########################
-## 維護容易，有WUI，docker
-## freenas 結合作權限<帳號>管理
-## SMB<w10>連線  **smbldap-tools
-## keywork *1 openldap to auth id
-## keywork *2 freenas ACL file 權限控管
-
-*openldap 
-*samba4ad
-*389
-*freeipa
-*slapd
-*UCS (Univention Corporate Server)
-*zentyal
-
-issue3. mailserver auth
-issue4. nextcloud auth
 ########################
 # 192.168.10.122:8072 cn=admin,dn=infowize,dn=com,dn=tw | password  <389>
-# 103 測試 122 ldap work
+
 ldapsearch -x -H ldap://192.168.10.122 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
 
 ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w admin_pass
 
-ldapsearch -x -H ldap://192.168.10.122 -b "dc=infowize,dc=com,dc=tw" -D "uid=theokwan,ou=users,dc=infowize,dc=com,dc=tw" -w ITewsn1234
-
-ldapsearch -x -H ldap://192.168.10.129 -b "dc=infowize,dc=com,dc=tw" -D "uid=admin,cn=users,cn=accounts,dc=infowize,dc=com,dc=tw" -w Secret123
-
-uid=theokwan,ou=users,dc=infowize,dc=com,dc=tw
-
-sudo docker run -d -h ipa.infowize.com.tw --name freeipa-dev -p 80:80 -p 443:443 -p 389:389 -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /var/lib/ipa-data:/data:Z -e PASSWORD=Secret123 --sysctl net.ipv6.conf.all.disable_ipv6=0 freeipa/freeipa-server:centos-8-4.8.7 ipa-server-install -U -r infowize.com.tw --no-ntp
-
-
-
-#lab1.  192.168.10.103/mnt/vol1/<shared folder>  如何由 LDAP ID auth 
-#lab1.1 auth Local<103> ID ACL set up <done>
-#lab1.2 FreeNas Pull LDAP ID
-
-#確認openldap 無法載入 userID <是因為沒有SAMBA schema?或是沒有設呢？>
-192.168.10.122/127 LDAP <沒有SAMBA schema| 進階選項>
 getent passwd
 getent group
 wbinfo -u *Lists all domain users
 wbinfo -g *Lists all domain groups
 wbinfo -a "username"%"password"
-
+########################
 pdbedit -L * List db of SAMBA users
-
 midclt call ldap.config
 midclt call ldap.get_state
 midclt call ldap.get_root_DSE
 service nslcd onestatus
 midclt call ldap.get_nslcd_status
-cat /etc/nsswitch.conf
-
-group: files ldap
-hosts: files dns
-networks: files
-passwd: files ldap
-shells: files
-services: files
-protocols: files
-rpc: files
-sudoers: files
-
 ########################
 122 ldap  A = ID / G = group 
 103 freenas <local account to share folder>
@@ -213,64 +165,6 @@ sudoers: files
 *sup2 => sup<group>
 *eng  => itadm <group>
 ########################
-2022.05.25
-## step1 從 freenas 出發，確認設定OK
-## 測試 122/127 ldapsearch 功能正常運作，但是ldap account 未同步至 103
-## smbldap-tools 需要安裝嗎？在server or client ？
-
-** 若能同步ldap account 下一步測試，W10 samba 認證!!
-** 再進一步，accout by group 管理權限
-
-########################
 ## 連線 SMB share 帳戶未成，重啟 SMB 服務
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
-########################
-2022.05.30 weekly view new way to think
-
-# 參考MS AD /synology LDAP 設置 <DNS要可以解晰 ldapsvr與NAS或其他服務>
-# domain control 
-DNSserver <輸入可以解析網域控制站 IP 位址的 DNS 伺服器其 IP 位址> 
-ldapserver <以上二者可為同一個>
-
-192.168.10.12X  infowize.local <不對外>
-先設network -gobal config - DNS <nameserver >
-opendldap 有dns <timezone> ，即 ping domain，會通 
-
-
-How To Setup FreeNAS 11.1 With Active Directory & Windows Server 2016
-https://www.youtube.com/watch?v=pGI-6RjB_IU
-Truenas Scale - Setting up Authelia and OpenLDAP
-https://www.youtube.com/watch?v=cmMm5keX1vk
-
-DevOps & SysAdmins: How can I get FreeNAS to work with LDAP authentication?
-https://www.youtube.com/watch?v=aLLSy6o0Yhg
-smbldap-populate <??無用？>
-
-Nextcloud 12 Server User Authentication with LDAP
-https://www.youtube.com/watch?v=naMyXKDVSgY
-可從nextcloud 連接 openldap 試試
-Sync users between Synology's - Setting up an LDAP server on Synology NAS
-https://www.youtube.com/watch?v=Ac4FVy9N068
-二台nas 互為 ldap svr/client
-https://sites.google.com/a/cnsrl.cycu.edu.tw/da-shu-bi-ji/implementation/liyongsynologynasdangzuoldapnfsserverjianzhibuzhou
-
-NextCloud LDAP integration using FreeIPA and Docker
-https://www.youtube.com/watch?v=iiGJq8bLqzU
-https://nextcloud-freeipa-docker.netlify.app/
-可連結到nextcloud account import OK
-tip：webUI，只能在VMs 本機用web 使用 <DNS ??>
-
-Free IPA Part 5: Setting up NextCloud to Authenticate users with LDAP and FreeIPA.
-https://www.youtube.com/watch?v=yu55kMdeGW4
-Setting up OpenLDAP Server : LDAP configuration and LDAP authentication
-https://www.youtube.com/watch?v=PK9d9yLANZU
-
-
-#內建DNS ?? *dnsmasq
-https://hub.docker.com/r/jpillora/dnsmasq
-https://blog.fjy8018.top/index.php/archives/270/
-https://it001.pixnet.net/blog/post/357497189
-https://tomme.me/use-dnsmasq-as-internal-dsn-server/
-
-
