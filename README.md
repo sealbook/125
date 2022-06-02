@@ -140,8 +140,18 @@ zimbraldap 一台
 # 192.168.10.122:8072 cn=admin,dn=infowize,dn=com,dn=tw | password  <389>
 
 ldapsearch -x -H ldap://192.168.10.122 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
+ldapsearch -x -H "ldap://192.168.10.122" -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password "(&(objectClass=person)(uid=kiki))"
 
 ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w admin_pass
+ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w admin_pass "(&(objectClass=person)(uid=kiki))"
+
+
+
+(|(objectclass=inetOrgPerson))
+(&(|(objectclass=inetOrgPerson))(uid=%uid))
+(uid=%u)
+cn=Users,dc=infowize,dc=com,dc=tw
+cn=Groups,dc=infowize,dc=com,dc=tw
 
 getent passwd
 getent group
@@ -168,3 +178,4 @@ midclt call ldap.get_nslcd_status
 ## 連線 SMB share 帳戶未成，重啟 SMB 服務
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
+
