@@ -42,3 +42,6 @@ http://tw.gitbook.net/jenkins/jenkins_quick_guide.html
 #######################
 ##  target *python
 https://medium.com/starbugs/it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD%E6%87%B6%E4%BA%BA%E5%8C%85-2021-%E4%B8%8D%E5%8F%AF%E4%BB%A5%E6%AF%94%E4%B8%AD%E6%8C%87-%E7%94%A8python%E5%81%9A%E4%B8%80%E5%80%8Bai%E6%9C%89%E7%A6%AE%E8%B2%8C%E7%A5%9E%E5%99%A8-9843a42df691
+#######################
+和艦長一起 30 天玩轉 GitLab系列
+https://ithelp.ithome.com.tw/articles/10215206

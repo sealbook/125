@@ -137,6 +137,8 @@ proxy 一台
 mailstore 一台
 zimbraldap 一台
 ########################
+2022.06.08 有空新建VMs lab for gitlab  || ubuntu22D for oh my zsh || UCS deploy 測試
+########################
 # 192.168.10.122:8072 cn=admin,dn=infowize,dn=com,dn=tw | password  <389>
 
 ldapsearch -x -H ldap://192.168.10.122 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
@@ -178,4 +180,17 @@ midclt call ldap.get_nslcd_status
 ## 連線 SMB share 帳戶未成，重啟 SMB 服務
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
+########################
+zmlocalconfig -e zmstat_df_excludes='/dev/loop0:/dev/loop1:/dev/loop2:/dev/loop3:/dev/loop4:/dev/loop5:/dev/loop6'
+zmstatctl restart 
+/bin/su - zimbra -c "指令"
+zmmailbox -z -m admin@mail2.infowize.com.tw emptyFolder /[inbox][chats][sent][drafts][junk][trash]
+
+/bin/su - zimbra -c "sh /opt/zimbra/rm_message.sh admin@mail2.infowize.com.tw Disk"
+/bin/su - zimbra -c "zmmailbox -z -m admin@mail2.infowize.com.tw gaf"
+
+ens160:
+
+168.95.192.1 127.0.0.1 8.8.8.8 1.1.1.1
+
 
