@@ -147,7 +147,7 @@ ldapsearch -x -H "ldap://192.168.10.122" -b "dc=infowize,dc=com,dc=tw" -D "cn=ad
 ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w admin_pass
 ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w admin_pass "(&(objectClass=person)(uid=kiki))"
 
-
+sup01 | 1qaz#EDC
 
 (|(objectclass=inetOrgPerson))
 (&(|(objectclass=inetOrgPerson))(uid=%uid))
@@ -189,8 +189,5 @@ zmmailbox -z -m admin@mail2.infowize.com.tw emptyFolder /[inbox][chats][sent][dr
 /bin/su - zimbra -c "sh /opt/zimbra/rm_message.sh admin@mail2.infowize.com.tw Disk"
 /bin/su - zimbra -c "zmmailbox -z -m admin@mail2.infowize.com.tw gaf"
 
-ens160:
-
-168.95.192.1 127.0.0.1 8.8.8.8 1.1.1.1
-
+delivery temporarily suspended: connect to mail2.infowize.com.tw[122.116.223.114]:7025: connection timed out (101 郵件)
 
