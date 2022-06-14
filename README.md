@@ -181,7 +181,7 @@ midclt call ldap.get_nslcd_status
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
 ########################
-zmlocalconfig -e zmstat_df_excludes='/dev/loop0:/dev/loop1:/dev/loop2:/dev/loop3:/dev/loop4:/dev/loop5:/dev/loop6'
+
 zmstatctl restart 
 /bin/su - zimbra -c "指令"
 zmmailbox -z -m admin@mail2.infowize.com.tw emptyFolder /[inbox][chats][sent][drafts][junk][trash]
@@ -189,5 +189,8 @@ zmmailbox -z -m admin@mail2.infowize.com.tw emptyFolder /[inbox][chats][sent][dr
 /bin/su - zimbra -c "sh /opt/zimbra/rm_message.sh admin@mail2.infowize.com.tw Disk"
 /bin/su - zimbra -c "zmmailbox -z -m admin@mail2.infowize.com.tw gaf"
 
-delivery temporarily suspended: connect to mail2.infowize.com.tw[122.116.223.114]:7025: connection timed out (101 郵件)
+delivery temporarily suspended: connect to mail2.infowize.com.tw[122.116.223.1
+
+su - zimbra -c "zmlocalconfig -e zmstat_df_excludes="/dev/loop0:/dev/loop23"" 
+zmlocalconfig -e zmstat_df_excludes="/dev/loop0:/dev/loop1:/dev/loop2:/dev/loop3:/dev/loop4:/dev/loop5:/dev/loop6:/dev/loop7:/dev/loop8:/dev/loop9:/dev/loop10:/dev/loop11:/dev/loop12:/dev/loop13:/dev/loop14"
 
