@@ -139,58 +139,20 @@ zimbraldap 一台
 ########################
 2022.06.08 有空新建VMs lab for gitlab  || ubuntu22D for oh my zsh || UCS deploy 測試
 ########################
-# 192.168.10.122:8072 cn=admin,dn=infowize,dn=com,dn=tw | password  <389>
-
-ldapsearch -x -H ldap://192.168.10.122 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
-ldapsearch -x -H "ldap://192.168.10.122" -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password "(&(objectClass=person)(uid=kiki))"
-
-ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w admin_pass
-ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w admin_pass "(&(objectClass=person)(uid=kiki))"
-
-sup01 | 1qaz#EDC
-
-(|(objectclass=inetOrgPerson))
-(&(|(objectclass=inetOrgPerson))(uid=%uid))
-(uid=%u)
-cn=Users,dc=infowize,dc=com,dc=tw
-cn=Groups,dc=infowize,dc=com,dc=tw
-
-getent passwd
-getent group
-wbinfo -u *Lists all domain users
-wbinfo -g *Lists all domain groups
-wbinfo -a "username"%"password"
-########################
-pdbedit -L * List db of SAMBA users
-midclt call ldap.config
-midclt call ldap.get_state
-midclt call ldap.get_root_DSE
-service nslcd onestatus
-midclt call ldap.get_nslcd_status
-########################
 122 ldap  A = ID / G = group 
 103 freenas <local account to share folder>
 @jackson<ID> + itadm<ID|ITewsn1234> => itadm <group>
 @sup <ID | 1qaz#EDC> + sup1 <ID| 1qaz@WSX> + jackson +itadm => sup <group>
 
-*sup  => sup<group>
-*sup2 => sup<group>
-*eng  => itadm <group>
 ########################
 ## 連線 SMB share 帳戶未成，重啟 SMB 服務
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
 ########################
-
 zmstatctl restart 
-/bin/su - zimbra -c "指令"
-zmmailbox -z -m admin@mail2.infowize.com.tw emptyFolder /[inbox][chats][sent][drafts][junk][trash]
+su - zimbra -c "指令"
 
-/bin/su - zimbra -c "sh /opt/zimbra/rm_message.sh admin@mail2.infowize.com.tw Disk"
-/bin/su - zimbra -c "zmmailbox -z -m admin@mail2.infowize.com.tw gaf"
 
-delivery temporarily suspended: connect to mail2.infowize.com.tw[122.116.223.1
 
-su - zimbra -c "zmlocalconfig -e zmstat_df_excludes="/dev/loop0:/dev/loop23"" 
-zmlocalconfig -e zmstat_df_excludes="/dev/loop0:/dev/loop1:/dev/loop2:/dev/loop3:/dev/loop4:/dev/loop5:/dev/loop6:/dev/loop7:/dev/loop8:/dev/loop9:/dev/loop10:/dev/loop11:/dev/loop12:/dev/loop13:/dev/loop14"
+
 
