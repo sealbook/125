@@ -143,16 +143,44 @@ zimbraldap 一台
 103 freenas <local account to share folder>
 @jackson<ID> + itadm<ID|ITewsn1234> => itadm <group>
 @sup <ID | 1qaz#EDC> + sup1 <ID| 1qaz@WSX> + jackson +itadm => sup <group>
-
 ########################
 ## 連線 SMB share 帳戶未成，重啟 SMB 服務
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
 ########################
-zmstatctl restart 
+/opt/zimbra/libexec/zmfixperms
 su - zimbra -c "指令"
+chown -R zimbra:zimbra /opt/zimbra/backup
+##
+issue101：lab 137 oxoffice 內建 docker nextcloud22 <同一個node>
+issue102：Gsuite 與現行 mail2切換流程 <預計執行日 ?>
+#############################
+7月進度，app測試 for nextcloud / zimbra app login by ldap
+ldap user 可以自行修改密碼 <docker UI>
+寄信含檔 7 mb nextcould 連結 <look like fault>
 
+1.1 LDAp的設定問題  < updatepass.ldif >
+ldapmodify -Y EXTERNAL -H ldapi:/// -f updatepass.ldif 
 
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcAccess
+olcAccess: to attrs=userPassword
+        by self =xw
+        by anonymous auth
+        by * none
 
+olcAccess: to *
+        by self write
+        by users read
+        by * none
 
+1.2 SSP的設定問題
+https://github.com/ltb-project/self-service-password
+沒有docker，維運與設定不易，不考慮
+https://github.com/tiredofit/docker-self-service-password
+有docker，維運與設定失利，考慮中<資料多!？>
+Docker部署LDAP自助密码服务self-service-password
+https://www.codeleading.com/article/73435745311/
+docker-compose启动Ldap+web管理+自助密码修改
 

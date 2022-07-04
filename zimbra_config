@@ -1,0 +1,41 @@
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_java_home='/opt/zimbra/common/lib/jvm/java' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_server_hostname='mail2.infowize.com.tw' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_require_interprocess_security='1' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ldap_master_url='ldap://mail2.infowize.com.tw:389' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ldap_url='ldap://mail2.infowize.com.tw:389' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ldap_starttls_supported='1' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_zmprov_default_to_ldap='false' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ldap_port='389' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ldap_host='mail2.infowize.com.tw' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_uid='998' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_gid='998' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_user='zimbra' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e av_notify_user='admin@mail2.infowize.com.tw' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e av_notify_domain='mail2.infowize.com.tw' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ssl_allow_untrusted_certs='true' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ssl_allow_mismatched_certs='true' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ssl_default_digest='sha256' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_java_heap_size='1996' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_directory='/opt/zimbra/mailboxd' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_keystore='/opt/zimbra/mailboxd/etc/keystore' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_server='jetty' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_truststore='/opt/zimbra/common/lib/jvm/java/lib/security/cacerts' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_truststore_password='changeit' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_keystore_password='xf6xpb1TPm' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_ldap_userdn='uid=zimbra,cn=admins,cn=zimbra' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_mail_service_port='8080' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e postfix_mail_owner='postfix' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e postfix_setgid_group='postdrop' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e smtp_source='admin@mail2.infowize.com.tw' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e smtp_destination='admin@mail2.infowize.com.tw' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e snmp_notify='yes' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e smtp_notify='yes' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e snmp_trap_host='mail2.infowize.com.tw' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -u trial_expiration_date
+/opt/zimbra/bin/zmlocalconfig -f -e ssl_allow_untrusted_certs='false' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zmtrainsa_cleanup_host='true' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e mailboxd_java_options='-server -Dhttps.protocols=TLSv1.2,TLSv1.3 -Djdk.tls.client.protocols=TLSv1.2,TLSv1.3 -Djava.awt.headless=true -Dsun.net.inetaddr.ttl=\${networkaddress_cache_ttl} -Dorg.apache.jasper.compiler.disablejsr199=true -XX:+UseG1GC -XX:SoftRefLRUPolicyMSPerMB=1 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=15 -XX:G1MaxNewSizePercent=45 -XX:-OmitStackTraceInFastThrow -verbose:gc -Xlog:gc*=info,safepoint=info:file=/opt/zimbra/log/gc.log:time:filecount=20,filesize=10m -Djava.net.preferIPv4Stack=true' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e zimbra_zmjava_options='-Xmx256m -Dhttps.protocols=TLSv1.2,TLSv1.3 -Djdk.tls.client.protocols=TLSv1.2,TLSv1.3 -Djava.net.preferIPv4Stack=true' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ldap_common_tlsciphersuite='!aNULL:!eNULL:!RC4:!DES:!3DES:MEDIUM:HIGH' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e ldap_common_tlsprotocolmin='3.3' 2> /dev/null
+/opt/zimbra/bin/zmlocalconfig -f -e amavis_sslversion='!TLSv1' 2> /dev/null

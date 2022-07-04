@@ -1,5 +1,4 @@
 version: '3.3'
-
 services:
   openldap:
     container_name: openldap
@@ -18,7 +17,7 @@ services:
     ports:
       - 389:389
       - 636:636
-
+  
   phpldapadmin:
     container_name: openldap-WUI
     image: osixia/phpldapadmin:0.9.0
@@ -27,6 +26,31 @@ services:
       TZ: Asia/Taipei
       PHPLDAPADMIN_LDAP_HOSTS: openldap
     ports:
-      - 6443:443     
+      - 6443:443    
+      
+  self-service-password:
+    container_name: openldap-SSP
+    image: tiredofit/self-service-password:5.2.3
+    restart: always
+    environment:
+      LDAP_SERVER: "ldap://192.168.10.127:389"   # ldap地址
+      LDAP_BINDDN: "cn=admin,dc=infowize,dc=com,dc=tw"  # admin
+      LDAP_BINDPASS: "passowrd"
+      LDAP_BASE_SEARCH: "cn=Users,dc=infowize,dc=com,dc=tw"  # 搜索用戶的基礎路徑
+      MAIL_FROM: "theo@infowize.com.tw"       # 修改密碼的郵件通知來源地址
+      SMTP_DEBUG: 0
+      SMTP_HOST: "smtp.gmail.com"     # 郵箱的發件服務器地址
+      SMTP_USER: "nas@infowize.com.tw"         # 郵箱地址
+      SMTP_PASS: "csd123"         # 郵箱密碼
+      SMTP_PORT: "465"            # 郵箱的發件服務器端口
+      SMTP_SECURE_TYPE: ssl       # SMTP安全类型
+      SMTP_AUTH_ON: "true"          # 是否通過郵箱地址和密碼做身份驗證
+      PASSWORD_MIN_LENGTH: 8      # 密碼最小長度
+    volumes:
+      - /opt/lapd/ssp/data:/www/ssp
+      - /opt/lapd/ssp/logs:/www/logs
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 8081:80
 # ldapsearch -x -H ldap://192.168.10.127 -b "dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
 #https://www.antio.top/pages/a3a305/#%E8%83%8C%E6%99%AF

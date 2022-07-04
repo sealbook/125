@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  self-service-password:
+    container_name: openldap-SSP
+    image: tiredofit/self-service-password:latest
+    restart: always
+    environment:
+      - LDAP_SERVER=ldap://192.168.10.127:389
+      - LDAP_BINDDN=cn=admin,dc=infowize,dc=com,dc=tw
+      - LDAP_BINDPASS=passowrd
+      - LDAP_BASE_SEARCH=ou=users,dc=infowize,dc=com,dc=tw
+      - LDAP_LOGIN_ATTRIBUTE=uid
+      - MAIL_FROM=admin@mail2.infowize.com.tw
+      - SMTP_DEBUG=0
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_USER=nas@infowize.com.tw
+      - SMTP_PASS=csd123
+      - SMTP_PORT=465
+      - SMTP_SECURE_TYPE=ssl
+      - SMTP_AUTH_ON=true
+      - PASSWORD_MIN_LENGTH=8
+    volumes:
+      - /opt/ssp/data:/www/ssp
+      - /opt/ssp/logs:/www/logs
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 8081:80
+  
+# ldapsearch -x -H ldap://192.168.10.127 -b "ou=users,dc=infowize,dc=com,dc=tw" -D "cn=admin,dc=infowize,dc=com,dc=tw" -w password
