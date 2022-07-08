@@ -10,15 +10,15 @@ services:
     ports:
       - 8888:80
     environment:
-      - VIRTUAL_HOST=http://192.168.10.127
+      - VIRTUAL_HOST=http://192.168.10.122
       - VIRTUAL_NETWORK=nginx-proxy
-      - LETSENCRYPT_HOST=192.168.10.127
+      - LETSENCRYPT_HOST=192.168.10.122
       - LETSENCRYPT_EMAIL=theo@mail2.infowize.com.tw
-      - LDAP_SERVER=ldap://192.168.10.127:389
+      - LDAP_SERVER=ldap://192.168.10.122:389
       - LDAP_STARTTLS=false
       - LDAP_BINDDN=cn=admin,dc=infowize,dc=com,dc=tw
       - LDAP_BINDPASS=password
-      - LDAP_BASE_SEARCH=ou=users,dc=infowize,dc=com,dc=tw
+      - LDAP_BASE_SEARCH=cn=Users,dc=infowize,dc=com,dc=tw
       - LDAP_LOGIN_ATTRIBUTE=uid
       - LDAP_FULLNAME_ATTRIBUTE=cn
 # Active Directory mode
@@ -110,7 +110,7 @@ services:
       - SHOW_HELP=true
 # Language
 #     - LANG=en
-      - LANG=tr
+      - LANG=zh-TW
 # Debug mode
       - DEBUG_MODE=false
 # Encryption, decryption keyphrase

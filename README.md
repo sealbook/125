@@ -155,5 +155,15 @@ chown -R zimbra:zimbra /opt/zimbra/backup
 issue101：lab 137 oxoffice 內建 docker nextcloud22 <同一個node>
 issue102：Gsuite 與現行 mail2切換流程 <預計執行日 ?>
 #############################
-7月進度，app測試 for nextcloud / zimbra app login by ldap
-寄信含檔 7 mb nextcould 連結 <look like fault>
+<Mail transfer agant | MTA > smtp 已有服務，smtp 驗證id/pw
+zmprov getServer mail2.infowize.com.tw |  grep  Auth
+** zmprov modifyServer mail2.infowize.com.tw zimbraMtaTlsAuthOnly FALSE
+127.0.0.0/8
+
+????? <ssl tls>
+SMTP <potocol>
+telnet 192.168.10.130 25
+telnet mail.infowize.com.tw 25 
+465
+587
+返回起始點
