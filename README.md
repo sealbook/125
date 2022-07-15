@@ -166,11 +166,20 @@ getent group  || work
 *** nas WUI cant show account  || 重點 < 要加入本地group >
 sid /gid ??
 #############################
-## version freenas 13
-face issue 01： showmount -e IP 出現 Export list for IP 顯示 nas samba 啟動異常 ??
+## version freenas 13 to version freenas 11u5 for production
+face issue 01： showmount -e IP 出現 Export list for IP 顯示 < only for nfs >
 face issue 02： LDAP 加入後 <getent passwd/group 能顯示> 如何驗證 ?? ssh login <可行>
 face issue 03： ldap 加入後，sambe 即異常，表現為 \\192.168.10.135 看不到share 
-samba 服務未啟動<disable> <WUI/CLI 皆是>
+samba 服務未啟動<disable> <WUI/CLI 皆是> <因為lab 版本為13，改用版本 11，可同時啟用 openfldap/samba>
+face issue 04：延伸 samba 設定與ldap 認證的問題，要一一驗證
+face issue 401：freenas\theo+ pw 可登入，但 onwer nobody | 權限不對 ???? bernice 也可 login
+face issue 402：目前僅能從everyone auth 通過，造成owner nobody ，權限無法控管…
+*face issue 403：share Dir < owner| group > == ACL user group every <full control ??>
+*face issue 404：openldap samba schema 對 freenas 相容問題 <測試其他 ucs ?? for jason >
+fact situation：openldap 連線，getent passwd/group 可查詢，
+				dateset <owner group 權限> 可選 adminer
+				local master leave unset when ldap || NTLMv1 Auth enable  < service=samba >
+				net use IP /delete <freenas\theo+ pw 可登入，但 onwer | 權限不對>
 
 mount -t cifs //10.1.2.3/c$ -o username=theo -o password=ITewsn1234 -o vers=1.0 mnt
 service samba_server onestart
@@ -179,3 +188,5 @@ cat /etc/rc.conf
 /usr/local/etc/rc.d/samba_server onestatus
 [fast|force|one|quiet]
 (start|stop|restart|rcvar|enable|disable|delete|enabled|describe|extracommands|status)
+
+ntlm auth = yes
