@@ -137,7 +137,7 @@ proxy 一台
 mailstore 一台
 zimbraldap 一台
 ########################
-2022.06.08 有空新建VMs lab for gitlab  || ubuntu22D for oh my zsh || UCS deploy 測試
+2022.06.08 有空新建VMs lab for gitlab  || UCS deploy 測試
 ########################
 122 ldap  A = ID / G = group 
 103 freenas <local account to share folder>
@@ -153,17 +153,29 @@ su - zimbra -c "指令"
 chown -R zimbra:zimbra /opt/zimbra/backup
 ##
 issue101：lab 137 oxoffice 內建 docker nextcloud22 <同一個node>
-issue102：Gsuite 與現行 mail2切換流程 <預計執行日 ?>
+issue201：G-suite 與現行 mail2切換流程 <預計執行日 ?>
+< 是從 mail2.infowize.com.tw to infowize.com.tw ??> <pchome =domain || 130 DNS hostname >
+issue301：同步 or 備份 gmail 信件
+issue401：ldap for 103 wui get it to < use >
 #############################
-<Mail transfer agant | MTA > smtp 已有服務，smtp 驗證id/pw
-zmprov getServer mail2.infowize.com.tw |  grep  Auth
-** zmprov modifyServer mail2.infowize.com.tw zimbraMtaTlsAuthOnly FALSE
-127.0.0.0/8
+net ads info
+wbinfo -u || fail
 
-????? <ssl tls>
-SMTP <potocol>
-telnet 192.168.10.130 25
-telnet mail.infowize.com.tw 25 
-465
-587
-返回起始點
+getent passwd || work
+getent group  || work
+*** nas WUI cant show account  || 重點 < 要加入本地group >
+sid /gid ??
+#############################
+## version freenas 13
+face issue 01： showmount -e IP 出現 Export list for IP 顯示 nas samba 啟動異常 ??
+face issue 02： LDAP 加入後 <getent passwd/group 能顯示> 如何驗證 ?? ssh login <可行>
+face issue 03： ldap 加入後，sambe 即異常，表現為 \\192.168.10.135 看不到share 
+samba 服務未啟動<disable> <WUI/CLI 皆是>
+
+mount -t cifs //10.1.2.3/c$ -o username=theo -o password=ITewsn1234 -o vers=1.0 mnt
+service samba_server onestart
+service samba_server status
+cat /etc/rc.conf
+/usr/local/etc/rc.d/samba_server onestatus
+[fast|force|one|quiet]
+(start|stop|restart|rcvar|enable|disable|delete|enabled|describe|extracommands|status)

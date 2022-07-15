@@ -25,10 +25,6 @@ docker run -d -p 8001:8001 -p 9000:9000 --name=portainer --restart=always -v /va
 rm -f /tmp/daily.csv
 find . -name 'Thumbs.db' -print -delete
 #########################################################
-wp.infowize.com.tw
-http://192.168.10.122:81
-接案網頁 <wordpress，沒有合適模板，like osticket>
-<會員 接案網頁 媒合…暫停>
 ##啟動 winsvr 評估版to 正式版cmd
 DISM /online /Set-Edition:ServerStandard /ProductKey:8NJ2V-XJ964-233GQ-C6QMT-H8T34 /AcceptEula
 #########################################################
