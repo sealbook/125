@@ -163,10 +163,16 @@ wbinfo -u || fail
 
 getent passwd || work
 getent group  || work
-*** nas WUI cant show account  || 重點 < 要加入本地group >
+*** nas WUI account 可以當owner || 重點 < 要加入本地group | 方法 ??> 
 sid /gid ??
+## 轉移 gmail 信件 <theo@infowize.com.tw  to theo@mail2.infowize.com.tw>
+## labbing test step by step 
 #############################
 ## version freenas 13 to version freenas 11u5 for production
+## 是否為openldap 與 freenas 有非相容性 <ver 12/13，情形是否往更不相容前進>
+## 版本測試 13 to 11 to 9 ?? <13 無法同時啟動samba/ldap 11 可同時啟動但無法在share dir auth>
+## 查看 status < smbd || winbindd not running>
+## 換其他ldap <ipa /ucs ?? 測試可否相容 認證與權限控管>
 face issue 01： showmount -e IP 出現 Export list for IP 顯示 < only for nfs >
 face issue 02： LDAP 加入後 <getent passwd/group 能顯示> 如何驗證 ?? ssh login <可行>
 face issue 03： ldap 加入後，sambe 即異常，表現為 \\192.168.10.135 看不到share 
@@ -180,6 +186,7 @@ fact situation：openldap 連線，getent passwd/group 可查詢，
 				dateset <owner group 權限> 可選 adminer
 				local master leave unset when ldap || NTLMv1 Auth enable  < service=samba >
 				net use IP /delete <freenas\theo+ pw 可登入，但 onwer | 權限不對>
+id <username> <on freenas驗證查詢> 
 
 mount -t cifs //10.1.2.3/c$ -o username=theo -o password=ITewsn1234 -o vers=1.0 mnt
 service samba_server onestart
@@ -190,3 +197,23 @@ cat /etc/rc.conf
 (start|stop|restart|rcvar|enable|disable|delete|enabled|describe|extracommands|status)
 
 ntlm auth = yes
+midclt call ldap.get_samba_domains   <samba_domains=smb ???>
+#############################
+install app
+Active Directory-compatible Domain Controller
+ver 9.10 == wbinfo -u success <set ca138 ???>
+ver 11   == lab 測試
+next level == samba
+
+<IBurst | 6 |10>
+0.freebsd.pool.ntp.org
+1.freebsd.pool.ntp.org
+2.freebsd.pool.ntp.org
+#############################
+Key configuration steps in their service that I noticed were:
+1) checking "Configure Samba Authentication" under Directories/LDAP.
+ Note the WORKGROUP and verify that it FreeNAS is configured with the same workgroup 
+ (this should be auto-detected).
+
+2) Samba Service Account DN must be our binddn.
+3) Samba Service Account must be a "LDAP Bind DN" and a "Samba Service Account"
