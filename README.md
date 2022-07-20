@@ -116,28 +116,7 @@ Thu  @開啟gmail 低安全性，開放第三方產品連線<nextcloud mail 插�
 	 @ 找到 OpenLDAP 無法import 的原因，試作成功，但會造成share folder 斷線
 	 @ 小心測試
 ########################
-12:23 Chris Hsiang 所以我最後改用 samba4ad (特規 LDAP
-12:23 麥詩 為了windows 10用戶端?
-12:23 Chris Hsiang 一樣把 Windows 10 client 加入到 samba4ad domain
-12:23 Chris Hsiang 但是它的 ad 版本只是 2008喲
-12:24 Chris Hsiang samba4ad 都是放在 lxc 裡面而已
-12:25 Chris Hsiang 也有 primary ad 跟 secondary ad 之間 sync
-12:25 麥詩 嗯...這樣的坑...如果這只是分歧的TREE 不就坑更大.
-12:25 Chris Hsiang 最多 tree 就好 別弄 forest
-12:26 Chris Hsiang 好處是 windows login 跟 zimbra login 帳號同步
-12:26 Chris Hsiang 這個超級重要
-12:26 Chris Hsiang 而且還能透過 email 認證模式 修改 密碼
-12:27 Chris Hsiang 連 nextcloud 認證都是同一個
-12:27 Chris Hsiang 我是認為比較好的 single signon 的方式
-12:27 養貓的陌生人 SSO肯定要啊
-
-Centos 83+Sendmail+Roundcube
-你可以 分 功能拆
-proxy 一台
-mailstore 一台
-zimbraldap 一台
-########################
-2022.06.08 有空新建VMs lab for gitlab  || UCS deploy 測試
+2022.06.08 有空新建VMs lab for gitlab
 ########################
 122 ldap  A = ID / G = group 
 103 freenas <local account to share folder>
@@ -147,6 +126,7 @@ zimbraldap 一台
 ## 連線 SMB share 帳戶未成，重啟 SMB 服務
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
+
 ########################
 /opt/zimbra/libexec/zmfixperms
 su - zimbra -c "指令"
@@ -158,62 +138,8 @@ issue201：G-suite 與現行 mail2切換流程 <預計執行日 ?>
 issue301：同步 or 備份 gmail 信件
 issue401：ldap for 103 wui get it to < use >
 #############################
-net ads info
-wbinfo -u || fail
-
-getent passwd || work
-getent group  || work
-*** nas WUI account 可以當owner || 重點 < 要加入本地group | 方法 ??> 
-sid /gid ??
 ## 轉移 gmail 信件 <theo@infowize.com.tw  to theo@mail2.infowize.com.tw>
 ## labbing test step by step 
 #############################
-## version freenas 13 to version freenas 11u5 for production
-## 是否為openldap 與 freenas 有非相容性 <ver 12/13，情形是否往更不相容前進>
-## 版本測試 13 to 11 to 9 ?? <13 無法同時啟動samba/ldap 11 可同時啟動但無法在share dir auth>
-## 查看 status < smbd || winbindd not running>
-## 換其他ldap <ipa /ucs ?? 測試可否相容 認證與權限控管>
-face issue 01： showmount -e IP 出現 Export list for IP 顯示 < only for nfs >
-face issue 02： LDAP 加入後 <getent passwd/group 能顯示> 如何驗證 ?? ssh login <可行>
-face issue 03： ldap 加入後，sambe 即異常，表現為 \\192.168.10.135 看不到share 
-samba 服務未啟動<disable> <WUI/CLI 皆是> <因為lab 版本為13，改用版本 11，可同時啟用 openfldap/samba>
-face issue 04：延伸 samba 設定與ldap 認證的問題，要一一驗證
-face issue 401：freenas\theo+ pw 可登入，但 onwer nobody | 權限不對 ???? bernice 也可 login
-face issue 402：目前僅能從everyone auth 通過，造成owner nobody ，權限無法控管…
-*face issue 403：share Dir < owner| group > == ACL user group every <full control ??>
-*face issue 404：openldap samba schema 對 freenas 相容問題 <測試其他 ucs ?? for jason >
-fact situation：openldap 連線，getent passwd/group 可查詢，
-				dateset <owner group 權限> 可選 adminer
-				local master leave unset when ldap || NTLMv1 Auth enable  < service=samba >
-				net use IP /delete <freenas\theo+ pw 可登入，但 onwer | 權限不對>
-id <username> <on freenas驗證查詢> 
-
-mount -t cifs //10.1.2.3/c$ -o username=theo -o password=ITewsn1234 -o vers=1.0 mnt
-service samba_server onestart
-service samba_server status
-cat /etc/rc.conf
-/usr/local/etc/rc.d/samba_server onestatus
-[fast|force|one|quiet]
-(start|stop|restart|rcvar|enable|disable|delete|enabled|describe|extracommands|status)
-
-ntlm auth = yes
-midclt call ldap.get_samba_domains   <samba_domains=smb ???>
-#############################
-install app
-Active Directory-compatible Domain Controller
-ver 9.10 == wbinfo -u success <set ca138 ???>
-ver 11   == lab 測試
-next level == samba
-
-<IBurst | 6 |10>
-0.freebsd.pool.ntp.org
-1.freebsd.pool.ntp.org
-2.freebsd.pool.ntp.org
-#############################
-Key configuration steps in their service that I noticed were:
-1) checking "Configure Samba Authentication" under Directories/LDAP.
- Note the WORKGROUP and verify that it FreeNAS is configured with the same workgroup 
- (this should be auto-detected).
-
-2) Samba Service Account DN must be our binddn.
-3) Samba Service Account must be a "LDAP Bind DN" and a "Samba Service Account"
+next level == UCS for ldap DN /bn /search / match for zimbra & nextcloud  ??
+final labbing for  UCS NEXTcloud plug word online writer ??
