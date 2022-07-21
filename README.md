@@ -141,5 +141,7 @@ issue401：ldap for 103 wui get it to < use >
 ## 轉移 gmail 信件 <theo@infowize.com.tw  to theo@mail2.infowize.com.tw>
 ## labbing test step by step 
 #############################
-next level == UCS for ldap DN /bn /search / match for zimbra & nextcloud  ??
 final labbing for  UCS NEXTcloud plug word online writer ??
+
+issue 201：mail server 設定 ??? <smtp test>
+issue 301：同步gmail to 132 zimbra <labbing>
