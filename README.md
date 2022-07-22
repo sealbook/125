@@ -126,22 +126,29 @@ Thu  @開啟gmail 低安全性，開放第三方產品連線<nextcloud mail 插�
 ## 連線 SMB share 帳戶未成，重啟 SMB 服務
 net stop LanmanWorkstation /y  
 net start LanmanWorkstation
-
 ########################
 /opt/zimbra/libexec/zmfixperms
 su - zimbra -c "指令"
 chown -R zimbra:zimbra /opt/zimbra/backup
-##
-issue101：lab 137 oxoffice 內建 docker nextcloud22 <同一個node>
-issue201：G-suite 與現行 mail2切換流程 <預計執行日 ?>
+########################
+issue101：lab 137 oxoffice 內建 docker nextcloud22 <同一個node> <目標修正>
+          oxoffice 應用放棄，update 至2022，未至nextcloud 一起前進
+		  ** 轉換至 ucs 內建的 nextcloud 與其他 共筆office 
+issue201：G-suite 與現行 mail2切換流程
 < 是從 mail2.infowize.com.tw to infowize.com.tw ??> <pchome =domain || 130 DNS hostname >
 issue301：同步 or 備份 gmail 信件
-issue401：ldap for 103 wui get it to < use >
 #############################
-## 轉移 gmail 信件 <theo@infowize.com.tw  to theo@mail2.infowize.com.tw>
+## 轉移 gmail 信件 <theo@infowize.com.tw  to theo@mail2.infowize.com.tw> 
+   要求jcwang 開放權限 ?? 可行嗎??
 ## labbing test step by step 
 #############################
 final labbing for  UCS NEXTcloud plug word online writer ??
 
-issue 201：mail server 設定 ??? <smtp test>
-issue 301：同步gmail to 132 zimbra <labbing>
+issue 201：mail server 設定 ?? < smtp replay to mail2 fail ?? ><內外不同>
+issue 301：同步gmail to 132 zimbra <labbing><gsuite two step auth need to open>
+<got you back || 權限不夠>
+
+web reference
+https://docs.software-univention.de/manual/5.0/en/mail/index.html
+https://sourceforge.net/p/univentioncorporateserver/blog/2018/08/briefly--set-up-a-ucs-mail-server-as-a-central-it-service/
+
