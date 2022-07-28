@@ -140,15 +140,29 @@ issue301：同步 or 備份 gmail 信件
 #############################
 ## 轉移 gmail 信件 <theo@infowize.com.tw  to theo@mail2.infowize.com.tw> 
    要求jcwang 開放權限 ?? 可行嗎??
-## labbing test step by step 
+## labbing test step by step
 #############################
 final labbing for  UCS NEXTcloud plug word online writer ??
-
 issue 201：mail server 設定 ?? < smtp replay to mail2 fail ?? ><內外不同>
 issue 301：同步gmail to 132 zimbra <labbing><gsuite two step auth need to open>
 <got you back || 權限不夠>
-
-web reference
+issue 401：win10 採用第三組 dns ??
+ 
+web reference for mailserver
 https://docs.software-univention.de/manual/5.0/en/mail/index.html
 https://sourceforge.net/p/univentioncorporateserver/blog/2018/08/briefly--set-up-a-ucs-mail-server-as-a-central-it-service/
+
+
+ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "cn=Administrator,cn=users,dc=infowize,dc=intra" -w ITewsn1234 "uid=theo"
+
+win+r
+lusrmgr.msc
+將domain user 加入本機 administrator 群組
+
+
+ldap://192.168.10.231
+cn=Administrator,cn=users,dc=infowize,dc=intra
+dc=infowize,dc=intra
+(|(objectclass=person))
+(&(|(objectclass=person))(|(samaccountname=%uid)(|(mailPrimaryAddress=%uid)(mail=%uid))))
 
