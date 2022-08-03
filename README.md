@@ -131,6 +131,15 @@ net start LanmanWorkstation
 su - zimbra -c "指令"
 chown -R zimbra:zimbra /opt/zimbra/backup
 ########################
+game today
+cc：form food to 35XXX~36000
+fgo：get memory last
+
+########################
+rule 01：<換位思考> 從預期成果 一步步回推達成條件與投入方式，即推演情況roadmap <tree>
+rule 02：<甲方情緒> 沒有看前顧後，做事粗手粗腳，容易讓人炸毛
+follower：zimbra 9 官方repo，是否可以正常更新後，重啟所有服務
+2022.08.03 VMs test upgrade fail
 issue101：lab 137 oxoffice 內建 docker nextcloud22 <同一個node> <目標修正>
           oxoffice 應用放棄，update 至2022，未至nextcloud 一起前進
 		  ** 轉換至 ucs 內建的 nextcloud 與其他 共筆office 
@@ -152,3 +161,24 @@ https://docs.software-univention.de/manual/5.0/en/mail/index.html
 https://sourceforge.net/p/univentioncorporateserver/blog/2018/08/briefly--set-up-a-ucs-mail-server-as-a-central-it-service/
 
 ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "cn=Administrator,cn=users,dc=infowize,dc=intra" -w ITewsn1234 "uid=theo"
+
+project 01 back to front
+step 1 幫kiki 多用一台pc by w10 pro <可以加網域 for 163|103> <實機/虛機 ?/remote>
+<sup3,theo,elaine done || jackson,kiki,bernice yet>
+step 2 確認沒有在跑 gpu <by NFS>，但因change ACL <不要同時執行>
+step 3 jackson change profile 適應問題
+project 02 timing timing change
+step 1 同步gmail <權限沒開>
+step 2 zimbra 改domain <mail2.infowize.com.tw> to <infowize.com.tw>
+<流程測試??> <功能是rename or add 2nd domain>
+
+web reference for zimbra
+https://wiki.zimbra.com/wiki/ZmSetServerName
+
+印
+沙
+果
+魚
+排
+手
+壓
