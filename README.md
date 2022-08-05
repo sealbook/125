@@ -162,23 +162,30 @@ https://sourceforge.net/p/univentioncorporateserver/blog/2018/08/briefly--set-up
 
 ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "cn=Administrator,cn=users,dc=infowize,dc=intra" -w ITewsn1234 "uid=theo"
 
-project 01 back to front
-step 1 幫kiki 多用一台pc by w10 pro <可以加網域 for 163|103> <實機/虛機 ?/remote>
-<sup3,theo,elaine done || jackson,kiki,bernice yet>
-step 2 確認沒有在跑 gpu <by NFS>，但因change ACL <不要同時執行>
-step 3 jackson change profile 適應問題
-project 02 timing timing change
-step 1 同步gmail <權限沒開>
-step 2 zimbra 改domain <mail2.infowize.com.tw> to <infowize.com.tw>
-<流程測試??> <功能是rename or add 2nd domain>
+◇  project 01 back to front
+	step 1 幫kiki 多用一台pc by w10 pro <可以加網域 for 163|103> <實機/虛機 ?/remote>
+	<sup3,theo,elaine,bernice done || jackson,kiki yet><win10 home 用更新升級免重灌>
+	step 2 確認沒有在跑 gpu <by NFS>，但因change ACL <不要同時執行><更改103 NAS設定>
+	◆ step 3 jackson change profile 適應問題
+
+◇ project 02 timing timing change
+	step 1 同步gmail <權限沒開>
+	step 2 zimbra 改domain <mail2.infowize.com.tw> to <infowize.com.tw>
+	<流程測試??> <功能是rename or add 2nd domain>
+
+◇ project 03 <zimbra9 OSE> rename domain mail2.infowize.com.tw to infowize.com.tw
+目前分二階段，一是改 domain name by cil，二是改hostname </etc/hosts /etc/hostname dns>
+	◇ subgoal 01 ：改完 servername後，能正常運作且能重啟
+	https://wiki.zimbra.com/wiki/ZmSetServerName  成功
+	zmprov gacf | grep mail2.infowize.com.tw
+	zmprov gs `zmhostname` | grep mail2.infowize.com.tw
+	zmlocalconfig | grep mail2.infowize.com.tw
+	仍有些許config 未改，會影響嗎？
+	◇ subgoal 02 ：改完 domain 後，能正常運作且能重啟
+	zmprov -l renamedomain mail2.infowize.com.tw infowize.com.tw
+	◇ subgoal 03 ：確認上述二者順序與作業流程
+	◆ 驗證設定有效：能寄信收信，domain 顯示為infowize.com.tw 而非 mail2.infowize.com.tw
 
 web reference for zimbra
-https://wiki.zimbra.com/wiki/ZmSetServerName
-
-印
-沙
-果
-魚
-排
-手
-壓
+https://wiki.zimbra.com/wiki/How_to_rename_a_domain
+https://zimbra.github.io/zimbra-9/adminguide.html
