@@ -195,7 +195,6 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
 ◆ 另一種可行性：能否直接新增一種虛擬主機設定作為正式使用，而不用更改現有測試設定domain
 	若132 仍可以send & receive，lab virtual host to add alias domain~~~ ????
 
-
 web reference for zimbra
 https://wiki.zimbra.com/wiki/How_to_rename_a_domain
 https://zimbra.github.io/zimbra-9/adminguide.html

@@ -28,3 +28,9 @@ find . -name 'Thumbs.db' -print -delete
 ##啟動 winsvr 評估版to 正式版cmd
 DISM /online /Set-Edition:ServerStandard /ProductKey:8NJ2V-XJ964-233GQ-C6QMT-H8T34 /AcceptEula
 #########################################################
+step NTP for win10  1：連線 231 2：校時 3：斷線 ** system administrater
+net use \\IP或主機名稱 密碼 /user:使用者名稱 --->連線對時主機
+net time \\IP或主機名稱 /set /y --->校正時間
+net use \\IP或主機名稱 /del --->中斷連線
+** w32tm  /resync
+https://ithelp.ithome.com.tw/articles/10174201
