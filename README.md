@@ -194,7 +194,16 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
 
 ◆ 另一種可行性：能否直接新增一種虛擬主機設定作為正式使用，而不用更改現有測試設定domain
 	若132 仍可以send & receive，lab virtual host to add alias domain~~~ ????
+◆ 另一種可行性： cname 指定 domain name 詳細確認，應用方式
+現行  mail.infowize.com.tw   cname ghs.google.com.tw()  A 公司固定ip
+可否  mail2.infowize.com.tw  cname infowize.com.tw      A 公司固定ip
+如此  可直接send to  XX@infowize.com.tw
 
 web reference for zimbra
 https://wiki.zimbra.com/wiki/How_to_rename_a_domain
 https://zimbra.github.io/zimbra-9/adminguide.html
+
+◆ 
+1確認執行 robocopy ok
+◆ issue 來源，163 權限被改？folder path ？考慮檔案容量？備份內容？
+2定時執行 taskschd.msc
