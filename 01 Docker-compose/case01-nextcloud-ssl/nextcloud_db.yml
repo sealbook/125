@@ -1,9 +1,9 @@
  version: '3'
  services:
-   nextcloud-db:
+   nc-db:
 #    image: mariadb:10.1.44
-     image: mariadb:10.7
-     container_name: nextcloud-db
+     image: mariadb:10.7.4
+     container_name: nc-db
      restart: always
      environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -11,26 +11,26 @@
       - MYSQL_USER=nextcloud
       - MYSQL_PASSWORD=nextcloud
      volumes:
-      - /70stor/nas/db:/var/lib/mysql
+      - /opt/nas/db:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro
      restart: always
      networks:
       - nextcloud_net
-      
-   nextcloud-app:
+
+   nc-app:
 #    image: nextcloud:22.2.10-apache
      image: nextcloud:23.0.8-apache
-     container_name: nextcloud-app
+     container_name: nc-app
      restart: always
      ports:
       - "9681:80"
 #      - "9980:443"
      volumes:
-      - /70stor/nas/www:/var/www/html
-      - /70stor/nas/config:/var/www/html/config
-      - /70stor/nas/data:/var/www/html/data
-      - /70stor/nas/app:/var/www/html/custom_apps
-      - /70stor/nas/theme:/var/www/html/themes/mycustom
+      - /opt/nas/www:/var/www/html
+      - /opt/nas/config:/var/www/html/config
+      - /opt/nas/data:/var/www/html/data
+      - /opt/nas/app:/var/www/html/custom_apps
+      - /opt/nas/theme:/var/www/html/themes/mycustom
       - /etc/localtime:/etc/localtime:ro
      restart: always
      networks:
@@ -42,20 +42,25 @@
       - MYSQL_PASSWORD=nextcloud
      ## IP for docker mariadb 
      depends_on: # services name
-      - nextcloud-db
+      - nc-db
+      - nc-redis
 
-   redis:
-     container_name: nextcloud-redis
-     image: redis
+   nc-redis:
+     container_name: nc-redis
+     image: redis:7.0.4
      restart: always
      networks:
       - nextcloud_net
-     depends_on: # services name
-      - nextcloud-app
+     ports:
+      - "6379:6379"
+     volumes:
+      - /opt/nas/cache:/data
+      - /opt/nas/redis:/etc/redis
+     command: redis-server --requirepass '123456789'
 
  networks: # create networks first
    nextcloud_net:
 
-## mariadb info   root /secret /nextcloud /nextcloud-db
+## mariadb info   nextcloud/nextcloud/ncdb/172.18.0.2 <docker db ip>
 ## 2022.08.22 labbing 測試 nc23與改善 內網上傳慢 <小容量|多檔>
 ## after nc22 api改版連結app OXoffice 無後續對應step| abandon 

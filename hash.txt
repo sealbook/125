@@ -51,8 +51,8 @@ https://ithelp.ithome.com.tw/users/20118848/ironman/4678
 #######################
 【Vim 編輯器 配置指南】訂製個人的編輯神器
 https://ithelp.ithome.com.tw/m/articles/10258222
-
-
+自由軟體系統應用筆記
+https://kawsing.gitbook.io/opensystem/
 #######################
 FreeNAS 基本設定及加入網域後帳號/群組權限的設定方式 <2013.07>
 https://blog.dino9021.com/2013/07/freenas.html
@@ -60,3 +60,4 @@ freenas9 中文化圖解
 http://martine-tw.blogspot.com/
 TrueNAS 討論區 <官方????>
 https://ixsystems.atlassian.net/jira/software/c/projects/NAS/issues/?jql=project%20%3D%20%22NAS%22%20AND%20text%20~%20%22samba%22%20ORDER%20BY%20created%20DESC
+
