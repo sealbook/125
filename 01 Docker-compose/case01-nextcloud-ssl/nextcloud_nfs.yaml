@@ -1,0 +1,66 @@
+version: '3.2'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql
+    environment:
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud
+
+  app:
+    image: nextcloud
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - nextcloud:/var/www/html
+      - nextcloud-config:/var/www/html/config
+      - nextcloud-apps:/var/www/html/custom_apps
+      - nextcloud-themes:/var/www/html/themes
+      - nextcloud-data:/var/www/html/data
+    environment:
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud
+      - POSTGRES_HOST=db
+      - REDIS_HOST=redis
+
+  redis:
+    image: redis
+    restart: always
+
+volumes:
+  db:
+    driver_opts:
+      type: nfs
+      o: "addr=<NFS server addr>,hard,nfsvers=4"
+      device: ":/<NFS path>"
+  nextcloud:
+    driver_opts:
+      type: nfs
+      o: "addr=<NFS server addr>,hard,nfsvers=4"
+      device: ":/<NFS path>"
+  nextcloud_config:
+    driver_opts:
+      type: nfs
+      o: "addr=<NFS server addr>,hard,nfsvers=4"
+      device: ":/<NFS path>"
+  nextcloud_apps:
+    driver_opts:
+      type: nfs
+      o: "addr=<NFS server addr>,hard,nfsvers=4"
+      device: ":/<NFS path>"
+  nextcloud_themes:
+    driver_opts:
+      type: nfs
+      o: "addr=<NFS server addr>,hard,nfsvers=4"
+      device: ":/<NFS path>"
+  nextcloud_data:
+    driver_opts:
+      type: nfs
+      o: "addr=<NFS server addr>,hard,nfsvers=4"
+      device: ":/<NFS path>"

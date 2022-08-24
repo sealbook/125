@@ -1,41 +1,61 @@
  version: '3'
  services:
    nextcloud-db:
-     image: mariadb:10.1.44
+#    image: mariadb:10.1.44
+     image: mariadb:10.7
      container_name: nextcloud-db
+     restart: always
      environment:
-      - MYSQL_ROOT_PASSWORD=secret     
-      - MYSQL_DATABASE= nextcloud
-      - MYSQL_USER= nextcloud
-      - MYSQL_PASSWORD=1qaz@WSX
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ncdb
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloud
      volumes:
-      - /zvol/nc/db:/var/lib/mysql
+      - /70stor/nas/db:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+     restart: always
      networks:
       - nextcloud_net
       
    nextcloud-app:
-     image: nextcloud:19-apache
+#    image: nextcloud:22.2.10-apache
+     image: nextcloud:23.0.8-apache
      container_name: nextcloud-app
+     restart: always
      ports:
-      - "9680:80"
-      - "9980:443"
-     volumes: ## mountpoint
-      - /zvol/nc/www:/var/www/html
-      - /zvol/nc/config:/var/www/html/config
-      - /zvol/nc/data:/var/www/html/data
-      - /zvol/nc/app:/var/www/html/custom_apps
-      - /zvol/nc/theme:/var/www/html/themes/mycustom
+      - "9681:80"
+#      - "9980:443"
+     volumes:
+      - /70stor/nas/www:/var/www/html
+      - /70stor/nas/config:/var/www/html/config
+      - /70stor/nas/data:/var/www/html/data
+      - /70stor/nas/app:/var/www/html/custom_apps
+      - /70stor/nas/theme:/var/www/html/themes/mycustom
+      - /etc/localtime:/etc/localtime:ro
+     restart: always
      networks:
       - nextcloud_net
      environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE= nextcloud
-      - MYSQL_USER= nextcloud
-      - MYSQL_PASSWORD=1qaz@WSX
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ncdb
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloud
+     ## IP for docker mariadb 
      depends_on: # services name
       - nextcloud-db
-            
+
+   redis:
+     container_name: nextcloud-redis
+     image: redis
+     restart: always
+     networks:
+      - nextcloud_net
+     depends_on: # services name
+      - nextcloud-app
+
  networks: # create networks first
    nextcloud_net:
-   
+
 ## mariadb info   root /secret /nextcloud /nextcloud-db
+## 2022.08.22 labbing 測試 nc23與改善 內網上傳慢 <小容量|多檔>
+## after nc22 api改版連結app OXoffice 無後續對應step| abandon 
