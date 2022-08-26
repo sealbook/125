@@ -193,11 +193,7 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
 ◆ issue 來源，163 權限被改？folder path ？考慮檔案容量？備份內容？
 2定時執行 taskschd.msc
 
-◇ project 04 測試大容量多檔<maybe 100G ~1T> nextcloud在內網上傳慢 
-1. 調測 nextcloud 參數 <work>
-2. 新增 redis，調整體 <config.php> <check ??>
-3. mapping data to NFS <without permissio denie>
-
-web reference
-https://help.nextcloud.com/t/nextcloud-docker-move-db-and-data-to-nas-mount/47168/7 <不建議把程式主體與db 放置在 nfs but data can try >
-https://hassiweb.gitlab.io/memo/docs/memo/NAS/docker-nextcloud-nfs/
+  apt-get update -qy
+  apt-cache showpkg lftp
+  apt-get install -y lftp=4.8.1-1ubuntu0.1 --allow-downgrades
+  apt list lftp -a
