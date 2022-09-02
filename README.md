@@ -197,3 +197,19 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
   apt-cache showpkg lftp
   apt-get install -y lftp=4.8.1-1ubuntu0.1 --allow-downgrades
   apt list lftp -a
+ 
+NFS 配置中的權限壓縮
+
+all_squash:不管nfs client上是哪個用戶,在server上都降級為anonymous
+root_squash:只有nfs client上是root時,在server上降級為anonymous
+no_root_squash:nfs client上是root時,在server側也是root.
+
+簡單來說:
+一對一分享,就用no_root_squash
+一對多一般用root_squash,這樣clientA上的root就動不了ClientB放上去的東西
+all_squash一般要配合anonuid/anongid來用,這樣不管client用戶是誰在server側都是相同的身份
+
+34 32 33 
+idle 時，會有風高低運轉聲
+
+
