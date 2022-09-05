@@ -10,7 +10,8 @@ nslookup
 traceroute
 netstat -tulnp -ap 
 iftop # monitor netstat IP
-224.0.0.251
+
+nmap -v -A -sV 192.168.10.127
 ss -r -t ## OS連接IP
 lsof -i :mdns
 grep '^mdns' /etc/services
@@ -60,4 +61,3 @@ freenas9 中文化圖解
 http://martine-tw.blogspot.com/
 TrueNAS 討論區 <官方????>
 https://ixsystems.atlassian.net/jira/software/c/projects/NAS/issues/?jql=project%20%3D%20%22NAS%22%20AND%20text%20~%20%22samba%22%20ORDER%20BY%20created%20DESC
-

@@ -37,3 +37,4 @@ net time \\IP或主機名稱 /set /y --->校正時間
 net use \\IP或主機名稱 /del --->中斷連線
 ** w32tm  /resync
 https://ithelp.ithome.com.tw/articles/10174201
+#########################################################
