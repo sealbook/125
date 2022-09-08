@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.2'  ## 尚未實測 by mount NFS
 
 services:
   db:

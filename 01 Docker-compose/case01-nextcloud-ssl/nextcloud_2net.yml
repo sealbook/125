@@ -1,6 +1,7 @@
+version: '3'  ## 改版官方原型
 services:
   nc-db:
-    container_name: nc_db
+    container_name: nc-db
     image: mariadb:10.7.4
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
@@ -16,18 +17,22 @@ services:
       - MYSQL_PASSWORD=nextcloud
     expose:
       - 3306
-      
+
   nc-redis:
-    container_name: nc_redis
-    image: redis:7.0.4
+    container_name: nc-redis
+    image: redis:7.0.4-alpine
     restart: always
     networks:
       - redisnet
     expose:
       - 6379
-      
+    command: redis-server --requirepass redis_password
+## command 指容器啟動後代替默認啟動指令來啟動服務的指令
+## redis-server --requirepass 'redis_password'
+
+
   nc-app:
-    container_name: nc_app
+    container_name: nc-app
     image: nextcloud:23.0.8-apache
     restart: always
     ports:
@@ -43,12 +48,17 @@ services:
       - redisnet
       - dbnet
     environment:
-      - REDIS_HOST=nc-redis
       - MYSQL_HOST=nc-db
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_PASSWORD=nextcloud
+      - REDIS_HOST=nc-redis
+      - REDIS_HOST_PASSWORD=redis_password
+    depends_on:
+      - nc-cache
+      - nc-db
 
+## network 與 link **分別連結docker
 networks:
   dbnet:
   redisnet:

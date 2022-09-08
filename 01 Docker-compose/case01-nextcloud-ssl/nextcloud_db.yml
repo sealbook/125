@@ -1,4 +1,4 @@
- version: '3'
+ version: '3'  ## 原型
  services:
    nc-db:
 #    image: mariadb:10.1.44
