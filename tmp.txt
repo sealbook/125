@@ -3,6 +3,10 @@ time.nist.gov  # win
 118.163.81.63
 time.stdtime.gov.tw ##中華電信
 168.95.192.1 DNS
+timedatectl set-timezone CST 
+timedatectl set-timezone Asia/Taipei
+ntpdate time.windows.com  **校正時間
+重啟或重灌後服務未正常運作：ⅠⅠ■ 時間不對Ⅰ
 #########################
 useradd -d /home/itadm -s /bin/bash -g root itadm
 usermod -aG sudo itadm
