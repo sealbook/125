@@ -64,3 +64,48 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
  
 34 32 33 
 idle 時，會有風高低運轉聲
+
+
+◆ 技術債要還：Ⅲ 自建弱掃功能的軟體…？
+9/27 1730 到 桃竹苗分署，先請外出
+172.23.1.80
+high： SMB share 權限
+1：取消 guest access
+2：增加 SMB share ACL 控管
+3：hosts allow / deny <可連線 ip>
+high： SMB 版本升級 ？ <4.13.17, 4.14.12, or 4.15.5>
+1：指令 ？
+medium： SMB signing not required
+1：設定 帳號<NAS本地> AD /LDAP/NIS
+medium：ssh 加密等級不夠<使用弱算法>
+1：？
+medium：nginx 版本升級 < version 1.17.7 ><不是apache？| 都有>
+1：指令？or 升級freenas version？
+low：ssh weak algorithms enable
+1：如何禁用？
+
+172.23.1.81
+hight：iscsi all to all
+1：重設 iscsi 選項選 一對一
+medium：ssh 加密等級不夠<使用弱算法>
+medium：nginx 版本升級 < version 1.17.7 >
+1：指令？or 升級freenas version？
+low：ssh weak algorithms enable<如何禁用？>
+
+1：若在不能升級freenas version下，禁用 ssh，僅用 webUI/web CLI 操作
+cat /etc/version
+pkg info openssh-portable   <check ssh version>
+2：nginx
+httpd -v                    <check apache version>
+pkg info nginx
+pkg search nginx
+pkg install nginx
+
+webrefference
+https://www.truenas.com/community/threads/how-to-upgrade-ssh-version-on-freenas.21574/
+https://www.truenas.com/community/threads/how-to-update-openssh-and-apache-version.93269/
+https://www.cyberciti.biz/faq/how-to-install-and-upgrade-openssh-server-on-freebsd/
+firewall 設定二點<ip>對連
+https://blog.miniasp.com/post/2009/09/15/Which-ports-should-open-for-UNC-SMB-CIFS-connection
+SMB被弱點掃描判定為重大危機
+https://ithelp.ithome.com.tw/questions/10185969
