@@ -56,3 +56,18 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
 	zmprov -l renamedomain mail2.infowize.com.tw infowize.com.tw
 	after rename domain ,reboot host restart zmcontrol function work
 	look like enable
+
+
+
+
+https://yungyuc.github.io/oldtech/debian/NISConf.html
+http://bioinfo.cs.ccu.edu.tw/wiki/doku.php?id=nis
+https://sc8log.blogspot.com/2017/05/nis-server-masterslave.html
+https://it001.pixnet.net/blog/post/324192967-it%E4%BA%8B%E4%BB%B6%E7%B0%BF-%E5%BB%BA%E5%80%8Bnis%E6%9C%8D%E5%8B%99%E5%90%A7
+https://shazi.info/nis-%E5%AE%89%E8%A3%9D%E7%AD%86%E8%A8%98/
+https://www.weithenn.org/2009/07/nis.html
+https://junyonglee.me/ubuntu/nis/setting-up-NIS-for-ubuntu/#setting-up-master-server
+#################################
+https://github.com/novnc/noVNC
+https://newtoypia.blogspot.com/2018/11/novnc.html
+
