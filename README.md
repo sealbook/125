@@ -57,9 +57,9 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
 	after rename domain ,reboot host restart zmcontrol function work
 	look like enable
 
-
-
-
+#################################
+中文教程過多不協和音，看不清架構/流程，確認domainname 錯字<easy to lab >
+## NIS deploy server slave & client
 https://yungyuc.github.io/oldtech/debian/NISConf.html
 http://bioinfo.cs.ccu.edu.tw/wiki/doku.php?id=nis
 https://sc8log.blogspot.com/2017/05/nis-server-masterslave.html
@@ -67,6 +67,22 @@ https://it001.pixnet.net/blog/post/324192967-it%E4%BA%8B%E4%BB%B6%E7%B0%BF-%E5%B
 https://shazi.info/nis-%E5%AE%89%E8%A3%9D%E7%AD%86%E8%A8%98/
 https://www.weithenn.org/2009/07/nis.html
 https://junyonglee.me/ubuntu/nis/setting-up-NIS-for-ubuntu/#setting-up-master-server
+## noise   ## spell error
+https://blog.csdn.net/u014173215/article/details/108413357
+https://linuxhint.com/install_nis_server_ubuntu/
+https://www.server-world.info/en/note?os=Ubuntu_22.04&p=nis&f=1
+http://www2.yukawa.kyoto-u.ac.jp/~koudai.sugimoto/dokuwiki/doku.php?id=%E8%87%AA%E4%BD%9C%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%BF%E8%A8%88%E7%AE%97%E6%A9%9F:nis%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A
+https://www.server-world.info/en/note?os=Ubuntu_22.04&p=nis&f=1
+https://www.server-world.info/en/note?os=Ubuntu_22.04&p=nis&f=2
+https://www.server-world.info/en/note?os=Ubuntu_22.04&p=nis&f=3
+https://junyonglee.me/ubuntu/nis/setting-up-NIS-for-ubuntu/#setting-up-client
+https://linuxhint.com/install_nis_server_ubuntu/
+https://junyonglee.me/ubuntu/nis/setting-up-NIS-for-ubuntu/#setting-up-slave-server
+理論架構
+https://docstore.mik.ua/orelly/networking_2ndEd/nfs/ch03_02.htm
+http://bioinfo.cs.ccu.edu.tw/wiki/doku.php?id=nis
+https://yungyuc.github.io/oldtech/debian/NISConf.html
+https://linux.vbird.org/linux_server/centos6/0430nis.php
 #################################
 https://github.com/novnc/noVNC
 https://newtoypia.blogspot.com/2018/11/novnc.html

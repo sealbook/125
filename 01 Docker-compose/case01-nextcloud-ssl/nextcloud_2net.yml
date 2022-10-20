@@ -30,7 +30,6 @@ services:
 ## command 指容器啟動後代替默認啟動指令來啟動服務的指令
 ## redis-server --requirepass 'redis_password'
 
-
   nc-app:
     container_name: nc-app
     image: nextcloud:23.0.8-apache

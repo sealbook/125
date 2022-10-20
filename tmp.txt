@@ -7,6 +7,8 @@ timedatectl set-timezone CST
 timedatectl set-timezone Asia/Taipei
 ntpdate time.windows.com  **校正時間
 重啟或重灌後服務未正常運作：ⅠⅠ■ 時間不對Ⅰ
+Ciphers aes256-ctr
+NoneEnabled no
 #########################
 useradd -d /home/itadm -s /bin/bash -g root itadm
 usermod -aG sudo itadm
