@@ -57,6 +57,16 @@ ldapsearch -x -H ldap://192.168.10.231 -b "cn=groups,dc=infowize,dc=intra" -D "c
 	after rename domain ,reboot host restart zmcontrol function work
 	look like enable
 
+docker pull tenableofficial/nessus
+https://www.tenable.com/downloads?loginAttempted=true
+https://docs.tenable.com/nessus/Content/GetStarted.htm
+三人要保密，一個人要學好資安
+https://ithelp.ithome.com.tw/users/20141309/ironman/4776
+從0開始的學習之路 - 弱點偵測工具的使用及一些正在進行的弱點排除案例心得分享
+https://ithelp.ithome.com.tw/users/20117888/ironman/3361
+https://blog.darkthread.net/blog/setup-nessus-offline/
+
+
 #################################
 中文教程過多不協和音，看不清架構/流程，確認domainname 錯字<easy to lab >
 ## NIS deploy server slave & client
