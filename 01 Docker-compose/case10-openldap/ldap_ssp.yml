@@ -1,0 +1,147 @@
+version: '2'
+services:
+  ssp-app: ## 阿里鏡像庫 
+    image: registry.cn-hangzhou.aliyuncs.com/eryajf/self-service-password
+    container_name: openldap-ssp
+    volumes:
+      - /opt/ssp/data/:/www/ssp
+      - /opt/ssp/logs/:/www/logs
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 8888:80
+    environment:
+      - VIRTUAL_HOST=http://192.168.10.122
+      - VIRTUAL_NETWORK=nginx-proxy
+      - LETSENCRYPT_HOST=192.168.10.122
+      - LETSENCRYPT_EMAIL=theo@mail2.infowize.com.tw
+      - LDAP_SERVER=ldap://192.168.10.122:389
+      - LDAP_STARTTLS=false
+      - LDAP_BINDDN=cn=admin,dc=infowize,dc=com,dc=tw
+      - LDAP_BINDPASS=password
+      - LDAP_BASE_SEARCH=cn=Users,dc=infowize,dc=com,dc=tw
+      - LDAP_LOGIN_ATTRIBUTE=uid
+      - LDAP_FULLNAME_ATTRIBUTE=cn
+# Active Directory mode
+# true: use unicodePwd as password field
+# false: LDAPv3 standard behavior
+      - ADMODE=false
+# Force account unlock when password is changed
+      - AD_OPT_FORCE_UNLOCK=false
+# Force user change password at next login
+      - AD_OPT_FORCE_PWD_CHANGE=false
+# Allow user with expired password to change password
+      - AD_OPT_CHANGE_EXPIRED_PASSWORD=false
+# Samba mode
+# true: update sambaNTpassword and sambaPwdLastSet attributes too
+# false: just update the password
+      - SAMBA_MODE=false
+# Shadow options - require shadowAccount objectClass
+# Update shadowLastChange
+      - SHADOW_OPT_UPDATE_SHADOWLASTCHANGE=false
+# Hash mechanism for password:
+# SSHA
+# SHA
+# SMD5
+# MD5
+# CRYPT
+# clear (the default)
+# auto (will check the hash of current password)
+# This option is not used with ad_mode = true
+      - PASSWORD_HASH=SHA
+# Local password policy
+# This is applied before directory password policy
+# Minimal length
+      - PASSWORD_MIN_LENGTH=8
+# Maximal length
+      - PASSWORD_MAX_LENGTH=30
+# Minimal lower characters 小寫
+      - PASSWORD_MIN_LOWERCASE=1
+# Minimal upper characters 大寫
+      - PASSWORD_MIN_UPPERCASE=0
+# Minimal digit characters 數字
+      - PASSWORD_MIN_DIGIT=0
+# Minimal special characters 特殊字符
+      - PASSWORD_MIN_SPECIAL=0
+# Dont reuse the same password as currently
+      - PASSWORD_NO_REUSE=true
+# Show policy constraints message:
+# always
+# never
+# onerror
+      - PASSWORD_SHOW_POLICY=never
+# Position of password policy constraints message:
+# above - the form
+# below - the form
+      - PASSWORD_SHOW_POLICY_POSITION=above
+# Who changes the password?
+# Also applicable for question/answer save
+# user: the user itself
+# manager: the above binddn
+      - WHO_CAN_CHANGE_PASSWORD=user
+## Questions/answers
+# Use questions/answers?
+# true (default)
+# false
+      - QUESTIONS_ENABLED=false
+## Mail
+# LDAP mail attribute
+      - LDAP_MAIL_ATTRIBUTE=mail
+# Who the email should come from
+      - MAIL_FROM=admin@mail2.infowize.com.tw
+      - MAIL_FROM_NAME=Password Reset
+# Notify users anytime their password is changed
+      - NOTIFY_ON_CHANGE=true
+# PHPMailer configuration (see https://github.com/PHPMailer/PHPMailer)
+      - SMTP_DEBUG=0
+      - SMTP_HOST=smtp.gmail.com
+#      - SMTP_HOST=mail2.infowize.com.tw
+      - SMTP_AUTH_ON=true
+      - SMTP_USER=nas@infowize.com.tw
+#      - SMTP_USER=admin@mail2.infowize.com.tw
+      - SMTP_PASS=csd123 
+#     - SMTP_PASS=ITewsn1234
+      - SMTP_PORT=465
+#      - SMTP_PORT=25
+      - SMTP_SECURE_TYPE=ssl
+# tls / ssl
+      - SMTP_AUTOTLS=false
+## SMS
+# Use sms (NOT WORKING YET)
+      - USE_SMS=false
+# Reset URL (if behind a reverse proxy)
+      - IS_BEHIND_PROXY=true
+# Display help messages
+      - SHOW_HELP=true
+# Language
+#     - LANG=en
+      - LANG=zh-TW
+# Debug mode
+      - DEBUG_MODE=false
+# Encryption, decryption keyphrase
+      - SECRETEKEY=secretkey
+## CAPTCHA
+# Use Google reCAPTCHA (http://www.google.com/recaptcha)
+#      - USE_RECAPTCHA=false
+# Go on the site to get public and private key
+#      - RECAPTCHA_PUB_KEY=akjsdnkajnd
+#      - RECAPTCHA_PRIV_KEY=aksdjnakjdnsa
+## Default action
+# change
+# sendtoken
+# sendsms
+      - DEFAULT_ACTION=change
+    networks:
+      - proxy-tier
+    restart: always
+networks:
+  proxy-tier:
+    external:
+      name: nginx-proxy
+## 先建立 bridge 啟動時加入
+## 可參考文檔
+## https://self-service-password.readthedocs.io/en/latest/config_tokens.html?highlight=url
+## base by ltb-project /self-service-password
+## /opt/ssp/data/conf/config.inc.local.php
+## /opt/ssp/data/lang/zh-TW.inc.php <繁中>
+# Reset URL (if behind a reverse proxy)  ** 寄信沒有 ip:port
+# $reset_url = $_SERVER['HTTP_X_FORWARDED_PROTO'] . "://" . $_SERVER['HTTP_HOST'];

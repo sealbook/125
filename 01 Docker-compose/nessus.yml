@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+
+  nessus:
+    image: tenableofficial/nessus
+    restart: always
+    container_name: nessus
+    volumes:
+      - /etc/localtime:/etc/localtime
+    environment:
+      USERNAME: itadm
+      PASSWORD: ITewsn1234
+      ACTIVATION_CODE: R48V-MJR7-NM73-PBE6-KC23
+      #啟動密碼一次性 <email>
+    ports:
+      - 8834:8834

@@ -65,7 +65,7 @@ https://ithelp.ithome.com.tw/users/20141309/ironman/4776
 從0開始的學習之路 - 弱點偵測工具的使用及一些正在進行的弱點排除案例心得分享
 https://ithelp.ithome.com.tw/users/20117888/ironman/3361
 https://blog.darkthread.net/blog/setup-nessus-offline/
-
+https://community.tenable.com/s/article/Deploy-Nessus-docker-image-with-docker-compose
 
 #################################
 中文教程過多不協和音，看不清架構/流程，確認domainname 錯字<easy to lab >

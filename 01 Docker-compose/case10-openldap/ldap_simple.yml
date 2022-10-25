@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  openldap:
+    container_name: openldap
+    image: osixia/openldap:1.5.0
+    restart: always
+    environment:
+      TZ: Asia/Taipei
+      LDAP_ADMIN_PASSWORD: "password"
+      LDAP_ORGANISATION: "infowize"
+      LDAP_DOMAIN: "infowize.com.tw"
+    volumes:
+      - /opt/ldap/database:/var/lib/ldap
+      - /opt/ldap/config:/etc/ldap/slapd.d
+    ports:
+      - 389:389
+      - 636:636
+
+  phpldapadmin:
+    container_name: openldap-WUI
+    image: osixia/phpldapadmin:0.9.0
+    restart: always
+    environment:
+      TZ: Asia/Taipei
+      PHPLDAPADMIN_LDAP_HOSTS: openldap
+    ports:
+      - 6443:443
