@@ -66,6 +66,7 @@ https://ithelp.ithome.com.tw/users/20141309/ironman/4776
 https://ithelp.ithome.com.tw/users/20117888/ironman/3361
 https://blog.darkthread.net/blog/setup-nessus-offline/
 https://community.tenable.com/s/article/Deploy-Nessus-docker-image-with-docker-compose
+https://wizardforcel.gitbooks.io/daxueba-kali-linux-tutorial/content/index.html
 
 #################################
 中文教程過多不協和音，看不清架構/流程，確認domainname 錯字<easy to lab >
@@ -97,3 +98,6 @@ https://linux.vbird.org/linux_server/centos6/0430nis.php
 https://github.com/novnc/noVNC
 https://newtoypia.blogspot.com/2018/11/novnc.html
 
+#################################
+192.168.10.108 <人工已分類缺失><資料夾區分>
+/mnt/vol/eng/ai_dev/image/train
