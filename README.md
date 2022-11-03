@@ -96,3 +96,7 @@ else 則比對 D40 7000張 by new model  <difftool win merge>
 		mv 不重覆的 3000張 to 非交集 <F>
 	then 人工識別 3000 張 D40 <FT><by new model>
 end if
+
+
+limit_conn_zone $binary_remote_addr zone=ip:150m;
+limit_conn ip 128;

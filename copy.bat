@@ -1,1 +1,0 @@
-robocopy D:\gitlab Z:\bernice /E /PURGE /TEE /NFL /NDL /XO /MT:100 /LOG+:Z:\bernice.log
