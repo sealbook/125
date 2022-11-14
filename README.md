@@ -97,6 +97,34 @@ else 則比對 D40 7000張 by new model  <difftool win merge>
 	then 人工識別 3000 張 D40 <FT><by new model>
 end if
 
-
 limit_conn_zone $binary_remote_addr zone=ip:150m;
 limit_conn ip 128;
+
+
+缺陷照片 XY座標從方框左上開始加上 W<寬> H<高>
+二組座標距離可求歐氏距離
+二組面積可比百分比差
+excel <match index row/rows small countif countifs >
+and (logical1,logical2)
+if (logical,value_if_ture,value_if_error)
+iferror (value,value_if_error)
+dget(database,field,criteria)
+= Excel.CurrentWorkbook()
+
+面積相差 1-(w1h2/w2h2) # 正為large 負為small (百分比) ## 同樣問題是對應那一行
+ABS(1-(baby_kind!H2/M01_baby_ast_road_n_7!H2))
+
+二點距離 sqrt(x2-x1)^2+(y2-y1)^2 ### 重點是對應那一行的參數(即x2有了，但x1是那一行)
+=SQRT((M01_baby_ast_road_n_7!B2-baby_kind!B2)^2+(M01_baby_ast_road_n_7!C2-baby_kind!C2)^2)
+
+
+
+email
+trzhc2-noreply@himax.com.tw
+10.240.230.50
+25
+
+nis
+hxhc
+10.240.134.147,10.240.134.148,10.240.134.132
+ssh/nfs/snmp/smart
