@@ -1,0 +1,48 @@
+#################################
+192.168.10.108 <人工已分類缺失><資料夾區分>
+/mnt/vol/eng/ai_dev/image/train
+#################################
+if   若有 D40 10000張 by old model  <T>
+else 則比對 D40 7000張 by new model  <difftool win merge>
+		mv 不重覆的 3000張 to 非交集 <F>
+	then 人工識別 3000 張 D40 <FT><by new model>
+end if
+
+limit_conn_zone $binary_remote_addr zone=ip:150m;
+limit_conn ip 128;
+######################################
+缺陷照片 XY座標從方框左上開始加上 W<寬> H<高>
+二組座標距離可求歐氏距離
+二組面積求百分比差與 w/h 分別求百分比差一致
+######################################
+excel <match index row/rows small countif countifs >
+and (logical1,logical2)
+if (logical,value_if_ture,value_if_error)
+iferror (value,value_if_error)
+dget(database,field,criteria)
+= Excel.CurrentWorkbook()
+
+面積相差 1-(w1h2/w2h2) # 正為large 負為small (百分比) ## 同樣問題是對應那一行
+ABS(1-(baby_kind!H2/M01_baby_ast_road_n_7!H2))
+=COUNTIF(要查看的位置？要尋找的項目？)  ## 最後，後者與前者比對結束回傳次數
+
+=COUNTIFS(baby_kind!A:A,A2,baby_kind!F:F,F2,baby_kind!H:H,(ABS(1-OFFSET(baby_kind!F:F,0,2)/H2))<$S$1)
+=COUNTA(A2:A36888)
+=SUBTOTAL(2,J2:J36888)
+=SUMPRODUCT(1/COUNTIF(A2:A36888,A2:A36888))
+
+##offset 起點能夠逐行變動嗎？
+## 簡化測試:拆解
+step0：for loop 二段 <A1~A10000> <B1~10000>
+step0.1： for B1~B10000
+              for A1~A10000
+ 
+step1：計算A,B二者相差值
+step2：判斷 相差值小於預估值S
+step3：判斷式回傳 true/false 
+
+二點距離 sqrt(x2-x1)^2+(y2-y1)^2 ### 重點是對應那一行的參數(即x2有了，但x1是那一行)
+=SQRT((M01_baby_ast_road_n_7!B2-baby_kind!B2)^2+(M01_baby_ast_road_n_7!C2-baby_kind!C2)^2)
+
+A:A 不是一個好區間，多花時間在運算
+######################################

@@ -88,6 +88,8 @@ https://linux.vbird.org/linux_server/centos6/0430nis.php
 https://github.com/novnc/noVNC
 https://newtoypia.blogspot.com/2018/11/novnc.html
 #################################
+<<<<<<< HEAD
+=======
 192.168.10.108 <人工已分類缺失><資料夾區分>
 /mnt/vol/eng/ai_dev/image/train
 #################################
@@ -119,6 +121,7 @@ ABS(1-(baby_kind!H2/M01_baby_ast_road_n_7!H2))
 
 
 
+>>>>>>> parent of cd47d83c (2022.11.17 #1)
 email
 trzhc2-noreply@himax.com.tw
 10.240.230.50
