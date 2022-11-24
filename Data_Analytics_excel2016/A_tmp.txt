@@ -26,6 +26,9 @@ dget(database,field,criteria)
 ABS(1-(baby_kind!H2/M01_baby_ast_road_n_7!H2))
 =COUNTIF(要查看的位置？要尋找的項目？)  ## 最後，後者與前者比對結束回傳次數
 
+二點距離 sqrt(x2-x1)^2+(y2-y1)^2 ### 重點是對應那一行的參數(即x2有了，但x1是那一行)
+=SQRT((M01_baby_ast_road_n_7!B2-baby_kind!B2)^2+(M01_baby_ast_road_n_7!C2-baby_kind!C2)^2)
+
 =COUNTIFS(baby_kind!A:A,A2,baby_kind!F:F,F2,baby_kind!H:H,(ABS(1-OFFSET(baby_kind!F:F,0,2)/H2))<$S$1)
 =COUNTA(A2:A36888)
 =SUBTOTAL(2,J2:J36888)
