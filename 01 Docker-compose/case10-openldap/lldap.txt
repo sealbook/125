@@ -1,0 +1,57 @@
+version: '3'
+
+volumes:
+  lldap_data:
+    driver: local
+
+services:
+  lldap:
+    image: nitnelave/lldap:stable
+    container_name: LLDAP
+    ports:
+      # For LDAP
+      - "3890:3890"
+      # For the web front-end
+      - "17170:17170"
+    volumes:
+      - "./lldap_data:/data"
+      # Alternatively, you can mount a local folder
+    environment:
+#      - UID=1000
+#      - GID=1000
+      - TZ=ASIA/TAIPEI
+#      - LLDAP_JWT_SECRET=REPLACE_WITH_RANDOM
+      - LLDAP_LDAP_USER_PASS=ITewsn1234
+      - LLDAP_LDAP_BASE_DN=dc=infowize,dc=com,dc=tw
+
+# admin username = admin 
+# default password =password
+# or LLDAP_LDAP_USER_PASS setting
+# LLDAP_JWT_SECRET = 用途 ?
+# UID/GID 預設 1000/1000 用途 ?
+# DB = sqlited <how to backup config ?>
+# NAS connect FOR SAMBA share ?? < 免 AD >
+# SSO ??? change password ???
+###
+###
+Ⅰ authelia
+authelia 可對openldap/lldap/freeipa 連結，並透過web 形成SSO to webapp <web管理介面/服務| nextcloudt | webmail? | freenas{SMB} ? >
+可替代 AD | LDAP | NIS ?
+可提供對公網服務身份認證
+https://hub.docker.com/r/authelia/authelia/tags
+https://www.authelia.com/
+Ⅱ Keycloak
+用Keycloak學習身份驗證與授權
+https://ithelp.ithome.com.tw/users/20112470/ironman/4324
+https://www.keycloak.org/getting-started/getting-started-docker
+https://hub.docker.com/r/jboss/keycloak/
+https://github.com/keycloak/keycloak
+Ⅲ authentik  
+https://goauthentik.io/docs/
+Ⅳ glauth
+
+# 能集成 nas | share folder | smb ???
+## 若是可以經由 webui 單一認證，是否可以成為freenas 本地用戶，即可以設定share folder 的 group/user ？？
+## 可試試authentik | authelia | Keycloak | lemanldap 
+
+## freeIPA | fedora 專用?? | 完整os?
