@@ -55,3 +55,11 @@ https://goauthentik.io/docs/
 ## 可試試authentik | authelia | Keycloak | lemanldap 
 
 ## freeIPA | fedora 專用?? | 完整os?
+
+## AD
+## LDAP
+## NIS lab建置完成,新增帳號/群組，再分組更新資料庫 
+## /usr/lib/yp/ypinit -s nis
+## /usr/lib/yp/ypinit -m
+
+
