@@ -44,3 +44,22 @@ net use \\IP或主機名稱 /del --->中斷連線
 ** w32tm  /resync
 https://ithelp.ithome.com.tw/articles/10174201
 #########################################################
+for i in `seq 1 7`;
+	do echo "---create group lab_A$i---";
+	groupadd -g 200$i lab_A$i;
+done
+#########################################################
+for i in `seq 1 7`;do echo "---create group lab_A$i---";groupadd -g 200$i lab_A$i;done
+#########################################################
+for i in `seq 11 15`;
+do echo "---create itadm$i---";
+	useradd -d /home/TN/itadm$i -u 300$i itadm$i;
+	echo ITewsn1234 | passwd --stdin itadm$i;   @ centos 專用
+done
+#########################################################
+for i in `seq 16 20`;
+do echo "---create itadm$i---";
+	useradd -d /home/KS/itadm$i -u 300$i itadm$i;
+	echo ITewsn1234 | passwd --stdin itadm$i;   @ centos 專用
+done
+#########################################################

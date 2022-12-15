@@ -58,8 +58,10 @@ https://goauthentik.io/docs/
 
 ## AD
 ## LDAP
+
 ## NIS lab建置完成,新增帳號/群組，再分組更新資料庫 
 ## /usr/lib/yp/ypinit -s nis
 ## /usr/lib/yp/ypinit -m
-
-
+## nis.infowize.lab mapping 多個IP 當其中一個down，ypwhich 可自動切換
+## freenas 若NIS user need ssh login，需多加 master.passwd.byname 
+## python 產生新檔後，Makefile 更新資料庫，yptest 同步測試
