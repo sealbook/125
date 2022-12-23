@@ -1,19 +1,6 @@
-# FREEBSD (FREENAS) support 
 
-master.passwd.byuid: $(PASSWD) $(SHADOW) $(YPDIR)/Makefile
-	@echo "Updating $@"
-	@$(MERGER) -p $(PASSWD) $(SHADOW) | $(MASTER_PASSWD_CONVERTER) | 
-	$(AWK) -F: '!/^[-+#]/ { if ($$1 != "" && $$3 >= $(MINUID) && $$3 != $(NFSNOBODYUID) ) 
-	print $$3"t"$$0 }' | $(DBLOAD) -i $(GROUP) -o $(YPMAPDIR)/$@ - $@
-	-@$(NOPUSH) || $(YPPUSH) -d $(DOMAIN) $@
-
-master.passwd.byname: $(PASSWD) $(SHADOW) $(YPDIR)/Makefile
-	@echo "Updating $@"
-	@$(MERGER) -p $(PASSWD) $(SHADOW) | $(MASTER_PASSWD_CONVERTER) | 
-	$(AWK) -F: '!/^[-+#]/ { if ($$1 != "" && $$3 >= $(MINUID) && $$3 != $(NFSNOBODYUID) ) 
-	print $$1"t"$$0 }' | $(DBLOAD) -i $(GROUP) -o $(YPMAPDIR)/$@ - $@
-	-@$(NOPUSH) || $(YPPUSH) -d $(DOMAIN) $@
-
+systemctl status ypserv rpcbind ypbind yppasswdd
+systemctl restart ypserv rpcbind ypbind yppasswdd
 
 for i in `seq 11 15`;
 do echo "---create itadm$i---";
@@ -35,3 +22,17 @@ done
 for i in `seq 11 15`;do echo "---create itadm$i---";useradd -d /home/members/itadm$i -u 30$i itadm$i;echo ITewsn1234 | passwd --stdin itadm$i;done
 
 for i in `seq 21 25`;do echo "---create itadm$i---";useradd -d /home/members/itadm$i -u 30$i itadm$i;echo ITewsn1234 | passwd --stdin itadm$i;done
+
+mount -t nfs -o rw,nfsvers=3  192.168.10.148:/mnt/vol/guest_home /mnt/guest_home
+
+mount 192.168.10.148:/mnt/vol/guest_work01 /mnt/guest_work01
+
+
+ 192.168.10.148:/mnt/vol/guest_home   /mnt/guest_home   nfs rw,sync,hard,intr 0 0
+ 192.168.10.148:/mnt/vol/guest_work01 /mnt/guest_work01 nfs rw,sync,hard,intr 0 0
+ 192.168.10.148:/mnt/vol/guest_work02 /mnt/guest_work02 nfs rw,sync,hard,intr 0 0
+ 192.168.10.148:/mnt/vol/guest_work03 /mnt/guest_work03 nfs rw,sync,hard,intr 0 0
+ 192.168.10.148:/mnt/vol/guest_work04 /mnt/guest_work04 nfs rw,sync,hard,intr 0 0
+ 192.168.10.148:/mnt/vol/guest_work05 /mnt/guest_work05 nfs rw,sync,hard,intr 0 0
+ 192.168.10.148:/mnt/vol/guest_work06 /mnt/guest_work06 nfs rw,sync,hard,intr 0 0
+ 192.168.10.148:/mnt/vol/guest_work07 /mnt/guest_work07 nfs rw,sync,hard,intr 0 0
