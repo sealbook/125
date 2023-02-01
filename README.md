@@ -88,15 +88,9 @@ https://linux.vbird.org/linux_server/centos6/0430nis.php
 https://github.com/novnc/noVNC
 https://newtoypia.blogspot.com/2018/11/novnc.html
 #################################
->>>>>>> parent of cd47d83c (2022.11.17 #1)
-email
-trzhc2-noreply@himax.com.tw
-10.240.230.50
-25
 
-nis
-hxhc
-10.240.134.147,10.240.134.148,10.240.134.132
-ssh/nfs/snmp/smart
-
+nscd（Name Service Cache Daemon）是一种能够缓存passwd、group、hosts 的本地缓存服务，分别对应三个源/etc/passwd、/etc/hosts、/etc/resolv.conf
+https://www.gushiciku.cn/pl/gXr4/zh-tw
+https://developer.aliyun.com/article/523108
+https://www.linuxquestions.org/questions/linux-networking-3/error-message-do_ypcall-clnt_call-rpc-timed-out-375646kype
 

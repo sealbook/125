@@ -61,12 +61,14 @@
  networks: # create networks first
    nextcloud_net:
 
+## docker network create lab_net
+#### docker-compose -f nc25.yaml up -d <by administrator>
 ## mariadb info   nextcloud/nextcloud/ncdb/nc-db 
 ## <docker db ip || 最好是 db hostname | 重啟ip 會變動>
 ## 2022.08.22 labbing 測試 nc23與改善 內網上傳慢 <小容量|多檔>
 ## after nc22 api改版連結app OXoffice 無後續對應step| abandon 
 ## 各個 app 版本適配，穩定更新版本
-### 要先 touch redis.conf
+### 要先 touch redis.conf <chown librenms:root redis.conf>
 daemonize no
 timeout 0
 requirepass 123456
@@ -76,7 +78,7 @@ appendonly yes
 dir /data
 ## docker 內部path
 ############# nano config.php <注意順序 #locking?>
-## 指向 docker <nc-redis> hostname
+## 指向 docker <nc-redis> hostname    ## nc25後，另有 redis.php，不需修正???
 'memcache.distributed' => '\OC\Memcache\Redis',  // 分佈式緩存使用Redis
 'redis' => array('host' => 'nc-redis','port' => 6379,'password' => '123456',),
 'memcache.locking' => '\OC\Memcache\Redis',   // 啟用Redis緩存的文件鎖
@@ -105,6 +107,6 @@ docker exec --user www-data nc-app php /var/www/html/occ files:scan --all
     1 => 'nextcloud.infowize.com.tw',
     2 => '*',
   ),
-  'trusted_proxies' => ['nginx-pm_app'],
-  'overwrite.cli.url' => 'https://nextcloud.infowize.com.tw',
-  'overwriteprotocol' => 'https',
+'trusted_proxies' => ['npm-app'],
+'overwrite.cli.url' => 'https://nextcloud.infowize.com.tw',
+'overwriteprotocol' => 'https',
