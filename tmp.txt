@@ -33,6 +33,7 @@ IP:/mnt/vol1/XXX /mountpoint nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=180
 ## 192.168.10.242 after launch GPU server
 rm -f /tmp/daily.csv
 find . -name 'Thumbs.db' -print -delete
+hdparm -i /dev/sda
 #########################################################
 ##啟動 winsvr 評估版to 正式版cmd
 DISM /online /Set-Edition:ServerStandard /ProductKey:8NJ2V-XJ964-233GQ-C6QMT-H8T34 /AcceptEula
@@ -77,23 +78,5 @@ useradd -d /home/NIS_dir/suadm -u 4000 suadm
 useradd -u 4000 suadm
 #########################################################
 
- "vm_fault: pager read error" 意思是FreeNAS的内存管理子系统发生了错误，它正在尝试读取内存页面时发生了问题。 pid 94768 (daemon) 是执行该错误操作的程式的ID。
-它可能意味着内存分配或硬件故障的一些问题。
-这是一个一般的信息，如果这个日志反复出现，它可能意味着硬件问题或软件配置错误。
-建议您检查硬件状态和FreeNAS的配置设置。
+/etc/auto.master.d/*.autofs
 
- "swap_pager: I/O error - pagein failed" 意思是FreeNAS的内存管理子系统在读取虚拟内存时发生了I/O错误，并无法成功读取。
-"blkno 1049307,size 4096, error 6" 意思是该I/O错误发生在第1049307个区块，大小为4096字节。
-错误6是 "Device not configured"，这意味着存储设备或内存组件没有被正确配置或没有被系统识别。
-这可能意味着存储设备和它的配置有一些问题，或者对于内存组件，它可能意味着硬件问题。
-
-
- "Failed to write core file for process" 意思是系统尝试存储程序 "daemon "的核心资料文件时发生错误。"error 14" 意思是系统回传错误代码14，"EFAULT "意味着坏地址。
-它可能意味着系统无法将核心文件写入指定的位置，因为内存地址不好或缺乏访问该位置的权限。这可能是由软件错误或系统错误配置造成的。
-这是一个一般的信息，如果这个日志反复出现，可能意味着软件问题或系统配置错误，建议你检查软件配置，检查核心转储位置，确保它有正确的权限，有足够的空间来写入核心文件。
-
-
- "pid 94768 (daemon), uid 0: exited on signal 11" 意思是程式 "daemon" 的进程 ID 为 94768 且拥有者为 uid 0（root用户）。已经退出，并因信号 11 终止。
-信號11是 "SIGSEGV"，意思是 "分段故障"，它表示程序试图访问一个不允许访问的内存位置或一个不存在的内存位置。当程序引起分段故障（例如，解读一个空指针，或一个不正确的内存地址）时，该信号会被发送给进程。
-它可能是由软件错误或系统错误配置引起的。如果这个日志反复出现，它可能意味着软件问题或系统错误配置。
-建议你调查导致该错误的软件，并尝试确定分段故障的原因。还建议调查系统日志，检查是否有其他软件导致该问题。
