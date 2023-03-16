@@ -80,3 +80,4 @@ useradd -u 4000 suadm
 
 /etc/auto.master.d/*.autofs
 
+rsync -avhz --progress /mnt/iso/template/iso/*.iso /mnt/vol/iso/

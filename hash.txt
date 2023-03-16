@@ -61,3 +61,17 @@ freenas9 中文化圖解
 http://martine-tw.blogspot.com/
 TrueNAS 討論區 <官方????>
 https://ixsystems.atlassian.net/jira/software/c/projects/NAS/issues/?jql=project%20%3D%20%22NAS%22%20AND%20text%20~%20%22samba%22%20ORDER%20BY%20created%20DESC
+#######################
+◆ Project Ⅰ ： Proxmax VE + vGPU <nVidia Telsa> to 轉正式使用<cluster 3 > 取代 90 < stor 70/108>
+◇ 靈感來源：交大論文 郭誠??
+Proxmox Nvidia Telsa P4 显卡 vGPU 方案
+https://justin.education/proxmox-nvidia-tesla-p4-vgpu-for-free/
+Proxmox VE Nvidia-vGPU doc
+https://pve-doc-cn.readthedocs.io/zh_CN/pve-nvidia-vgpu/introduce.html
+NVIDIA vGPU on Proxmox VE 7.x
+https://pve.proxmox.com/wiki/NVIDIA_vGPU_on_Proxmox_VE_7.x
+NVIDIA vGPU Guide
+https://gitlab.com/polloloco/vgpu-proxmox
+
+#######################
+◆ Project Ⅱ ：103 + 106 整合資料???，主要心力為lldap 管理帳號 + 額外服務 + WDS <SAMBA>
