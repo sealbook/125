@@ -1,0 +1,49 @@
+version: '3.5'
+
+services:
+  web:
+    image: jarischaefer/docker-librenms:latest  #23.2.0
+    container_name: librenms_APP
+    restart: always
+    ports:
+      - '8080:80'
+    volumes:
+      - ./librenms/logs:/opt/librenms/logs
+      - ./librenms/rrd:/opt/librenms/rrd
+    environment:
+      APP_KEY: base64:xevJaNw8HZa3td0KOteCs3jIrv8uZF2HYHXj2tOGVI4=
+      DB_HOST: librenms_DB
+      DB_USER: librenms_adm
+      DB_PASS: P@ssw0rd!
+      DB_NAME: librenms
+      POLLERS: 16
+      BASE_URL: http://192.168.10.139:6080
+      TZ: Asia/Taipei
+    depends_on:
+      - mysql
+  mysql:
+    image: mariadb:10.5
+    container_name: librenms_DB
+    restart: always
+    volumes:
+      - ./librenms/mysql:/var/lib/mysql
+    environment:
+      TZ: Asia/Taipei
+      MYSQL_ROOT_PASSWORD: root_P@ssw0rd!
+      MYSQL_USER: librenms_adm
+      MYSQL_PASSWORD: P@ssw0rd!
+      MYSQL_DATABASE: librenms
+      
+##############
+# Digest: sha256:a5c49af848307f5abc005109db306ba2e898a8e3c744c7d053237e540c12501f
+# Status: Downloaded newer image for jarischaefer/docker-librenms:latest
+# base64:xevJaNw8HZa3td0KOteCs3jIrv8uZF2HYHXj2tOGVI4=
+##############
+# mkdir -p ./librenms && \
+# mkdir -p ./librenms/logs && \
+# mkdir -p ./librenms/rrd && \
+# mkdir -p ./librenms/mysql
+##############
+# sudo docker exec librenms_app setup_database
+# sudo docker exec librenms_app create_admin
+## admin /ITewsn1234
