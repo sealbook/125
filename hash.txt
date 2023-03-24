@@ -72,6 +72,59 @@ NVIDIA vGPU on Proxmox VE 7.x
 https://pve.proxmox.com/wiki/NVIDIA_vGPU_on_Proxmox_VE_7.x
 NVIDIA vGPU Guide
 https://gitlab.com/polloloco/vgpu-proxmox
+NVIDIA® 虛擬 GPU (vGPU) 軟件文檔
+https://docs.nvidia.com/grid/
+官方討論區
+https://forum.proxmox.com/forums/proxmox-ve-installation-and-configuration.16/
+
+nano /etc/default/grub
+cat /proc/cmdline
+
+apt install dkms build-essential pve-headers pve-headers-`uname -r` dkms jq uuid-runtime -y
+curl http://ftp.br.debian.org/debian/pool/main/m/mdevctl/mdevctl_0.81-1_all.deb -o /tmp/mdevctl.deb && dpkg -i /tmp/mdevctl.deb
+
+
+nvidia-uninstall
+dkms status
+#確認 nvidia version 
+nvidia-smi
+nvidia-smi vgpu
+#確認 nvidia driver enable 
+mdevctl types
+#確認 vGPU mdev 存在
+
+systemctl status nvidia-vgpu-mgr.service
+systemctl status nvidia-vgpud.service
+
+All GPUs from the Pascal generation (GTX 10xx, Quadro Pxxxx, Tesla Pxx)
+apt-get install p7zip-full
+Geforce GTX 1060 6GB no-support so need patch to driver <Need number match>
+
+driver source 
+https://github.com/justin-himself/NVIDIA-VGPU-Driver-Archive
+patch source
+https://gitlab.com/polloloco/vgpu-proxmox#finishing-touches
+
+journalctl -u nvidia-vgpud.service
+journalctl -u nvidia-vgpu-mgr.service
 
 #######################
-◆ Project Ⅱ ：103 + 106 整合資料???，主要心力為lldap 管理帳號 + 額外服務 + WDS <SAMBA>
+◆ Project Ⅱ ：103 + 106 整合資料???，主要心力為lldap 管理帳號 + 額外服務 + WDS ?? <SAMBA>
+
+Plan /Do /Check /Act <PDCA>
+truenas
+WDS ?? 
+
+
+lspci -n -s 01
+
+01:00.0 0300: 10de:1c03 (rev a1)
+01:00.1 0403: 10de:10f1 (rev a1)
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt 
+
+update-grub
+
+update-initramfs -u -k all && reboot now
+
+dmesg | grep -e DMAR -e IOMMU
