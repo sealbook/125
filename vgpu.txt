@@ -2,7 +2,6 @@
 
 使用不支援 vGPU 的顯示卡，如 Geforce 系列，必須對驅動程式進行 patching
 ## 對應 pve kernel
-
 ##################
 web refference
 Proxmox 5.4使用vgpu_unlock，为GTX1060开启vGPU支持
@@ -11,24 +10,22 @@ https://www.cnblogs.com/doracloud/p/15699681.html
 https://gitlab.com/polloloco/vgpu-proxmox#finishing-touches
 ## Proxmox VE Nvidia-vGPU doc 卡在 step 3 drvier to version 對應，降級kernel
 https://pve-doc-cn.readthedocs.io/zh_CN/pve-nvidia-vgpu/instdri.html
-
-##################
-nvidia driver all version
-https://github.com/justin-himself/NVIDIA-VGPU-Driver-Archive
-https://github.com/justin-himself/NVIDIA-VGPU-Driver-Archive/releases/download/12.0/NVIDIA-GRID-Linux-KVM-460.32.04-460.32.03-461.09.zip
-
-
-################## fail result
-从物理机搭建Proxmox Virtual Environment平台 
-https://www.qiuqiuren.club/?p=16
-base on 
-pve-manager/6.4-15/af7986e6 (running kernel: 5.4.203-1-pve)
-NVIDIA vGPU Drivers 13.0
-NVIDIA-GRID-Linux-KVM-470.63-470.63.01-471.68
-卡在 mdevctl types no items：drive 有問題？來源 or 錯檔 ？
-
-在 Proxmox VE 上使用 Nvidia vGPU
+# 在 Proxmox VE 上使用 Nvidia vGPU
 https://igene.tw/proxmox-ve-nvidia-vgpu
-find patch to driver but mdevctl fail
+# 从物理机搭建Proxmox Virtual Environment平台 
+https://www.qiuqiuren.club/?p=16
+##################
+# nvidia driver all version
+https://github.com/justin-himself/NVIDIA-VGPU-Driver-Archive
+# Work in PVE 7.4
+https://github.com/justin-himself/NVIDIA-VGPU-Driver-Archive/releases/tag/14.4
+# patch
+https://gitlab.com/polloloco/vgpu-proxmox#finishing-touches
+################## 
 
+## 驗證 IOMMU 是否已啟用
+dmesg | grep -e DMAR -e IOMMU
+## 驗證 vGPU  是否已啟用
+journalctl -u nvidia-vgpud.service
+journalctl -u nvidia-vgpu-mgr.service
 mdevctl types

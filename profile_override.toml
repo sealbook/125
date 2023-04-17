@@ -1,0 +1,23 @@
+[profile.nvidia-259]
+num_displays = 1          
+# 最大的虚拟显示器数量。
+display_width = 1920      
+# 最大显示宽度
+display_height = 1080     
+# 最大显示高度
+max_pixels = 2073600      
+# 这是display_width和display_height的乘积，所以1920 * 1080 = 2073600
+cuda_enabled = 1          
+# 启用CUDA支持。1或0表示启用/停用。
+frl_enabled = 1           
+# 控制帧率限制器，如果启用它，在虚拟机中的帧率会被锁定为60帧。1或0表示启用/停用
+framebuffer = 0x76000000  
+# VRAM size for the VM. In this case its 2GB
+# Other options:
+# 1GB: 0x3B000000
+# 2GB: 0x76000000
+# 3GB: 0xB1000000
+# 4GB: 0xEC000000
+# 8GB: 0x1D8000000
+# 16GB: 0x3B0000000
+                          
