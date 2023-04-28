@@ -24,21 +24,7 @@
     Device API: vfio-pci
     Name: GRID P40-6C
     Description: num_heads=1, frl_config=60, framebuffer=6144M, max_resolution=4096x2160, max_instance=4
-  nvidia-285
-    Available instances: 3
-    Device API: vfio-pci
-    Name: GRID P40-8C
-    Description: num_heads=1, frl_config=60, framebuffer=8192M, max_resolution=4096x2160, max_instance=3
-  nvidia-286
-    Available instances: 2
-    Device API: vfio-pci
-    Name: GRID P40-12C
-    Description: num_heads=1, frl_config=60, framebuffer=12288M, max_resolution=4096x2160, max_instance=2
-  nvidia-287
-    Available instances: 1
-    Device API: vfio-pci
-    Name: GRID P40-24C
-    Description: num_heads=1, frl_config=60, framebuffer=24576M, max_resolution=4096x2160, max_instance=1
+
   nvidia-46
     Available instances: 24
     Device API: vfio-pci
@@ -64,21 +50,6 @@
     Device API: vfio-pci
     Name: GRID P40-6Q
     Description: num_heads=4, frl_config=60, framebuffer=6144M, max_resolution=7680x4320, max_instance=4
-  nvidia-51
-    Available instances: 3
-    Device API: vfio-pci
-    Name: GRID P40-8Q
-    Description: num_heads=4, frl_config=60, framebuffer=8192M, max_resolution=7680x4320, max_instance=3
-  nvidia-52
-    Available instances: 2
-    Device API: vfio-pci
-    Name: GRID P40-12Q
-    Description: num_heads=4, frl_config=60, framebuffer=12288M, max_resolution=7680x4320, max_instance=2
-  nvidia-53
-    Available instances: 1
-    Device API: vfio-pci
-    Name: GRID P40-24Q
-    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=1
   nvidia-54
     Available instances: 24
     Device API: vfio-pci
@@ -104,21 +75,6 @@
     Device API: vfio-pci
     Name: GRID P40-6A
     Description: num_heads=1, frl_config=60, framebuffer=6144M, max_resolution=1280x1024, max_instance=4
-  nvidia-59
-    Available instances: 3
-    Device API: vfio-pci
-    Name: GRID P40-8A
-    Description: num_heads=1, frl_config=60, framebuffer=8192M, max_resolution=1280x1024, max_instance=3
-  nvidia-60
-    Available instances: 2
-    Device API: vfio-pci
-    Name: GRID P40-12A
-    Description: num_heads=1, frl_config=60, framebuffer=12288M, max_resolution=1280x1024, max_instance=2
-  nvidia-61
-    Available instances: 1
-    Device API: vfio-pci
-    Name: GRID P40-24A
-    Description: num_heads=1, frl_config=60, framebuffer=24576M, max_resolution=1280x1024, max_instance=1
   nvidia-62
     Available instances: 24
     Device API: vfio-pci
@@ -128,22 +84,6 @@
 
 ################################################
 
-nvidia-53
-    Available instances: 1
-    Device API: vfio-pci
-    Name: GRID P40-24Q
-    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=1
-nvidia-61
-    Available instances: 1
-    Device API: vfio-pci
-    Name: GRID P40-24A
-    Description: num_heads=1, frl_config=60, framebuffer=24576M, max_resolution=1280x1024, max_instance=1
-nvidia-287
-    Available instances: 1
-    Device API: vfio-pci
-    Name: GRID P40-24C
-    Description: num_heads=1, frl_config=60, framebuffer=24576M, max_resolution=4096x2160, max_instance=1
-
 nvidia-46 <1G>
 nvidia-47 <2G>
 TEALA P40
@@ -151,7 +91,10 @@ TEALA P40
 0x10DE 0x0000
 0x1B38 0x1B38
 
+測試可啟動選項
+enable 50 | 49 | 48 | 47 | 46
+disable 54 | 53 | 52 | 51 | ram 不夠
 
-
+https://kpoptap.com/
 
 
