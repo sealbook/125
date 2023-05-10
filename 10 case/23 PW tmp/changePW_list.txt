@@ -1,0 +1,28 @@
+changePW_list  ##ITewsn1234
+anydesk_TN  #OK
+road_system
+#web
+229  #Tn_web
+226  #KS_web
+223  #HC_web
+131  #docker_itadm/administrator
+#docer/ftp/proxy 
+122  #docer_svr #itadm/administrator
+
+
+docker run -it --rm --sysctl net.ipv6.conf.lo.disable_ipv6=0 --name freeipa-server-container -h wp.infowize.com.tw -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /var/lib/ipa-data:/data --tmpfs /run --tmpfs /tmp freeipa/freeipa-server:centos-8-stream
+ipa-client-install --server=wp.infowize.com.tw --domain wp.infowize.com.tw
+ipa-client-install --hostname=wp.infowize.com.tw --mkhomedir  --server=wp.infowize.com.tw --domain wp.infowize.com.tw --realm wp.infowize.com.tw
+
+
+docker run -ti -h wp.infowize.com.tw --read-only \
+    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+    -v /var/lib/ipa-data:/data:Z \
+    -e PASSWORD=1qaz@WSX \
+    freeipa-server ipa-server-install -U -r infowize.com.tw --no-ntp
+	
+docker run --name freeipa-server-container -ti \
+    -h wp.infowize.com.tw --read-only \
+    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+    -v /var/lib/ipa-data:/data:Z freeipa-server:centos-8-stream
+

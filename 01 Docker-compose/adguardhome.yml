@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  adguardhome:
+    container_name: adguardhome
+    image: adguard/adguardhome
+    restart: always
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      #- "67:67/udp"  for DHCP server
+      #- "68:68/tcp"  for DHCP server
+      - "80:80/tcp"    # for http
+      - "443:443/tcp"  # for https
+      - "443:443/udp"  # for https
+      - "3000:3000/tcp"   # for WebUI manger
+      #- "853:853/tcp"  for DNS over tls
+      #- "853:853/udp"  for DNS over QUIC
+      #- "784:784/udp"  for DNS over QUIC
+      #- "8853:8853/udp"  for DNS over QUIC
+      #- "5443:5443/tcp"  for DNScrypt
+      #- "5443:5443/udp"  for DNScrypt
+    volumes:
+      - ./AdGuardHome/work:/opt/adguardhome/work
+      - ./AdGuardHome/conf:/opt/adguardhome/conf
+      - ./AdGuardHome/logs:/opt/adguardhome/logs
+    environment:
+      - TZ=ASIA/TAIPEI
+      #- PUID=1000
+      #- PGID=1000
+
+##  http://localhost:3000
+## lsof -i :53
+## systemctl stop systemd-resolved
+## systemctl disable systemd-resolved
+## DNS-over-QUIC（DoQ）是一种新型的DNS解析协议，它将DNS解析数据包通过QUIC（快速UDP互联网连接）协议进行传输，从而提高了DNS解析的速度、安全性和可靠性。QUIC是一个新型的网络传输协议，它是由Google开发的，旨在提高网络连接的速度和安全性，被视为TCP和UDP的下一代替代品。
+## DNSCrypt是一種加密的DNS協議，用於保護使用者在瀏覽器訪問網站時的隱私和安全。它與標準的DNS協議不同，標準的DNS協議不加密數據，使攻擊者可以輕易地窺探使用者正在訪問的網站和其他敏感信息。

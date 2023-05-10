@@ -64,9 +64,12 @@ https://ixsystems.atlassian.net/jira/software/c/projects/NAS/issues/?jql=project
 
 #######################
 ◆ Project Ⅱ ：103 + 106 整合資料???，主要心力為lldap 管理帳號 + 額外服務 + WDS ?? <SAMBA>
-
+Authentik
+SAMBA AD
+◆ 主要解法的是freenas 11 在window 的連接<認證不易>與權限問題 <LDAP??>
 Plan /Do /Check /Act <PDCA>
 truenas
 WDS ?? 
 #######################
+◆ Project Ⅰ ： Proxmax VE + GPU <1 or 2> passthough to one VMs <docker>
 
