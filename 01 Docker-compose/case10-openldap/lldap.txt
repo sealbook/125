@@ -47,9 +47,13 @@ https://ithelp.ithome.com.tw/users/20112470/ironman/4324
 https://www.keycloak.org/getting-started/getting-started-docker
 https://hub.docker.com/r/jboss/keycloak/
 https://github.com/keycloak/keycloak
-Ⅲ authentik  
+Ⅲ authentik
 https://goauthentik.io/docs/
-Ⅳ glauth
+如果您需要基本的身份驗證和授權功能，並且希望使用相對較新的項目，Authentik可能是一個不錯的選擇。它提供了基本的驗證方法和一些管理功能，同時具有簡單的配置和使用。
+另一方面，如果您需要更豐富的功能和高級的身份驗證機制，以及與多種身份驗證協議和企業環境的整合，Authelia可能更適合您的需求。Authelia提供了更多的身份驗證選項和高級功能，例如單點登錄和訪問控制。
+
+Ⅳ Glauth
+是一個開源的LDAP伺服器，被設計用於提供輕量且安全的身份驗證服務。它具有簡單易用的配置和管理界面，適用於小型和中型組織。提供了一個單一的存儲庫，用於存儲用戶帳戶和相關資訊，如密碼、組和組織結構。它可以作為獨立的身份驗證服務運行，也可以與現有的 LDAP 伺服器集成。
 
 # 能集成 nas | share folder | smb ???
 ## 若是可以經由 webui 單一認證，是否可以成為freenas 本地用戶，即可以設定share folder 的 group/user ？？
@@ -67,7 +71,8 @@ https://goauthentik.io/docs/
 ## freenas 若NIS user need ssh login，需多加 master.passwd.byname 
 ## python 產生新檔後，Makefile 更新資料庫，yptest 同步測試
 
-
+==================================
+往下天地無用
 
 以下是一些開源軟體，可以協助管理 FreeNAS 分享出來的 Samba：
 
@@ -84,4 +89,3 @@ smbldap-tools：這是一個管理 Samba/LDAP 整合的工具。它可以幫助�
 Winbind：這是一個 Samba 工具，用於將 Unix/Linux 系統與 Windows 域集成。它可以讓 FreeNAS 在 Windows 環境中使用，並與 Windows 域集成。在 FreeNAS 上使用 Winbind，需要一些額外的設置和管理。
 
 這些開源工具可以提供一個易於使用和管理 Samba 的平台，協助管理 FreeNAS 分享出來的 Samba。選擇哪一個工具，取決於個人需要和使用情況。
-
