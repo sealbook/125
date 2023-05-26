@@ -91,3 +91,4 @@ volumes:
 # set up  email | password 
 # https://IP:port/if/flow/initial-setup/
 ## https://helgeklein.com/blog/authentik-authentication-sso-user-management-password-reset-for-home-networks/
+#https://goauthentik.io/docs/installation/
