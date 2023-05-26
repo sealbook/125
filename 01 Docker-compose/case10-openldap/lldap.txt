@@ -17,8 +17,8 @@ services:
       - "./lldap_data:/data"
       # Alternatively, you can mount a local folder
     environment:
-#      - UID=1000
-#      - GID=1000
+      - UID=0  # run as root
+      - GID=0  # run as root
       - TZ=ASIA/TAIPEI
 #      - LLDAP_JWT_SECRET=REPLACE_WITH_RANDOM
       - LLDAP_LDAP_USER_PASS=ITewsn1234
