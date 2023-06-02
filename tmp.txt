@@ -27,6 +27,7 @@ docker stop portainer
 docker rm   portainer
 docker run -d -p 8001:8001 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
 #########################################################
+#########################################################
 nano /etc/fstab  **ubuntu22
 IP:/mnt/vol1/XXX /mountpoint nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800  0 0
 ## new version 2.13.1 change PW to 1qazXSW@3edc
@@ -77,7 +78,17 @@ automount -f -v
 useradd -d /home/NIS_dir/suadm -u 4000 suadm
 useradd -u 4000 suadm
 #########################################################
-
 /etc/auto.master.d/*.autofs
 
 rsync -avhz --progress /mnt/iso/template/iso/*.iso /mnt/vol/iso/
+#########################################################
+gpart show -r
+gpart show -p
+gpart create -s gpt ada4    ## 創建新的分割表
+gpart add -t freebsd-swap -s 2G ada4    ## 創建新的分割區 by 2G
+gpart add -t freebsd-zfs ada4     ## 創建新的分割區 by 剩下全部
+gpart list ada4 | less    ## get rawuuid
+
+zpool status
+zpool attach vol1 gptid/38a71d28-a6b1-11e9-b85c-6805ca08a3d6 gptid/5d64f9d8-0061-11ee-8d06-b499bab53473
+左數來第二個 18T HDD replace no detach
