@@ -91,4 +91,4 @@ gpart list ada4 | less    ## get rawuuid
 
 zpool status
 zpool attach vol1 gptid/38a71d28-a6b1-11e9-b85c-6805ca08a3d6 gptid/5d64f9d8-0061-11ee-8d06-b499bab53473
-左數來第二個 18T HDD replace no detach
+
