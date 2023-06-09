@@ -9,6 +9,9 @@ ntpdate time.windows.com  **校正時間
 重啟或重灌後服務未正常運作：ⅠⅠ■ 時間不對Ⅰ
 Ciphers aes256-ctr
 NoneEnabled no
+**校正時間
+CMD： w32tm /resync /nowait
+PowerShell： Start-Process w32tm -ArgumentList "/resync /nowait" -Verb RunAs
 #########################
 useradd -d /home/itadm -s /bin/bash -g root itadm
 usermod -aG sudo itadm
@@ -81,6 +84,7 @@ useradd -u 4000 suadm
 /etc/auto.master.d/*.autofs
 
 rsync -avhz --progress /mnt/iso/template/iso/*.iso /mnt/vol/iso/
+rsync -avhz --progress --remove-source-files /mnt/163/ //mnt/70/VM-nfs4vm/
 #########################################################
 gpart show -r
 gpart show -p
