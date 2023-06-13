@@ -1,0 +1,94 @@
+" 插件將被下載到指定的目錄下
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+
+" 申報插件列表 | 主題作法相同
+Plug 'tpope/vim-sensible'
+"https://github.com/tpope/vim-sensible
+Plug 'junegunn/seoul256.vim'
+"https://github.com/junegunn/seoul256.vim
+Plug 'preservim/nerdtree'
+"https://github.com/preservim/nerdtree
+Plug 'tpope/vim-fugitive'
+"https://github.com/tpope/vim-fugitive
+Plug 'vim-airline/vim-airline'
+"https://github.com/vim-airline/vim-airline
+"Plug 'morhetz/gruvbox' 主題
+"https://github.com/morhetz/gruvbox
+
+
+
+
+" 列表到此結束。在這個調用之後，插件對Vim是可見的。
+call plug#end()
+
+"# Vim (~/.vimrc)
+"# Vim (~/.vim/autoload)
+"curl -fLo ~/.vim/autoload/plug.vim --create-dirs \https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" ## 安裝 :PlugInstall   重新加載 :source ~/.vimrc
+" ## 更新 :PlugUpdate    
+" ## 檢測並刪除未聲明的插件 :PlugClean (first 刪除或註釋 Plug 要刪除插件的指令)
+" ## https://github.com/junegunn/vim-plug/wiki/tutorial
+
+" Vim 基本設定
+" 關閉vi兼容模式"
+set nocompatible
+" 設置歷史記錄步數"
+set history=1000
+" 設置字體"
+"set guifont=dejaVu\Sans\MONO\10
+set guifont=Courier_New:h10:cANSI
+" 啟用語法高亮功能
+syntax on
+" 顯示行號
+set number
+" 顯示相對行號和絕對行號
+" set relativenumber
+" 設定Tab鍵的寬度為4個空格
+set tabstop=4
+" 設定自動縮進時的縮進寬度為4個空格
+set shiftwidth=4
+" 將Tab字符自動轉換為空格字符
+set expandtab
+" 啟用自動縮進功能
+set autoindent
+" 啟用智能縮進功能
+set smartindent
+" 顯示光標位置
+set ruler
+" 顯示匹配的括號
+set showmatch
+" 顯示尾行狀態
+set laststatus=2
+" 啟用滑鼠支援
+set mouse=a
+" 關閉光標閃爍
+set gcr=a:blinkon0
+" 自動重載外部修改的文件
+set autoread
+" 啟用行游標提示。
+set cursorline
+" 搜尋不分大小寫。
+set ic
+" 高亮當前行 (水平)。
+" set cursorline
+" 高亮當前列 (垂直)。
+" set cursorcolumn
+" 顯示非ASCII字符
+set encoding=utf-8
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+
+"設置語言編碼"
+"set langmenu=zh_tw.UTF-8
+"set helplang=tw
+
+
+" 主題設定 (改用上面vim-plug)
+" 安裝主題: https://github.com/morhetz/gruvbox
+" ## mkdir ~/.vim/colors
+" ## git clone https://github.com/morhetz/gruvbox.git 
+" ## cp gruvbox.vim to ~/vim/colors/
+
+colorscheme gruvbox
+
+" 快捷鍵映射
+" 在這裡添加你自定義的快捷鍵映射
