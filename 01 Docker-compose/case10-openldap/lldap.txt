@@ -31,8 +31,15 @@ services:
 # LLDAP_JWT_SECRET = 用途 ?
 # UID/GID 預設 1000/1000 用途 ?
 # DB = sqlited <how to backup config ?>
-# NAS connect FOR SAMBA share ?? < 免 AD >
-# SSO ??? change password ???
+# NAS connect FOR SAMBA share ?? < 免 AD > 
+#### Samba integration not work yet   maybe freeipa or Kanidm ??
+# Samba AD domains ???? new for after samba 4.14 ?? samba schema not work for lldap??
+
+
+## hostname: 192.168.10.139:3890
+## baseDN:  dc=infowize,dc=com,dc=tw
+## bindDN:  cn=admin,ou=people,dc=infowize,dc=com,dc=tw
+## bindpw:  ITewsn1234
 ###
 ###  Authelia || Authentik || Dex  || Emby || KeyCloak || Organizr
 Ⅰ authelia
@@ -64,6 +71,14 @@ https://goauthentik.io/docs/
 ## AD
 ## LDAP
 
+
+Univention Corporate Server (UCS)：UCS 是一個企業級的開源伺服器操作系統，它集成了 Active Directory 域控制器、LDAP 目錄服務、Kerberos 身份驗證和其他功能。它使用 Samba AD 域作為其核心身份管理和驗證機制。
+
+## 目前測試可以在freenas，使用AD bind to UCS，並用 wbinfo -u check
+## 那可以用 ldap 嗎？<bind to UCS ?????>
+## ucs 文件 auth to SMB ??
+
+
 ## NIS lab建置完成,新增帳號/群組，再分組更新資料庫 
 ## /usr/lib/yp/ypinit -s nis
 ## /usr/lib/yp/ypinit -m
@@ -71,21 +86,3 @@ https://goauthentik.io/docs/
 ## freenas 若NIS user need ssh login，需多加 master.passwd.byname 
 ## python 產生新檔後，Makefile 更新資料庫，yptest 同步測試
 
-==================================
-往下天地無用
-
-以下是一些開源軟體，可以協助管理 FreeNAS 分享出來的 Samba：
-
-Webmin：一個用於管理 Unix 系統的 Web 接口。它包括對 Samba 的支持，可以輕鬆地配置共享、用戶和權限。Webmin 可以透過 Samba 的 SWAT 接口與 Samba 進行通信，從而提供簡單易用的 Samba 管理工具。
-
-Cockpit：一個 Web 界面，用於管理 Linux 伺服器。它可以輕鬆地配置 Samba 共享、用戶和權限，同時提供了一個直觀的介面。Cockpit 的 Samba 模塊支持 Samba 的最新版本，可以輕鬆地在 FreeNAS 上使用。
-
-SWAT：Samba Web 管理工具，可以輕鬆地配置 Samba 共享、用戶和權限。它是 Samba 官方提供的管理工具之一，提供了一個直觀的 Web 介面，易於使用。
-
-Samba Web Administration Tool (SWAT)：它是 Samba 官方提供的管理工具之一，提供了一個簡單易用的 Web 介面，可以輕鬆地配置 Samba 共享、用戶和權限。它可以在 FreeNAS 上輕鬆使用。
-
-smbldap-tools：這是一個管理 Samba/LDAP 整合的工具。它可以幫助管理 Samba/LDAP 用戶、組、密碼等。它需要一些額外的設置才能在 FreeNAS 上運行，但對於需要使用 LDAP 的組織而言，它是一個非常有用的工具。
-
-Winbind：這是一個 Samba 工具，用於將 Unix/Linux 系統與 Windows 域集成。它可以讓 FreeNAS 在 Windows 環境中使用，並與 Windows 域集成。在 FreeNAS 上使用 Winbind，需要一些額外的設置和管理。
-
-這些開源工具可以提供一個易於使用和管理 Samba 的平台，協助管理 FreeNAS 分享出來的 Samba。選擇哪一個工具，取決於個人需要和使用情況。
