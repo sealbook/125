@@ -1,8 +1,8 @@
 @echo off
 
 net use S: \\192.168.10.163\cloud
-robocopy D:\ S:\bernice\D /R:0 /W:0 /E /PURGE /TEE /NJH /NFL /NDL /XO /XD \$Recycle.Bin\ /XF *.tmp /xa:sh /XD /maxage:7 /MT:100 /LOG+:S:\log\bernice_%date:~0,4%%date:~5,2%%date:~8,2%.log
-robocopy C:\ S:\bernice\C /R:0 /W:0 /E /PURGE /TEE /NJH /NFL /NDL /XO /XD \$Recycle.Bin\ /XF *.tmp /xa:sh /XD /maxage:7 /MT:100 /LOG+:S:\log\bernice_%date:~0,4%%date:~5,2%%date:~8,2%.log
+robocopy D:\ S:\bernice /R:0 /W:0 /E /PURGE /TEE /NJH /NFL /NDL /XO /MT:100 /LOG+:S:\log\bernice_%date:~0,4%%date:~5,2%%date:~8,2%.log
+robocopy C:\ S:\bernice /R:0 /W:0 /E /PURGE /TEE /NJH /NFL /NDL /XO /MT:100 /LOG+:S:\log\bernice_%date:~0,4%%date:~5,2%%date:~8,2%.log
 net use S: /delete
 
 #@echo "請確認log file是否有錯誤"
@@ -28,13 +28,3 @@ net use S: /delete
 #         n 必須至少為 1，但不可以大於 128。 
 #         此選項與 /IPG 和 /EFSRAW 選項不相容。 
 #         使用 /LOG 選項重新導向輸出，以獲得更好的效能。 
-#/xa:sh :: 跳過屬性為 s (系統) 與 h (隱藏) 的檔案。因為是複製整個硬碟，預設會連 Windows隱藏的系統檔都複製過去，所以要排除。
-https://blog.csdn.net/WuLex/article/details/104665794
-https://mitblog.pixnet.net/blog/post/45087852-%5Bdos%5D-robocopy-%E6%95%99%E5%AD%B8
-排除 
-\System Volume Information\
-\$Recycle.Bin\
-\RECYCLE?\
-\Recovery\
-*\thumbs.db
-robocopy /? <help>

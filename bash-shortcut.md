@@ -34,3 +34,103 @@
 https://www.tecmint.com/linux-command-line-bash-shortcut-keys/
 https://stackoverflow.com/questions/4415598/what-does-u-stand-for-in-ctrlu
 https://unix.stackexchange.com/questions/154228/what-is-the-keyboard-shortcut-opposite-to-ctrlk
+
+=======================================================================
+https://rez1coder.medium.com/how-to-vim-like-a-pro-a-how-to-guide-for-maximum-productivity-c01773ee346a
+
+It’s time to ditch the mouse and say hello to Vim.
+
+This powerful text editor may have a tough reputation, but with a little practice, you’ll be slicing through keystrokes like a pro in no time.
+
+So, grab your keyboard and let’s get started!
+
+Note: This article assumes you have some knowledge of Vim. If you’re a newbie, check out Ben Awad’s Vim Tutorial before diving in.
+
+Vim’s Help
+Type :help quit or :h quit to open documentation containing quit inside Vim
+i.e. :h keyword - open documentation with keyword
+
+Tip: Press tab to autocomplete anything in command mode.
+
+Exiting
+:q - quit (close) file
+:qa - quit all files
+:w - write (save)
+:wq or :x - write and quit file
+Open file within vim
+:e filename - edit file
+:tabnew filename - edit file in a new tab
+Tip: Press gt - go to next tab and gT - go to previous tab
+
+Open file(s) via terminal
+vim filename - open a specific file filename
+vim -p filename1 filename2 filename3 - open multiple files in different tabs
+Basic Vim Motions
+hjkl - left, up, down, right Also known as Arrow Keys - to move the cursor by one space in every direction:
+
+Arrow Keys
+Editing
+i - insert text
+a - insert text after cursor
+I - insert text at beginning of line
+A - append text at the end of line
+o - insert line below current line
+O - insert a line above current line
+Recover Changes
+u - undo changes
+ctrl + r - redo changes
+Moving around
+{count}motion i.e 5j means jump 5 lines down, 9k means jump 9 lines up
+w - move by word
+e - move by end of word
+b - move backwards by word
+gg - beginning of file
+G - end of file
+“ If you believe in yourself and have dedication and pride — and never quit, you’ll be a winner. The price of victory is high but so are the rewards. “
+
+Operators
+Lets you operate in a range of text (defined by motion). These are performed in normal mode.
+
+d - delete
+y - yank (copy)
+c - change (delete and insert)
+v - visual select
+Delete / Change
+dd - delete line
+yy - yank current line
+cc - change line (similar to C and S)
+x - ex-out text
+r - replace a character
+R - enter replace mode
+s - change a letter
+S - change complete line
+Selecting
+v - go into character-wise visual mode
+V - go into line-wise visual mode
+C-v - go into block-wise visual mode
+Copy and Paste
+y - yank text
+yy - yank current line
+:%y+ - copy whole file
+p pastes something after the cursor
+P pastes something before the cursor
+Moving horizontally with high precision
+f - find text
+F - find text backwards
+t<char> - move till the next appearance of character <char> in current line
+T<char> - move till the previous appearance of character <char> in current line backwards
+File Search
+/keyword - search forward for occurence of pattern
+?keyword - search backward for occurence of pattern
+n - go to next matching search pattern
+N - go to previous matching search pattern
+* - go to next occurrence of pattern under cursor (repeat search)
+# - go to previous occurrence of pattern (repeat search)
+Indent or Unindent
+> - shift right
+< - shift left
+= - fix indentation
+>> - Increase indentation in current line
+<< - Decrease indentation in current line
+Advanced
+. - repeat last change

@@ -1,0 +1,120 @@
+version: '3'
+
+services:
+  openldap-server:
+    #hostname: foo
+    ports:
+      - '389:389'
+      - '636:636'
+    environment:
+      - TZ=Asia/Taipei
+      - LDAP_ORGANISATION=infowize
+      - LDAP_DOMAIN=infowize.com.tw
+      - LDAP_ADMIN_PASSWORD=password
+      - LDAP_BASE_DN=dc=infowize,dc=com,dc=tw
+      # Remember to enable TLS later
+      - LDAP_TLS=false
+      # See https://www.openldap.org/doc/admin24/slapdconf2.html for debug level
+      - LDAP_LOG_LEVEL=4
+      - LDAP_TLS_VERIFY_CLIENT=never 
+      # client 不認證
+    volumes:
+      - /opt/ldap/openldap/database:/var/lib/ldap
+      - /opt/ldap/openldap/config:/etc/ldap/slapd.d
+    container_name: openldap-server
+    image: osixia/openldap:1.5.0
+    restart: always
+    networks:
+          ldap:
+
+  phpldapadmin:
+    ports:
+      - '8072:80'
+      - '8073:443'
+    environment:
+      - TZ=Asia/Taipei
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap-server
+      # We use NGINX to enable HTTPS, so keep disable here.
+      - PHPLDAPADMIN_HTTPS=false
+      # Set to true to trust NGINX X-Forwarded-Proto header
+      - PHPLDAPADMIN_TRUST_PROXY_SSL=true
+      # Enable ldap client tls config, ldap server certificate check and set client certificate. Defaults to true. Switch to true if testing over.
+      - PHPLDAPADMIN_LDAP_CLIENT_TLS=false
+    volumes:
+      - /opt/ldap/phpadmin-data:/var/www/phpldapadmin
+    container_name: phpldapadmin
+    image: osixia/phpldapadmin:0.9.0
+    restart: always
+    networks:
+          ldap:
+    depends_on:
+      - openldap-server
+    
+  Openldap-backup:
+    environment:
+        - LDAP_ORGANISATION=infowize
+        - LDAP_BACKUP_CONFIG_CRON_EXP="0 2 * * *"
+        - LDAP_DOMAIN=infowize.com.tw
+        - LDAP_ADMIN_PASSWORD=password
+        #- LDAP_READONLY_USER=true
+        #- LDAP_READONLY_USER_USERNAME=lzwread
+        #- LDAP_READONLY_USER_PASSWORD=只读密码
+        #- LDAP_CONFIG_PASSWORD=只读密码
+    volumes:
+        - /opt/ldap/openldap/database:/var/lib/ldap
+        - /opt/ldap/openldap/config:/etc/ldap/slapd.d
+        - /opt/ldap/openldap/backup:/data/backup
+    image: osixia/openldap-backup:1.5.0
+    container_name: ldap-backup
+    restart: always
+    networks:
+          ldap:
+    depends_on:
+        - phpldapadmin
+        
+  self-service-password:
+    image: 'tiredofit/self-service-password:latest'
+    container_name: 'self-service-password'
+    ports:
+      - '8089:80'
+    environment:
+      - LDAP_SERVER=ldap://wp.infowize.com.tw:389
+      - LDAP_BINDDN=cn=admin,dc=infowize,dc=com,dc=tw
+      - LDAP_BINDPASS=password
+      - LDAP_BASE_SEARCH=ou=users,dc=example,dc=com
+      - LDAP_LOGIN_ATTRIBUTE=uid
+      - LDAP_FULLNAME_ATTRIBUTE=cn
+      - MAIL_FROM=nas@infowize.com.tw
+      - SMTP_DEBUG=0
+      - SMTP_HOST=smtp.google.com
+      - SMTP_USER=nas@infowize.com.tw
+      - SMTP_PASS=csd123
+      - SMTP_PORT=587
+      - SMTP_AUTH_ON=true
+      - SMTP_TIMEOUT=30
+      - SMTP_SECURE_TYPE=tls
+      - SMTP_AUTOTLS=false
+      - MAIL_CONTENTTYPE="text/plain"
+      - MAIL_WORDWRAP=80
+      - MAIL_CHARSET="utf8"
+      - MAIL_PRIORITY=3
+      - MAIL_NEWLINE=PHP_EOL
+    volumes:
+      - /opt/ldap/self-service-password/date:/www/ssp
+      - /opt/ldap/self-service-password/logs:/www/logs   
+    networks:
+          ldap:
+    depends_on:
+        - Openldap-backup
+
+networks:
+      ldap:
+        external: true
+
+# web login  cn=admin,dc=infowize,dc=com,dc=tw | password
+## net stop LanmanWorkstation /y
+## net start LanmanWorkstation
+## docker exec -it openldap-server bash
+## service slapd status
+# 編輯您的服務器配置
+# 不要編輯 slapd.conf 它沒有被使用。要修改服務器配置，請使用 ldap utils：ldapmodify / #ldapadd / ldapdelete

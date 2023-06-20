@@ -1,0 +1,42 @@
+@echo off
+title Activate Office 2016
+color 0a
+
+:: Office 2016 Professional Plus
+set key=XQNVK-8JYDB-WJ9W3-YJ8YR-WFG99
+
+:: Office 2016 Standard
+:: set key=JNRGM-WHDWX-FJJG3-K47QV-DRTFM
+
+:: Project 2016 Professional
+:: set key=YG9NW-3K39V-2T3HJ-93F3Q-G83KT
+
+:: Project 2016 Standard
+:: set key=GNFHQ-F6YQM-KQDGJ-327XX-KQBVC
+
+:: Visio 2016 Professional
+:: set key=PD3PC-RHNGV-FXJ29-8JK7D-RJRJK
+
+:: Visio 2016 Standard
+:: set key=7WHWN-4T7MP-G96JF-G33KR-W8GF4
+
+echo.
+echo ===================================================
+echo Activating Office 2016... Please wait...
+echo ===================================================
+echo.
+
+:: Set working directory to Office installation folder
+cd "C:\Program Files\Microsoft Office\Office16"
+
+:: Execute the activation command
+cscript ospp.vbs /inpkey:%key%
+cscript ospp.vbs /act
+
+echo.
+echo ===================================================
+echo Office 2016 activation complete!
+echo ===================================================
+echo.
+
+pause
