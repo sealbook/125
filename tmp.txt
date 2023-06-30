@@ -95,4 +95,9 @@ gpart list ada4 | less    ## get rawuuid
 
 zpool status
 zpool attach vol1 gptid/38a71d28-a6b1-11e9-b85c-6805ca08a3d6 gptid/5d64f9d8-0061-11ee-8d06-b499bab53473
+#########################################################
 
+docker run --name freeipa-server-container -ti \
+    -h ipa.example.com --read-only \
+    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+    -v /opt/Freeipa/ipa-data:/data:Z freeipa-rocky9:lastest

@@ -1,0 +1,73 @@
+version: "3.3"
+services:
+  freeipa:
+    image: freeipa/freeipa-server:almalinux-9
+    hostname: ipa.infowize.lab
+    domainname: ipa.infowize.lab
+    container_name: Freeipa-NIS
+    ports:
+      # web
+      - "80:80/tcp"
+      - "443:443/tcp"
+      # DNS
+      - "53:53/tcp"
+      - "53:53/udp"
+      # LDAP(S)
+      - "389:389/tcp"
+      - "636:636/tcp"
+      # Kerberos
+      - "88:88/tcp"
+      - "88:88/udp"
+      - "464:464/tcp"
+      - "464:464/udp"
+      # NTP
+      - "123:123/udp"
+    dns:
+      - 192.168.10.1
+      - 8.8.8.8
+      - 168.95.192.1
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    environment:
+      IPA_SERVER_HOSTNAME: ipa.infowize.lab
+      IPA_SERVER_IP: 192.168.10.139
+      TZ: "Asis/Taipei"
+    command:
+      - -U                            # 使用非交互式模式運行安裝
+      - --domain=infowize.lab
+      - --realm=infowize.lab
+      - --admin-password=ITewsn1234   # admin密碼
+      - --http-pin=ITewsn1234         # 設置 HTTP 服務密碼
+      - --dirsrv-pin=ITewsn1234       # 設置目錄服務密碼  least 8
+      - --ds-password=ITewsn1234      # 設置目錄服務密碼
+      - --no-dnssec-validation        # 禁用 DNSSEC 驗證
+      - --no-host-dns                 # 不使用主機的 DNS 設定
+      - --setup-dns                   # 自動設置 DNS
+      - --auto-forwarders             # 設置自動轉發
+      - --allow-zone-overlap          # 允許區域重疊
+      - --unattended                  # 無人值守模式運行安裝過程
+    cap_add:  # 執行特定操作或訪問特定資源時所需的權限
+      - SYS_TIME
+      - NET_ADMIN
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ./data:/data
+      - ./logs:/var/logs
+    sysctls: # 指定容器系統控制參數（sysctl parameters）|用於啟用容器內的 IPv6
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.lo.disable_ipv6=0
+    security_opt: # 控制容器的安全配置
+      - "seccomp:unconfined"  # 表示容器中的 Seccomp 配置是無限制的，即容器可以使用所有的系統調用
+    labels:  # 添加自定義的標籤
+      - dev
+    extra_hosts: # 在容器中添加自定義主機名和 IP mapping
+      - "ipa.infowize.lab:192.168.10.139"
+
+## https://serverfault.com/questions/1053187/systemd-fails-to-run-in-a-docker-container-when-using-cgroupv2-cgroupns-priva
+## ubuntu ： cgroupv2 to cgroupv1
+## check ： mount |grep cgroup
+##
+# echo 'GRUB_CMDLINE_LINUX=systemd.unified_cgroup_hierarchy=false' > /etc/default/grub.d/cgroup.cfg
+# update-grub
