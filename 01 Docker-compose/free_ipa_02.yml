@@ -1,14 +1,15 @@
-version: "3.8"
+version: "3"
 services:  
   freeipa:
-    image: freeipa/freeipa-server:rocky-9
-    hostname: ipa.infowize.lab
-    domainname: ipa.infowize.lab
-    container_name: Freeipa-NIS
+#    image: freeipa/freeipa-server:centos-8-stream  # base on U18d
+    image: freeipa/freeipa-server:rocky-9  # base on U18d
+    hostname: wp.infowize.com.tw            # set hostnamectl set-hostname
+    domainname: infowize.com.tw             # set domainname
+    container_name: Freeipa
     ports:
       # web
-      - "80:80/tcp"
-      - "443:443/tcp"
+      - "10080:80/tcp"
+      - "10443:443/tcp"
       # DNS
       - "53:53/tcp"
       - "53:53/udp"
@@ -31,13 +32,13 @@ services:
     tty: true
     stdin_open: true
     environment:
-      IPA_SERVER_HOSTNAME: ipa.infowize.lab
-      IPA_SERVER_IP: 172.21.0.2
+      IPA_SERVER_HOSTNAME: wp.infowize.com.tw
+      IPA_SERVER_IP: 172.18.0.2
       TZ: "Asis/Taipei"
-    command:
+    command:  ## in = server | out =client 
       - -U                            # 使用非交互式模式運行安裝
-      - --domain=infowize.lab
-      - --realm=infowize.lab
+      - --domain=infowize.com.tw      ## 
+      - --realm=infowize.com.tw       ##
       - --admin-password=ITewsn1234   # admin密碼
       - --http-pin=ITewsn1234         # 設置 HTTP 服務密碼
       - --dirsrv-pin=ITewsn1234       # 設置目錄服務密碼  least 8
@@ -53,24 +54,41 @@ services:
       - NET_ADMIN
     volumes:
       - /etc/localtime:/etc/localtime:ro
-#     - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - ./data::/data:Z
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ./data:/data
       - ./logs:/var/logs
     sysctls: # 指定容器系統控制參數（sysctl parameters）|用於啟用容器內的 IPv6
       - net.ipv6.conf.all.disable_ipv6=0
       - net.ipv6.conf.lo.disable_ipv6=0
-#   security_opt: # 控制容器的安全配置
-#     - "seccomp:unconfined"  # 表示容器中的 Seccomp 配置是無限制的，即容器可以使用所有的系統調用
+    security_opt: # 控制容器的安全配置
+      - "seccomp:unconfined"  # 表示容器中的 Seccomp 配置是無限制的，即容器可以使用所有的系統調用
     labels:  # 添加自定義的標籤
       - dev
     extra_hosts: # 在容器中添加自定義主機名和 IP mapping
-      - "ipa.infowize.lab:172.21.0.2"
-      
+      - "wp.infowize.com.tw:172.18.0.2"
+ 
+
+### 內層 docker 執行的ipa-server 相對的外層 VMs則是 ipa-client
+
 ## https://serverfault.com/questions/1053187/systemd-fails-to-run-in-a-docker-container-when-using-cgroupv2-cgroupns-priva
 ## ubuntu ： cgroupv2 to cgroupv1
 ## check ： mount |grep cgroup
 ##
 # echo 'GRUB_CMDLINE_LINUX=systemd.unified_cgroup_hierarchy=false' > /etc/default/grub.d/cgroup.cfg
-# update-grub
+# update-grublab
+
+## systemctl status chrony **用於同步和維護計算機系統時鐘的軟件
+## apt install freeipa-client -y
+##
+# ipactl sttatus   * check service
+# docker exec -it Freeipa-NIS /bin/bash  
 
 
+
+#apt-get install freeipa-client chrony -y
+#hostnamectl set-hostname wp2.infowize.com.tw
+
+#ipa-client-install --hostname=`hostname -f` --mkhomedir --server=wp.infowize.com.tw --domain infowize.com.tw --realm infowize.com.tw
+
+
+docker run --name freeipa -ti -h ipa.example.test --read-only -v /var/lib/ipa-data:/data:Z freeipa-server::almalinux-9 --sysctl net.ipv6.conf.all.disable_ipv6=0

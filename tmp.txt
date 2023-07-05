@@ -12,13 +12,20 @@ NoneEnabled no
 **校正時間
 CMD： w32tm /resync /nowait
 PowerShell： Start-Process w32tm -ArgumentList "/resync /nowait" -Verb RunAs
+**check node
+hostnamectl  **display
+hostnamectl set-hostname <NAME>
+cat /etc/hostname
+domainname NAME
+cat /etc/hosts
+systemctl status systemd-resolved.service
+timedatectl set-timezone Asia/Taipei
 #########################
 useradd -d /home/itadm -s /bin/bash -g root itadm
 usermod -aG sudo itadm
 #########################
 curl -fsSL https://get.docker.com/ | sh
-apt install docker-compose	-y
-apt install git wget vim -y
+apt install -y git curl wget vim docker-compose net-tools open-vm-tools openssh-server 
 ## new create <portainer-ce>
 docker volume create portainer_data
 docker pull portainer/portainer-ce:latest
@@ -96,8 +103,3 @@ gpart list ada4 | less    ## get rawuuid
 zpool status
 zpool attach vol1 gptid/38a71d28-a6b1-11e9-b85c-6805ca08a3d6 gptid/5d64f9d8-0061-11ee-8d06-b499bab53473
 #########################################################
-
-docker run --name freeipa-server-container -ti \
-    -h ipa.example.com --read-only \
-    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
-    -v /opt/Freeipa/ipa-data:/data:Z freeipa-rocky9:lastest
