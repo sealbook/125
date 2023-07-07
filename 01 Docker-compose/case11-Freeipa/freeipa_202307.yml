@@ -1,17 +1,14 @@
-version: "3.3"
+version: "3"  ##  labbing on 2023.07
 services:
   freeipa:
-    image: freeipa/freeipa-server:almalinux-9
-    hostname: ipa.infowize.lab
-    domainname: ipa.infowize.lab
-    container_name: Freeipa-NIS
+    image: freeipa/freeipa-server:rocky-9
+    hostname: ipa
+    domainname: nis.lab
+    container_name: freeipa
     ports:
       # web
       - "80:80/tcp"
       - "443:443/tcp"
-      # DNS
-      - "53:53/tcp"
-      - "53:53/udp"
       # LDAP(S)
       - "389:389/tcp"
       - "636:636/tcp"
@@ -23,6 +20,7 @@ services:
       # NTP
       - "123:123/udp"
     dns:
+      - 127.0.0.1
       - 192.168.10.1
       - 8.8.8.8
       - 168.95.192.1
@@ -30,13 +28,12 @@ services:
     tty: true
     stdin_open: true
     environment:
-      IPA_SERVER_HOSTNAME: ipa.infowize.lab
-      IPA_SERVER_IP: 192.168.10.139
+      IPA_SERVER_HOSTNAME: ipa.nis.lab
       TZ: "Asis/Taipei"
     command:
       - -U                            # 使用非交互式模式運行安裝
-      - --domain=infowize.lab
-      - --realm=infowize.lab
+      - --domain=nis.lab
+      - --realm=nis.lab
       - --admin-password=ITewsn1234   # admin密碼
       - --http-pin=ITewsn1234         # 設置 HTTP 服務密碼
       - --dirsrv-pin=ITewsn1234       # 設置目錄服務密碼  least 8
@@ -60,14 +57,3 @@ services:
       - net.ipv6.conf.lo.disable_ipv6=0
     security_opt: # 控制容器的安全配置
       - "seccomp:unconfined"  # 表示容器中的 Seccomp 配置是無限制的，即容器可以使用所有的系統調用
-    labels:  # 添加自定義的標籤
-      - dev
-    extra_hosts: # 在容器中添加自定義主機名和 IP mapping
-      - "ipa.infowize.lab:192.168.10.139"
-
-## https://serverfault.com/questions/1053187/systemd-fails-to-run-in-a-docker-container-when-using-cgroupv2-cgroupns-priva
-## ubuntu ： cgroupv2 to cgroupv1
-## check ： mount |grep cgroup
-##
-# echo 'GRUB_CMDLINE_LINUX=systemd.unified_cgroup_hierarchy=false' > /etc/default/grub.d/cgroup.cfg
-# update-grub

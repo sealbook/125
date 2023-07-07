@@ -1,0 +1,82 @@
+version: "3"  ##  labbing on 2023.07
+services:     ##  baseOS U18d <cgropv1> | U22d <cgroupv2> need change
+  freeipa:    ##  rocky-9 | almalinux-9 | centos-9-stream | fedora-38
+    image: freeipa/freeipa-server:rocky-9
+    hostname: ipa               # same as image
+    domainname: nis.lab         # set domainname
+    container_name: freeipa
+    ports:
+      # web      WebUI only VMs local broswer
+      - "80:80/tcp"
+      - "443:443/tcp"
+      # DNS
+      #- "53:53/tcp"
+      #- "53:53/udp"
+      # LDAP(S)
+      - "389:389/tcp"
+      - "636:636/tcp"
+      # Kerberos
+      - "88:88/tcp"
+      - "88:88/udp"
+      - "464:464/tcp"
+      - "464:464/udp"
+      # NTP
+      - "123:123/udp"
+    dns:
+      - 127.0.0.1
+      - 192.168.10.1
+      - 8.8.8.8
+      - 168.95.192.1
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    environment:
+      IPA_SERVER_HOSTNAME: ipa.nis.lab
+#      IPA_SERVER_IP: 172.18.0.2      # docker IP set to VMs /etc/hosts
+      TZ: "Asis/Taipei"
+    command:  ## in = server | out =client 
+      - -U                            # 使用非交互式模式運行安裝
+      - --domain=nis.lab               
+      - --realm=nis.lab               
+      - --admin-password=ITewsn1234   # admin密碼
+      - --http-pin=ITewsn1234         # 設置 HTTP 服務密碼
+      - --dirsrv-pin=ITewsn1234       # 設置目錄服務密碼  least 8
+      - --ds-password=ITewsn1234      # 設置目錄服務密碼
+      - --no-dnssec-validation        # 禁用 DNSSEC 驗證
+      - --no-host-dns                 # 不使用主機的 DNS 設定
+      - --setup-dns                   # 自動設置 DNS
+      - --auto-forwarders             # 設置自動轉發
+      - --allow-zone-overlap          # 允許區域重疊
+      - --unattended                  # 無人值守模式運行安裝過程
+    cap_add:  # 執行特定操作或訪問特定資源時所需的權限
+      - SYS_TIME
+      - NET_ADMIN
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ./data:/data
+      - ./logs:/var/logs
+    sysctls: # 指定容器系統控制參數（sysctl parameters）|用於啟用容器內的 IPv6
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.lo.disable_ipv6=0
+    security_opt: # 控制容器的安全配置
+      - "seccomp:unconfined"
+# 表示容器中的 Seccomp 配置是無限制的，即容器可以使用所有的系統調用
+
+#    labels:  # 添加自定義的標籤
+#      - dev
+#    extra_hosts: # 即 docker 內的 /etc/hosts   無用於外部 VMs 
+#      - "u18.ipa.lab:172.18.0.2"   
+
+## 內層 docker 執行ipa-server ：相對的外層 VMs則是只能 broswer WebUI
+# docker logs -t -f freeipa
+# docker exec -it freeipa /bin/bash
+# ipactl sttatus   * check service
+## https://serverfault.com/questions/1053187/systemd-fails-to-run-in-a-docker-container-when-using-cgroupv2-cgroupns-priva
+## ubuntu ： cgroupv2 set to cgroupv1
+## check  ： mount | grep cgroup
+# echo 'GRUB_CMDLINE_LINUX=systemd.unified_cgroup_hierarchy=false' > /etc/default/grub.d/cgroup.cfg && update-grub && mount | grep cgroup
+
+## Issue about Firefox fix 
+# Ⅰ type " about:support " on the tab, find " about profiles " link
+# Ⅱ open root dir, and del  "cert9.db" & "cert_override.txt",then restart firefox
