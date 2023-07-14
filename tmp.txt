@@ -80,6 +80,8 @@ dd if=/dev/zero of=/tmp/test2.img bs=512 count=1000 oflag=dsync
 
 systemctl status ypserv rpcbind ypbind yppasswdd
 systemctl restart ypserv rpcbind ypbind yppasswdd
+systemctl list-unit-files
+chkconfig
 automount -f -v
 
 /usr/lib64/yp/ypinit -m
@@ -103,3 +105,13 @@ gpart list ada4 | less    ## get rawuuid
 zpool status
 zpool attach vol1 gptid/38a71d28-a6b1-11e9-b85c-6805ca08a3d6 gptid/5d64f9d8-0061-11ee-8d06-b499bab53473
 #########################################################
+192.168.10.230 
+/var/univention-backup/ldap-backup_XXXXXXXX.ldif.gz
+
+gzip -d ldap-backup_20230710.ldif
+/opt/freeipa/data/root
+
+
+ipa-client-install --hostname=`hostname -f` --mkhomedir --server=ipa.infowize.intra --domain infowize.intra --realm infowize.intra --no-ntp
+
+ipa-client-install --server=ipa.infowize.intra --domain=infowize.intra --no-ntp --realm=infowize.intra –-mkhomedir

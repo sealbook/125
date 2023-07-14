@@ -3,7 +3,7 @@ services:     ##  baseOS U18d <cgropv1> | U22d <cgroupv2> need change
   freeipa:    ##  rocky-9 | almalinux-9 | centos-9-stream | fedora-38
     image: freeipa/freeipa-server:rocky-9
     hostname: ipa               # same as image
-    domainname: nis.lab         # set domainname
+    domainname: infowize.intra         # set domainname
     container_name: freeipa
     ports:
       # web      WebUI only VMs local broswer
@@ -22,6 +22,8 @@ services:     ##  baseOS U18d <cgropv1> | U22d <cgroupv2> need change
       - "464:464/udp"
       # NTP
       - "123:123/udp"
+      # NIS
+      - "111:111/tcp"
     dns:
       - 127.0.0.1
       - 192.168.10.1
@@ -31,13 +33,13 @@ services:     ##  baseOS U18d <cgropv1> | U22d <cgroupv2> need change
     tty: true
     stdin_open: true
     environment:
-      IPA_SERVER_HOSTNAME: ipa.nis.lab
+      IPA_SERVER_HOSTNAME: ipa.infowize.intra
 #      IPA_SERVER_IP: 172.18.0.2      # docker IP set to VMs /etc/hosts
       TZ: "Asis/Taipei"
     command:  ## in = server | out =client 
       - -U                            # 使用非交互式模式運行安裝
-      - --domain=nis.lab               
-      - --realm=nis.lab               
+      - --domain=infowize.intra               
+      - --realm=infowize.intra               
       - --admin-password=ITewsn1234   # admin密碼
       - --http-pin=ITewsn1234         # 設置 HTTP 服務密碼
       - --dirsrv-pin=ITewsn1234       # 設置目錄服務密碼  least 8
@@ -80,3 +82,14 @@ services:     ##  baseOS U18d <cgropv1> | U22d <cgroupv2> need change
 ## Issue about Firefox fix 
 # Ⅰ type " about:support " on the tab, find " about profiles " link
 # Ⅱ open root dir, and del  "cert9.db" & "cert_override.txt",then restart firefox
+
+ldapmodify -x -D "cn=Directory Manager" -W -H ldap:// -ZZ -f ~/disable_anon_bind.ldif
+
+ldapmodify -x -D "uid=admin,cn=users,cn=accounts,dc=ipa,dc=lab" -w ITewsn1234 -H ldap://f38.ipa.lab -ZZ -f ldap-backup_20230710.ldif
+
+systemctl restart ipa.service
+
+ldapmodify -x -H ldap://ipa.infowize.intra -p 389 -D "uid=admin,cn=users,cn=accounts,dc=infowize,dc=intra" -w ITewsn1234 -f ldap-backup_20230710.ldif
+
+ldapsearch -x -H "ldap://ipa.infowize.intra" -b "cn=users,cn=accounts,dc=infowize,dc=intra" -D "uid=admin,cn=users,cn=accounts,dc=infowize,dc=intra" -w ITewsn1234
+
