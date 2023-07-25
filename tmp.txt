@@ -106,7 +106,6 @@ zpool status
 zpool attach vol1 gptid/38a71d28-a6b1-11e9-b85c-6805ca08a3d6 gptid/5d64f9d8-0061-11ee-8d06-b499bab53473
 #########################################################
 192.168.10.230 
-/var/univention-backup/ldap-backup_XXXXXXXX.ldif.gz
 
 gzip -d ldap-backup_20230710.ldif
 /opt/freeipa/data/root
@@ -115,3 +114,37 @@ gzip -d ldap-backup_20230710.ldif
 ipa-client-install --hostname=`hostname -f` --mkhomedir --server=ipa.infowize.intra --domain infowize.intra --realm infowize.intra --no-ntp
 
 ipa-client-install --server=ipa.infowize.intra --domain=infowize.intra --no-ntp --realm=infowize.intra –-mkhomedir
+
+
+docker exec --user root freeipa ipa dnsrecord-add infowize.lab U20d.infowize.lab --a-rec 192.168.10.127
+
+hostname<小寫+domainname>
+ipa-client-install
+
+ldapmodify -x -D "uid=admin,cn=users,cn=accounts,dc=nis,dc=intra" -w ITewsn1234
+dn: cn=NIS Server,cn=plugins,cn=config
+changetype: modify
+add: nsslapd-pluginarg0
+nsslapd-pluginarg0: 514
+
+
+ldapsearch -x -H "ldap://ipa.nis.intra" -D "uid=admin,cn=users,cn=accounts,dc=nis,dc=intra" -w ITewsn1234
+
+
+ldapadd -h ipa.nis.intra -x -D "uid=admin,cn=users,cn=accounts,dc=nis,dc=intra" -w ITewsn1234
+
+dn: nis-domain=nis.intra+nis-map=auto.ipa,cn=NIS Server,cn=plugins,cn=config
+objectClass: extensibleObject
+nis-domain: nis.intra
+nis-map: auto.ipa
+nis-filter: (objectclass=automount)
+nis-key-format: %{automountKey}
+nis-value-format: %{automountInformation}
+nis-base: automountmapname=auto.ipa,cn=default,cn=automount,dc=nis,dc=intra
+
+ypcat -k -d nis.itra -h ipa.nis.intra auto.ipa
+
+
+ipa netgroup-show ipa.nis.intra
+
+systemctl status portmap
