@@ -20,11 +20,12 @@ domainname NAME
 cat /etc/hosts
 systemctl status systemd-resolved.service
 timedatectl set-timezone Asia/Taipei
-#########################
-sudo apt-get install -y fish
-chsh -s /usr/bin/fish
+#########################	
+* https://fishshell.com/
+apt-add-repository ppa:fish-shell/release-3 && apt update -y && apt install -y fish
+cat /etc/passwd | grep root
 chsh -s $(which fish)
-fish
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 fisher list
 fisher install IlanCosman/tide@v5  * fisher theme

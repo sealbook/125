@@ -85,11 +85,6 @@ services:     ##  baseOS U18d <cgropv1> | U22d <cgroupv2> need change
 
 ldapmodify -x -D "cn=Directory Manager" -W -H ldap:// -ZZ -f ~/disable_anon_bind.ldif
 
-ldapmodify -x -D "uid=admin,cn=users,cn=accounts,dc=ipa,dc=lab" -w ITewsn1234 -H ldap://f38.ipa.lab -ZZ -f ldap-backup_20230710.ldif
-
-systemctl restart ipa.service
-
-ldapmodify -x -H ldap://ipa.infowize.intra -p 389 -D "uid=admin,cn=users,cn=accounts,dc=infowize,dc=intra" -w ITewsn1234 -f ldap-backup_20230710.ldif
+ldapmodify -x -H "ldap://ipa.infowize.intra" -D "uid=admin,cn=users,cn=accounts,dc=infowize,dc=intra" -w ITewsn1234 -f ldap-backup_20230710.ldif
 
 ldapsearch -x -H "ldap://ipa.infowize.intra" -b "cn=users,cn=accounts,dc=infowize,dc=intra" -D "uid=admin,cn=users,cn=accounts,dc=infowize,dc=intra" -w ITewsn1234
-
