@@ -173,3 +173,10 @@ ypcat -k -d nis.itra -h ipa.nis.intra auto.ipa
 ipa netgroup-show ipa.nis.intra
 
 systemctl status portmap
+
+#########################################################
+https://www.google.com.tw/imghp
+https://yandex.com/images
+https://tineye.com/
+https://www.bing.com/visualsearch?mkt=zh-CN
+
