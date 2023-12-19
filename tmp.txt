@@ -20,11 +20,12 @@ domainname NAME
 cat /etc/hosts
 systemctl status systemd-resolved.service
 timedatectl set-timezone Asia/Taipei
+## 印表機管理
+*printmanagement.msc
 #########################	
-* https://fishshell.com/
+** fish on Ubuntu  * https://fishshell.com/
+apt install -y curl vim git wget tldr tmux docker-compose net-tools open-vm-tools openssh-server 
 apt-add-repository ppa:fish-shell/release-3 && apt update -y && apt install -y fish
-cat /etc/passwd | grep root
-chsh -s $(which fish)
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 fisher list
@@ -34,14 +35,16 @@ curl -L https://get.oh-my.fish | fish
 # 检查 omf 是否有错误
 omf doctor
 # 列出已安装的和可安装的主题
-omf theme
-omf theme numist  * switch theme ays
+omf list
+omf theme ays  * switch theme ays
 # fish 环境下运行以下命令 *完全卸载Oh-my-fish
 omf destroy
 rm -r (find ~ -name omf)
 # 修改默认终端为bash
 chsh -s $(which bash)    * Linux 系统
 chsh -s bash             * Termux
+cat /etc/passwd | grep root
+chsh -s $(which fish)
 # 完全卸载fish # bash 环境下运行
 apt purge -y fish
 apt autoremove
@@ -51,7 +54,6 @@ useradd -d /home/itadm -s /bin/bash -g root itadm
 usermod -aG sudo itadm
 #########################
 curl -fsSL https://get.docker.com/ | sh
-apt install -y git curl wget vim docker-compose net-tools open-vm-tools openssh-server 
 ## new create <portainer-ce>
 docker volume create portainer_data
 docker pull portainer/portainer-ce:latest
@@ -81,25 +83,7 @@ net use \\IP或主機名稱 /del --->中斷連線
 ** w32tm  /resync
 https://ithelp.ithome.com.tw/articles/10174201
 #########################################################
-for i in `seq 1 7`;
-	do echo "---create group lab_A$i---";
-	groupadd -g 200$i lab_A$i;
-done
-#########################################################
-for i in `seq 1 7`;do echo "---create group lab_A$i---";groupadd -g 200$i lab_A$i;done
-#########################################################
-for i in `seq 11 15`;
-do echo "---create itadm$i---";
-	useradd -d /home/members/itadm$i -u 30$i itadm$i;
-	echo ITewsn1234 | passwd --stdin itadm$i;   @ centos 專用
-done
-#########################################################
-for i in `seq 21 25`;
-do echo "---create itadm$i---";
-	useradd -d /home/members/itadm$i -u 30$i itadm$i;
-	echo ITewsn1234 | passwd --stdin itadm$i;   @ centos 專用
-done
-#########################################################
+** NIS server 相關指令
 dd if=/dev/zero of=/tmp/test1.img bs=1G count=1 oflag=dsync
 dd if=/dev/zero of=/tmp/test2.img bs=512 count=1000 oflag=dsync
 
@@ -116,10 +100,28 @@ useradd -d /home/NIS_dir/suadm -u 4000 suadm
 useradd -u 4000 suadm
 #########################################################
 /etc/auto.master.d/*.autofs
-
 rsync -avhz --progress /mnt/iso/template/iso/*.iso /mnt/vol/iso/
 rsync -avhz --progress --remove-source-files /mnt/163/ //mnt/70/VM-nfs4vm/
 #########################################################
+** 排除 labeling 多餘 xml <cd ./image ./xml dir >
+ls ./images | sed 's/.jpg/.xml/g' > s1 && ls ./xml >> s1 && sort s1 |uniq -u > s2 && echo -e '#!/bin/bash\n\nwhile read -r rows\ndo\n  rm "./xml/$rows"\n  echo "./xml/$rows"\ndone < s2' > s3.sh && chmod +x s3.sh && sh s3.sh
+** rm s1 s2 s3.sh
+*** upload  to 103 && chown -R itadm:itadm  <top_dir> 
+#########################################################
+** 測試 freenas IOPS
+rsync -avzhn --dry-run --progress root@192.168.10.70:/volumes/vol2t/storISO/ .
+ssh root@192.168.10.70 ls /volumes/vol2t/storISO/
+fio --name=mytest --ioengine=sync --rw=write --bs=4k --numjobs=16 --size=10G --time_based
+iozone -e -I -a -s 1000M -r 4k -r 16k -r 512k -r 1024k -i 0 -i 1 -i 2
+#########################################################
+** 重啟 freenas sshd service
+/usr/local/etc/ssh/sshd_config
+service openssh status
+service openssh stop
+service openssh restart
+service openssh reload
+#########################################################
+** USB partition
 gpart show -r
 gpart show -p
 gpart create -s gpt ada4    ## 創建新的分割表
@@ -130,11 +132,10 @@ gpart list ada4 | less    ## get rawuuid
 zpool status
 zpool attach vol1 gptid/38a71d28-a6b1-11e9-b85c-6805ca08a3d6 gptid/5d64f9d8-0061-11ee-8d06-b499bab53473
 #########################################################
-192.168.10.230 
+** 192.168.10.230  測試相關指令 <OpenLDAP>
 
 gzip -d ldap-backup_20230710.ldif
 /opt/freeipa/data/root
-
 
 ipa-client-install --hostname=`hostname -f` --mkhomedir --server=ipa.infowize.intra --domain infowize.intra --realm infowize.intra --no-ntp
 
@@ -169,14 +170,32 @@ nis-base: automountmapname=auto.ipa,cn=default,cn=automount,dc=nis,dc=intra
 
 ypcat -k -d nis.itra -h ipa.nis.intra auto.ipa
 
-
 ipa netgroup-show ipa.nis.intra
 
 systemctl status portmap
-
 #########################################################
 https://www.google.com.tw/imghp
 https://yandex.com/images
 https://tineye.com/
 https://www.bing.com/visualsearch?mkt=zh-CN
 
+#########################################################
+for i in `seq 1 7`;
+	do echo "---create group lab_A$i---";
+	groupadd -g 200$i lab_A$i;
+done
+#########################################################
+for i in `seq 1 7`;do echo "---create group lab_A$i---";groupadd -g 200$i lab_A$i;done
+#########################################################
+for i in `seq 11 15`;
+do echo "---create itadm$i---";
+	useradd -d /home/members/itadm$i -u 30$i itadm$i;
+	echo ITewsn1234 | passwd --stdin itadm$i;   @ centos 專用
+done
+#########################################################
+for i in `seq 21 25`;
+do echo "---create itadm$i---";
+	useradd -d /home/members/itadm$i -u 30$i itadm$i;
+	echo ITewsn1234 | passwd --stdin itadm$i;   @ centos 專用
+done
+#########################################################

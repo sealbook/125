@@ -22,6 +22,7 @@ call plug#end()
 "# vim ~/.vimrc
 
 "curl -fLo ~/.vim/autoload/plug.vim --create-dirs \https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 " ## apt install git 後才能安裝 plug
 " ## 安裝 :PlugInstall   重新加載 :source ~/.vimrc
 " ## 更新 :PlugUpdate    
