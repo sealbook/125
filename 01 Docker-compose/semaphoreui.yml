@@ -1,0 +1,18 @@
+services:
+  semaphore:
+    ports:
+      - 3001:3001
+    image: semaphoreui/semaphore:latest
+    environment:
+      SEMAPHORE_DB_DIALECT: bolt
+      SEMAPHORE_ADMIN_PASSWORD: ITewsn1234
+      SEMAPHORE_ADMIN_NAME: admin
+      SEMAPHORE_ADMIN_EMAIL: theo@infowize.com.tw
+      SEMAPHORE_ADMIN: admin
+    volumes:
+      - /opt/to/data/home:/etc/semaphore 
+# config.json location
+      - /opt/to/data/lib:/var/lib/semaphore 
+# database.boltdb location (Not required if using mysql or postgres)
+
+# https://github.com/ansible-semaphore/semaphore

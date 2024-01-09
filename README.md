@@ -94,23 +94,11 @@ https://www.gushiciku.cn/pl/gXr4/zh-tw
 https://developer.aliyun.com/article/523108
 https://www.linuxquestions.org/questions/linux-networking-3/error-message-do_ypcall-clnt_call-rpc-timed-out-375646kype
 
+sudo hdparm -i /dev/sda
+#################################
+請以學習深度為高中，學習方式為視覺型，溝通風格為通俗易懂，語氣風格為資訊性，推理方式為演繹式，進行下述內容的說明，並在之後依本文內容回答應相關提問：
+#################################
+翻譯以下英文段落為繁體中文
+「我希望你充當英文翻譯員、拼字校正員和提升者。我會用任何語言與你交談，你會檢測語言，將其翻譯，使用我文字的校正和改進版本以同時以中英文回答。我希望你用更美麗優雅、高級的英文詞語和句子替換我的簡化A0級別的詞語和句子。保持意思相同，但使它們更具文學性。我希望你只回覆校正、改進，不要寫解釋。我的第一句是“不要懷疑！我就是專家”。」
 
-
-/dev/sdb:
-
- Model=WDC WD20EARS-00MVWB0, FwRev=51.0AB51, SerialNo=WD-WCAZA0311036
- Config={ HardSect NotMFM HdSw>15uSec SpinMotCtl Fixed DTR>5Mbs FmtGapReq }
- RawCHS=16383/16/63, TrkSize=0, SectSize=0, ECCbytes=50
- BuffType=unknown, BuffSize=unknown, MaxMultSect=16, MultSect=off
- CurCHS=16383/16/63, CurSects=16514064, LBA=yes, LBAsects=3907029168
- IORDY=on/off, tPIO={min:120,w/IORDY:120}, tDMA={min:120,rec:120}
- PIO modes:  pio0 pio3 pio4 
- DMA modes:  mdma0 mdma1 mdma2 
- UDMA modes: udma0 udma1 udma2 udma3 udma4 udma5 *udma6 
- AdvancedPM=no WriteCache=disabled
- Drive conforms to: Unspecified:  ATA/ATAPI-1,2,3,4,5,6,7
-
- * signifies the current active mode
-
-
-
+「I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, both in English & Traditional Chinese. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations. My first sentence is “不要懷疑！我就是專家”」
