@@ -63,8 +63,7 @@ docker run -d -p 8001:8001 -p 9000:9000 --name=portainer --restart=always -v /va
 docker pull portainer/portainer-ce
 docker stop portainer
 docker rm   portainer
-docker run -d -p 8001:8001 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-#########################################################
+k#########################################################
 nano /etc/fstab  **ubuntu22
 IP:/mnt/vol1/XXX /mountpoint nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800  0 0
 ## new version 2.13.1 change PW to 1qazXSW@3edc
@@ -87,6 +86,8 @@ https://ithelp.ithome.com.tw/articles/10174201
 dd if=/dev/zero of=/tmp/test1.img bs=1G count=1 oflag=dsync
 dd if=/dev/zero of=/tmp/test2.img bs=512 count=1000 oflag=dsync
 
+dd if=/dev/zero of=/dev/da2 bs=1024 count=10000
+
 systemctl status ypserv rpcbind ypbind yppasswdd
 systemctl restart ypserv rpcbind ypbind yppasswdd
 systemctl list-unit-files
@@ -104,9 +105,11 @@ rsync -avhz --progress /mnt/iso/template/iso/*.iso /mnt/vol/iso/
 rsync -avhz --progress --remove-source-files /mnt/163/ //mnt/70/VM-nfs4vm/
 #########################################################
 ** 排除 labeling 多餘 xml <cd ./image ./xml dir >
-ls ./images | sed 's/.jpg/.xml/g' > s1 && ls ./xml >> s1 && sort s1 |uniq -u > s2 && echo -e '#!/bin/bash\n\nwhile read -r rows\ndo\n  rm "./xml/$rows"\n  echo "./xml/$rows"\ndone < s2' > s3.sh && chmod +x s3.sh && sh s3.sh
+ls ./images | sed 's/.jpg/.xml/g' > s1 && ls ./xml >> s1 && sort s1 |uniq -u > s2 && echo -e '#!/bin/bash\n\nwhile read -r rows\ndo\n  rm "./xml/$rows"\n  echo "./xml/$rows"\ndone < s2' > s3.sh && chmod +x s3.sh && sh s3.sh && rm s*
 ** rm s1 s2 s3.sh
-*** upload  to 103 && chown -R itadm:itadm  <top_dir> 
+*** 改寫 標記檔 從 txt to xml <on fish>
+** for file in *.txt; mv -- "$file" (string replace '.txt' '.xml' -- $file); end
+*** upload  to 103 && s
 #########################################################
 ** 測試 freenas IOPS
 rsync -avzhn --dry-run --progress root@192.168.10.70:/volumes/vol2t/storISO/ .
@@ -178,7 +181,13 @@ https://www.google.com.tw/imghp
 https://yandex.com/images
 https://tineye.com/
 https://www.bing.com/visualsearch?mkt=zh-CN
-
+#########################################################
+ubuntu 20.04 to 22.04
+sudo apt update
+sudo apt upgrade
+sudo apt dist-upgrade
+sudo apt autoremove
+sudo do-release-upgrade
 #########################################################
 for i in `seq 1 7`;
 	do echo "---create group lab_A$i---";
