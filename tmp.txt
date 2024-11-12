@@ -189,6 +189,11 @@ sudo apt dist-upgrade
 sudo apt autoremove
 sudo do-release-upgrade
 #########################################################
+for folder in kc_20210204_t1 kc_20210208_t1 kc_20210209_t1 kc_20210218_t1 kc_20210222_t1 kc_20210223_t1 kc_20210618_t1 kc_20210623_t1 kc_20210625_t1 kc_20210629_t1
+do
+  sudo chown -R itadm:itadm $folder
+done
+#########################################################
 for i in `seq 1 7`;
 	do echo "---create group lab_A$i---";
 	groupadd -g 200$i lab_A$i;
